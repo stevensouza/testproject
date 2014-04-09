@@ -1,5 +1,7 @@
 package com.stevesouza;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
 
@@ -23,6 +25,7 @@ public class App
         urlWithConnection();
         javaProps();
         jamon();
+        urlToJson();
     }
 
 
@@ -46,9 +49,11 @@ public class App
         URL url = new URL(urlStr);
         BufferedReader input = new BufferedReader(new InputStreamReader(new URL(urlStr).openStream()));
 
-        String inputLine;
-        while ((inputLine = input.readLine()) != null)
-            System.out.println(inputLine);
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonNode rootNode = mapper.readTree(input);
+        String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+        System.out.println("****"+prettyJson);
 
         input.close();
     }
