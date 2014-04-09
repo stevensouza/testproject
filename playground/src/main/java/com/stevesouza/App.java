@@ -1,8 +1,6 @@
 package com.stevesouza;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -20,15 +18,30 @@ public class App
     public static void main( String[] args ) throws IOException {
         urlWithOpenStream();
         urlWithConnection();
+        javaProps();
     }
+
+
+//    String urlStr =  (String) source.getConfiguration().get("url");
+//    JsonNode jsonNode = getUrlRequestAsJsonNode(urlStr);
+//    ObjectMapper mapper = new ObjectMapper();
+//    mapper.writerWithDefaultPrettyPrinter().writeValue(new File("/Users/ssouza/delme/delme.json"), jsonNode);
+//    LOG.info(jsonNode.toString());
 
     private static void urlWithOpenStream() throws IOException {
         URL url = new URL(urlStr);
-
-//        URLConnection yc = oracle.openConnection();
-//        BufferedReader in = new BufferedReader(new InputStreamReader(
-//                yc.getInputStream()));
         BufferedReader input = new BufferedReader(new InputStreamReader(new URL(urlStr).openStream()));
+        String inputLine;
+        while ((inputLine = input.readLine()) != null)
+            System.out.println(inputLine);
+
+        input.close();
+    }
+
+    private static void urlToJson() throws IOException {
+        URL url = new URL(urlStr);
+        BufferedReader input = new BufferedReader(new InputStreamReader(new URL(urlStr).openStream()));
+
         String inputLine;
         while ((inputLine = input.readLine()) != null)
             System.out.println(inputLine);
@@ -45,5 +58,9 @@ public class App
 
         int code = connection.getResponseCode();
         System.err.println(code);
+    }
+
+    private static void javaProps() {
+        System.out.println(System.getProperties());
     }
 }
