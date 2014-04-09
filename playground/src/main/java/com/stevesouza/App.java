@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 /**
  * Hello world!
@@ -15,6 +17,8 @@ import java.net.URL;
  */
 public class App 
 {
+
+    private static final Logger LOG = Logger.getLogger(App.class);
 
     private static String urlStr = "https://www.virustotal.com/intelligence/hunting/notifications-feed/?key=9e799068d917ea16744988d059cb156d60e2a09d879954d1a8865e865965b7d4";
 
@@ -40,7 +44,7 @@ public class App
         BufferedReader input = new BufferedReader(new InputStreamReader(new URL(urlStr).openStream()));
         String inputLine;
         while ((inputLine = input.readLine()) != null)
-            System.out.println(inputLine);
+            LOG.info(inputLine);
 
         input.close();
     }
@@ -53,14 +57,14 @@ public class App
 
         JsonNode rootNode = mapper.readTree(input);
         String prettyJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
-        System.out.println("****"+prettyJson);
+        LOG.info(prettyJson);
 
         input.close();
     }
 
     public static void jamon() {
         Monitor mon=MonitorFactory.add("key", "units", 100);
-        System.out.println("mon="+mon);
+        LOG.info("mon=" + mon);
     }
 
     private static void urlWithConnection() throws IOException {
@@ -71,10 +75,12 @@ public class App
         System.out.println(connection.getContent());
 
         int code = connection.getResponseCode();
-        System.err.println(code);
+        LOG.info("http status=" + code);
     }
 
     private static void javaProps() {
-        System.out.println(System.getProperties());
+        for (Map.Entry<Object, Object> obj: System.getProperties().entrySet()) {
+            LOG.info(obj);
+        }
     }
 }
