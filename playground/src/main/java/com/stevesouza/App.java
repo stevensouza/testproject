@@ -1,5 +1,8 @@
 package com.stevesouza;
 
+import com.jamonapi.Monitor;
+import com.jamonapi.MonitorFactory;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,6 +22,7 @@ public class App
         urlWithOpenStream();
         urlWithConnection();
         javaProps();
+        jamon();
     }
 
 
@@ -47,6 +51,11 @@ public class App
             System.out.println(inputLine);
 
         input.close();
+    }
+
+    public static void jamon() {
+        Monitor mon=MonitorFactory.add("key", "units", 100);
+        System.out.println("mon="+mon);
     }
 
     private static void urlWithConnection() throws IOException {
