@@ -15,6 +15,7 @@
     <jackson-2-version>2.2.2</jackson-2-version>
       <metrics.version>3.0.1</metrics.version>
       <joda.version>2.3</joda.version>
+      <camel.version>2.13.0</camel.version>
   </properties>
 
   <dependencies>
@@ -118,5 +119,55 @@
           <artifactId>jackson-module-jaxb-annotations</artifactId>
           <version>${jackson-2-version}</version>
       </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-core</artifactId>
+          <version>${camel.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-spring</artifactId>
+          <version>${camel.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-test</artifactId>
+          <version>${camel.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-test-spring</artifactId>
+          <version>${camel.version}</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-jms</artifactId>
+          <version>${camel.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-jackson</artifactId>
+          <version>${camel.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-elasticsearch</artifactId>
+          <version>${camel.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-hdfs2</artifactId>
+          <version>${camel.version}</version>
+      </dependency>
+
   </dependencies>
 </project>
