@@ -19,10 +19,7 @@ public class App
 {
 
     private static final Logger LOG = Logger.getLogger(App.class);
-
-    private static String urlStr = "https://www.virustotal.com/intelligence/hunting/notifications-feed/?key=9e799068d917ea16744988d059cb156d60e2a09d879954d1a8865e865965b7d4";
-
-
+    private static final String urlStr = "https://www.virustotal.com/intelligence/hunting/notifications-feed/?key=9e799068d917ea16744988d059cb156d60e2a09d879954d1a8865e865965b7d4";
 
     public static void main( String[] args ) throws IOException {
         urlWithOpenStream();
@@ -40,7 +37,6 @@ public class App
 //    LOG.info(jsonNode.toString());
 
     private static void urlWithOpenStream() throws IOException {
-        URL url = new URL(urlStr);
         BufferedReader input = new BufferedReader(new InputStreamReader(new URL(urlStr).openStream()));
         String inputLine;
         while ((inputLine = input.readLine()) != null)
@@ -50,9 +46,7 @@ public class App
     }
 
     private static void urlToJson() throws IOException {
-        URL url = new URL(urlStr);
         BufferedReader input = new BufferedReader(new InputStreamReader(new URL(urlStr).openStream()));
-
         ObjectMapper mapper = new ObjectMapper();
 
         JsonNode rootNode = mapper.readTree(input);
@@ -62,7 +56,7 @@ public class App
         input.close();
     }
 
-    public static void jamon() {
+    private static void jamon() {
         Monitor mon=MonitorFactory.add("key", "units", 100);
         LOG.info("mon=" + mon);
     }
