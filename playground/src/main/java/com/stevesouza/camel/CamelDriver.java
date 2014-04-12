@@ -13,20 +13,9 @@ public class CamelDriver {
         CamelContext camel = new DefaultCamelContext();
         camel.addRoutes(new FileCopyRouteBuilder());
         camel.start();
-        Thread.sleep(20000);
+        Thread.sleep(10000);
         camel.stop();
     }
 
-    private static class FileCopyRouteBuilder extends RouteBuilder {
 
-        // body=${body}
-        @Override
-        public void configure() throws Exception {
-            from("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in?noop=true").
-            setHeader("myheader", constant("my first header value")).
-            log("messageid=${id}, myheader=${headers.myheader}, allheaders=${headers}").
-            to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out").
-                    log("messageid=${id}, myheader=${headers.myheader}, allheaders=${in.headers}");
-        }
-    }
 }
