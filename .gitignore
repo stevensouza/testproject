@@ -1,0 +1,4 @@
+playground/.idea/*
+playground/target/*
+playground/src/main/resources/data/out/*
+playground/playground.iml
