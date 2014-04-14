@@ -1,4 +1,21 @@
-playground/.idea/*
-playground/target/*
 playground/src/main/resources/data/out/*
-playground/playground.iml
+
+# Files to exclude. Taken from 
+#   http://gary-rowe.com/agilestack/2012/10/12/a-gitignore-file-for-intellij-and-eclipse-with-maven/
+
+# Eclipse
+playground/.classpath
+playground/.project
+playground/.settings/
+
+# Intellij
+playground/.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+playground/log/
+playground/target/
