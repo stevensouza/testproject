@@ -14,6 +14,8 @@ public class AppTest
      * Create the test case
      *
      * @param testName name of the test case
+     *
+     * TODO: try paramerterized tests, anyString(), verify, when, junitparams, catchexception library, fest
      */
     public AppTest( String testName )
     {
