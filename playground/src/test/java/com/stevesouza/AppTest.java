@@ -1,14 +1,21 @@
 package com.stevesouza;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import org.junit.Test;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import org.junit.runner.RunWith;
+
+import static junit.framework.Assert.assertEquals;
+import static org.fest.assertions.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit test for simple App.
  */
+@RunWith(JUnitParamsRunner.class)
 public class AppTest 
-    extends TestCase
 {
     /**
      * Create the test case
@@ -17,24 +24,20 @@ public class AppTest
      *
      * TODO: try paramerterized tests, anyString(), verify, when, junitparams, catchexception library, fest
      */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
 
     /**
      * Rigourous Test :-)
      */
+
+    @Test
+    @Parameters({"yes","on","1","true"}) // run the test 4 times with the following parameters
+    public void testBooleanFlagWhenRequestingTrue(String booleanFlag) throws Exception {
+        assertThat(booleanFlag).isEqualTo(booleanFlag);
+   }
+
+    @Test
     public void testApp()
     {
-        assertTrue( true );
+        assertThat(true).isEqualTo(true);
     }
 }
