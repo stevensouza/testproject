@@ -7,6 +7,9 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.runner.RunWith;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import static junit.framework.Assert.assertEquals;
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -34,6 +37,24 @@ public class AppTest
     public void testBooleanFlagWhenRequestingTrue(String booleanFlag) throws Exception {
         assertThat(booleanFlag).isEqualTo(booleanFlag);
    }
+
+    @Test
+    @Parameters({"myfile's.txt","myfile\"s.txt", "myfile*?.+.txt"})
+    public void testUrlEncoding(String original) throws Exception {
+        String encoded = URLEncoder.encode(original, "UTF-8");
+        String decoded = URLDecoder.decode(encoded, "UTF-8");
+        assertEquals("The decoded string should equal the original", original, decoded);
+    }
+
+    @Test
+    @Parameters({
+            "myfile's.txt, myfile%27s.txt",
+            "myfile\"s.txt, myfile%22s.txt",
+            "myfile*?.+.txt, myfile*%3F.%2B.txt"})
+    public void testMultipleParameters(String original, String answer) throws Exception {
+        String encoded = URLEncoder.encode(original, "UTF-8");
+        assertEquals("The answer string should match the encoded value", answer, encoded);
+    }
 
     @Test
     public void testApp()
