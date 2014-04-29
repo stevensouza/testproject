@@ -52,6 +52,8 @@ public class MyElasticSearchTest {
                 .actionGet();  // similar to Future.get - which waits for response.
         System.out.println("id="+response.getId()+", version="+response.getVersion());
 
+
+
         GetResponse getResponse = client.prepareGet("testindex", "article", response.getId())
                 .execute()
                 .actionGet();
