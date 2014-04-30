@@ -1,0 +1,8 @@
+{
+    "testdns" : {
+        "properties" : {
+            "rrname" : {"type" : "string", "store" : true },
+            "rrtype" : {"type" : "string", "store" : true }
+        }
+    }
+} 
