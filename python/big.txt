@@ -1,0 +1,2 @@
+{ "index" : { "_index" : "dipits-dns", "_type" : "testdns", "_id" : "1" } }
+{ "rrname": "stevesouza.com", "rrtype": "A" }
