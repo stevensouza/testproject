@@ -1,5 +1,9 @@
 package com.stevesouza.elasticsearch;
 
+import org.elasticsearch.action.admin.indices.stats.IndicesStatsResponse;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.index.query.*;
+import org.elasticsearch.action.admin.indices.stats.IndicesStatsRequestBuilder;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -13,11 +17,15 @@ import org.elasticsearch.search.SearchHit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.logging.Filter;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**
  * Created by stevesouza on 4/23/14.
- *
+ * todo: try to save a pojo to elasticsearch
+ * 
  * elasticsearch java api: http://www.elasticsearch.org/guide/en/elasticsearch/client/java-api/current/
  *
  * some sample code: http://java.dzone.com/articles/elasticsearch-java-api
@@ -45,8 +53,11 @@ public class MyElasticSearchTest {
                 .put("index.number_of_shards", 1)
                 .put("index.number_of_replicas", 1).build();
 
-        // note unless the node is closed the same instance will run for each test and so data added in tests is incremental.
+        // 1) note unless the node is closed the same instance will run for each test and so data added in tests is incremental.
         // also note our client application is a node of the cluster
+        // 2) by default a node will store data in shards!  If you don't want this you have to be explicit
+        //    by stating the node is a client: Node node = nodeBuilder().client(true).node();
+        //    alternatively you could set *.data(false).*
         node = NodeBuilder.nodeBuilder().local(true).settings(settings).node();
         client = node.client();
     }
@@ -88,8 +99,8 @@ public class MyElasticSearchTest {
         assertThat(getResponse.getId()).isEqualTo(ID);
     }
 
-    @Test
-    public void testMatchAllQuery() throws InterruptedException {
+      @Test
+         public void testMatch_AllQuery() throws InterruptedException {
         IndexResponse response = indexDocument();
         displayIndexResponse(response);
         // note when a document is indexed it can take a configurable amount of time before
@@ -102,6 +113,88 @@ public class MyElasticSearchTest {
         SearchResponse searchResponse =  client.prepareSearch().execute().actionGet();
         displaySearchResponse(searchResponse);
         assertThat(searchResponse.getHits().totalHits()).isEqualTo(1);
+    }
+
+    @Test
+    public void testMatch_AllQuery2() throws InterruptedException {
+        IndexResponse response = indexDocument();
+        displayIndexResponse(response);
+        // note when a document is indexed it can take a configurable amount of time before
+        // it shows up to any queries.  I think this is by default 1 second which is why the following
+        // sleep is in the code (to ensure the object exists).  The 'get' method of getting
+        // a document by id doesn't have this problem.
+        Thread.sleep(2000);
+
+        // The following is the match_all query
+        SearchResponse searchResponse =  client.prepareSearch().setQuery(QueryBuilders.matchAllQuery()).execute().actionGet();
+        displaySearchResponse(searchResponse);
+        assertThat(searchResponse.getHits().totalHits()).isEqualTo(1);
+    }
+
+
+    /** some notes on filters:
+     * Example: setQuery(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.termFilter("multi", "test")))
+     *
+     The filter (which should be cached) is executed first to find the documents for which the query is run on. Basically,
+     the query should only be executed on a subset of the documents.
+
+     In most cases you want to prefilter since querying is more expensive. However, sometimes filter can be expensive
+     (geo, scripted) so it might be better to post filter. Also, facets  are calculated on the documents returned post filter.
+     If you need to facet on the documents before any filtering, post filters are the way to go. Of course, you can combine the two types of filters.
+
+     Also this could be used which responds with a constant score for all documents (based on the document boost if it exists)
+     QueryBuilders.constantScoreQuery(FilterBuilder filterBuilder)
+
+     * @throws InterruptedException
+     */
+    @Test
+    public void testMatch_AllFilter() throws InterruptedException {
+        IndexResponse response = indexDocument();
+
+        displayIndexResponse(response);
+        // note when a document is indexed it can take a configurable amount of time before
+        // it shows up to any queries.  I think this is by default 1 second which is why the following
+        // sleep is in the code (to ensure the object exists).  The 'get' method of getting
+        // a document by id doesn't have this problem.
+        Thread.sleep(2000);
+        // I think filtered queries are the fast way to run a query by filtering first.  The filter is run and then the query is applied to the results.
+        // In this example it doesn't make much sense as both return all matches, however if the matchAllFilter was changed to something that returns a subset of
+        // records no scoring would be used.  The SearchRequestBuilder used to have a setFilter(..) but no longer does so this is a way to set the filter to run first
+        // though ugly.
+        // QueryBuilder qb = QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.matchAllFilter());
+
+        // constantScoreQueries also convert a query to a filter.  i.e. because no scoring is done that part doesn't need to be run.
+        // Note you can add a constant boost(int) for all documents.  That doesn't help below,
+        // but might if you did it as part of a union.  Note you can also pass it a query so it is more flexible than the above approach.
+        QueryBuilder qb  = QueryBuilders.constantScoreQuery(FilterBuilders.matchAllFilter());
+        // The following is the match_all query
+        SearchResponse searchResponse =  client.prepareSearch().setQuery(qb).execute().actionGet();
+        FilterBuilders.matchAllFilter();
+        displaySearchResponse(searchResponse);
+        assertThat(searchResponse.getHits().totalHits()).isEqualTo(1);
+        // Note some filters can have caching disabled.  For example when you don't run them often enough to benefit.
+        // FilterBuilders.boolFilter().cache(false);
+    }
+
+    @Test
+    public void testIndexStats() throws InterruptedException {
+        IndexResponse response = indexDocument();
+        response = indexDocument();
+        response = indexDocument();
+
+        GetResponse getResponse = getDocument(response.getId());
+        getResponse = getDocument(response.getId());
+        getResponse = getDocument(response.getId());
+        getResponse = getDocument(response.getId());
+
+        SearchResponse searchResponse =  client.prepareSearch().execute().actionGet();
+        searchResponse =  client.prepareSearch().execute().actionGet();
+        searchResponse =  client.prepareSearch().execute().actionGet();
+        searchResponse =  client.prepareSearch().execute().actionGet();
+        searchResponse =  client.prepareSearch().execute().actionGet();
+
+        IndicesStatsResponse statsResponse = client.admin().indices().prepareStats(INDEX).all().execute().actionGet();
+        System.out.println("* IndicesStatsResponse: "+statsResponse);
     }
 
     @After
@@ -142,7 +235,7 @@ public class MyElasticSearchTest {
 
     private void displaySearchResponse(SearchResponse searchResponse) {
         // note toString builds the full response as html. Also good to look at for code that uses XContentBuilder to build json version of results.
-        System.out.println("* searchResponse.toString() (returns data as pretty print json):"+searchResponse.toString());
+        System.out.println("* searchResponse.toString() (returns data as pretty print json):" + searchResponse.toString());
         System.out.println("   hits=" + searchResponse.getHits().totalHits());
         System.out.println("   time in ms.=" + searchResponse.getTookInMillis());
 
