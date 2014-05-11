@@ -1,0 +1,20 @@
+{ "settings": {"index": {
+	"analysis": {"analyzer": {"default": {"tokenizer": "whitespace", "filter": ["lowercase"]}}}}},
+            "mappings": 
+            {"deleteme_steve":
+              {
+               "properties": 
+                  {
+                  "count": {"type": "long"},
+                  "provider": {"type": "string"},
+                  "rdata": {"type": "string"},
+                  "rrname": {"type": "string"},
+                  "rrtype": {"type": "string"},
+                  "time_first": {"format": "dateOptionalTime", "type": "date"},
+                  "time_last": {"format": "dateOptionalTime", "type": "date"},
+                  "timestamp": {"format": "dateOptionalTime", "type": "date"},
+                  "popularity": {"type": "string", "index": "no"},
+                  "geodiversity_normalized": {"type": "string", "index": "no"}
+                  }
+                }
+            }}
