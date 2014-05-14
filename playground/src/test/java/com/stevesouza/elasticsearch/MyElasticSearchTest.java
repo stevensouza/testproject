@@ -1,7 +1,12 @@
 package com.stevesouza.elasticsearch;
 
+import static org.elasticsearch.common.xcontent.XContentFactory.*;
+
 import org.elasticsearch.action.admin.indices.stats.IndicesStatsResponse;
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.action.admin.indices.stats.IndicesStatsRequestBuilder;
 import org.elasticsearch.action.get.GetResponse;
@@ -18,9 +23,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.logging.Filter;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.doesNotHave;
 
 /**
  * Created by stevesouza on 4/23/14.
@@ -195,6 +202,64 @@ public class MyElasticSearchTest {
 
         IndicesStatsResponse statsResponse = client.admin().indices().prepareStats(INDEX).all().execute().actionGet();
         System.out.println("* IndicesStatsResponse: "+statsResponse);
+    }
+
+    @Test
+    public void testBulkInsertAndMultiMatchQuery() throws IOException, InterruptedException {
+
+        BulkRequestBuilder bulkRequest = client.prepareBulk();
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "steve", "age", 52, "career", "software"));
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "john", "age", 52, "career", "joel"));
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "joel", "age", 53, "career", "artist"));
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "jean", "age", 57, "career", "engineer"));
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "mom", "age", 77, "career", "retired"));
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "dad", "age", 78, "career", "retired"));
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "jeff", "age", 60, "career", "musician"));
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "mick", "age", 60, "career", "musician"));
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                .setSource("user", "keith", "age", 60, "career", "musician"));
+        // showing how to add using the json builder.  note i think there is also a way to set the index and
+        // type only once.
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                        .setSource(jsonBuilder()
+                                        .startObject()
+                                        .field("user", "jim")
+                                        .field("age", 55)
+                                        .field("career", "musician")
+                                        .endObject()
+                        )
+        );
+        bulkRequest.add(client.prepareIndex(INDEX, DOC_TYPE)
+                        .setSource(jsonBuilder()
+                                        .startObject()
+                                        .field("user", "william")
+                                        .field("age", 55)
+                                        .field("career", "musician")
+                                        .endObject()
+                        )
+        );
+
+        BulkResponse bulkResponse = bulkRequest.execute().actionGet();
+        // Sleep to let data stick.
+        Thread.sleep(2000);
+        // use multi_match to search the data for any occurences in the user field as well
+        // as a field that starts with car* (career).  Note the search string could
+        // be more than one term.
+        String SEARCH_STR = "joel";
+        String WILDCARDED_FIELD_IS_ALLOWED = "car*";
+        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX)
+                .setTypes(DOC_TYPE)
+                .setQuery(QueryBuilders.multiMatchQuery(SEARCH_STR,DOC_TYPE+".user", WILDCARDED_FIELD_IS_ALLOWED));
+        SearchResponse response = searchRequestBuilder.execute().actionGet();
+        displaySearchResponse(response);
     }
 
     @After
