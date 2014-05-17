@@ -138,6 +138,20 @@ public class MyElasticSearchTest {
         assertThat(searchResponse.getHits().totalHits()).isEqualTo(1);
     }
 
+    @Test
+    public void testMatch_AllQuery3_WithWrappedQuery() throws InterruptedException {
+        IndexResponse response = indexDocument();
+        displayIndexResponse(response);
+        Thread.sleep(2000);
+
+        // note there is no "query" outer wrappe below.  The following can take any json formatted query though.  handy!
+        SearchResponse searchResponse =  client.prepareSearch()
+                .setQuery(QueryBuilders.wrapperQuery("{\"match_all\": {}}"))
+                .execute()
+                .actionGet();
+        displaySearchResponse(searchResponse);
+        assertThat(searchResponse.getHits().totalHits()).isEqualTo(1);
+    }
 
     /** some notes on filters:
      * Example: setQuery(QueryBuilders.filteredQuery(QueryBuilders.matchAllQuery(), FilterBuilders.termFilter("multi", "test")))
