@@ -11,16 +11,22 @@ public class PojoToJsonToFileRouteBuilder extends RouteBuilder  {
 
     @Override
     public void configure() throws Exception {
-      /* You have full control over jackson and can maniuplate the JacksonDataFormat with the following:
+        // intercept called 3 times.  Starting from after 'from' and ending right before 'to'
+        intercept().process(new MyInterceptProcessor());
+       /* You have full control over jackson and can maniuplate the JacksonDataFormat with the following:
         JacksonDataFormat format = new JacksonDataFormat();
 
         Using xstream default json library the syntax is simpler.  And it also does xml too.
          marshal().json().
         */
         from("direct:personsname")
-               // marshal().json().
+          // marshal().json(). // to use xstream default json.
+          // Can also use JsonLibrary.gSon
+          // 1) calls intercept
           .marshal().json(JsonLibrary.Jackson, PersonsName.class)
+          // 2) calls intercept
           .log("from pojo to json: messageid=${id}, Person name as json=${body}")
+          // 3) calls intercept
           .to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out/?fileName=personsname.json");
     }
 }
