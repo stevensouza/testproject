@@ -12,6 +12,8 @@ public class CamelDriver {
         CamelContext camel = new DefaultCamelContext();
         camel.addRoutes(new FileCopyRouteBuilder());
         camel.addRoutes(new MessageToFileRouteBuilder());
+        camel.addRoutes(new PojoToJsonToFileRouteBuilder());
+        camel.addRoutes(new FileToJsonToPojoRouteBuilder());
         ProducerTemplate template = camel.createProducerTemplate();
 
         camel.start();
@@ -19,7 +21,7 @@ public class CamelDriver {
         // Send to a specific queue
         template.sendBodyAndHeader("direct:messagetofile", "<hello>world!</hello>", "filename", "helloworld.txt");
         template.sendBodyAndHeader("direct:messagetofile", "<hello>steve!</hello>", "filename", "hellosteve.txt");
-
+        template.sendBody("direct:personsname", new PersonsName("joel","souza"));
 
         Thread.sleep(10000);
         camel.stop();
