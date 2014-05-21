@@ -17,6 +17,7 @@ public class CamelDriver {
         CamelContext camel = new DefaultCamelContext();
         // shows up in jmx with this context name instead of camel-1
         camel.setNameStrategy(new DefaultCamelContextNameStrategy("steves_camel_driver"));
+        camel.setTracing(true);
         camel.addStartupListener(new StartupListener() {
             @Override
             public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
