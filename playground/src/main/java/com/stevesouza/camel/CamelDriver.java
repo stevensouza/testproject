@@ -6,6 +6,7 @@ import com.stevesouza.camel.json.jackson.PojoToJsonToFileRouteBuilder;
 import com.stevesouza.camel.json.xstream.PojoToJsonToFileRouteBuilderXstream;
 import org.apache.camel.*;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.impl.DefaultCamelContextNameStrategy;
 
 /**
  * Program that launches various camel tests.
@@ -14,6 +15,8 @@ public class CamelDriver {
 
     public static void main(String[] ags) throws Exception {
         CamelContext camel = new DefaultCamelContext();
+        // shows up in jmx with this context name instead of camel-1
+        camel.setNameStrategy(new DefaultCamelContextNameStrategy("steves_camel_driver"));
         camel.addStartupListener(new StartupListener() {
             @Override
             public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
