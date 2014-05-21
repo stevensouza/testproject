@@ -15,7 +15,8 @@
     <jackson-2-version>2.2.2</jackson-2-version>
       <metrics.version>3.0.1</metrics.version>
       <joda.version>2.3</joda.version>
-      <camel.version>2.13.0</camel.version>
+      <camel.version>2.13.1</camel.version>
+      <jamonapi.version>2.75</jamonapi.version>
   </properties>
 
   <dependencies>
@@ -36,7 +37,7 @@
       <dependency>
           <groupId>com.jamonapi</groupId>
           <artifactId>jamon</artifactId>
-          <version>2.75</version>
+          <version>${jamonapi.version}</version>
       </dependency>
 
       <dependency>
