@@ -21,6 +21,7 @@ public class PojoToJsonToFileRouteBuilder extends RouteBuilder  {
          marshal().json().
         */
         from("direct:personsname")
+          .routeId(getClass().getSimpleName())
           // marshal().json(). // to use xstream default json.
           // Can also use JsonLibrary.gSon
           // 1) calls intercept

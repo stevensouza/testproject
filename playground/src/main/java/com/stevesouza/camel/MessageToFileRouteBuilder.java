@@ -12,7 +12,8 @@ public class MessageToFileRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:messagetofile").
-        log("messageid=${id}, myheader=${headers.myheader}, allheaders=${headers}").
+                routeId(getClass().getSimpleName()). // note this gives the route a name in the jmx console.
+                log("messageid=${id}, myheader=${headers.myheader}, allheaders=${headers}").
                 process(new MessagePeeker()).
                 to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out/?fileName=${headers.filename}");
     }
