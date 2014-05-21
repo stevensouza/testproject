@@ -1,5 +1,6 @@
-package com.stevesouza.camel;
+package com.stevesouza.camel.json.jackson;
 
+import com.stevesouza.camel.PersonsName;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 

@@ -1,7 +1,8 @@
-package com.stevesouza.camel;
+package com.stevesouza.camel.json.jackson;
 
+import com.stevesouza.camel.interceptor.MyInterceptProcessor;
+import com.stevesouza.camel.PersonsName;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
 /**
  * Created by stevesouza on 5/19/14.

@@ -1,5 +1,9 @@
 package com.stevesouza.camel;
 
+import com.stevesouza.camel.json.jackson.FileToJsonToPojoRouteBuilder;
+import com.stevesouza.camel.json.xstream.FileToJsonToPojoRouteBuilderXstream;
+import com.stevesouza.camel.json.jackson.PojoToJsonToFileRouteBuilder;
+import com.stevesouza.camel.json.xstream.PojoToJsonToFileRouteBuilderXstream;
 import org.apache.camel.*;
 import org.apache.camel.impl.DefaultCamelContext;
 
