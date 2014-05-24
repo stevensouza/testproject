@@ -2,18 +2,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://camel.apache.org/schema/spring
     http://camel.apache.org/schema/spring/camel-spring.xsd
     http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
 <!-- autoscan for spring components as well as autowiring
 looks for
 @Component - general spring component (usually use)
 @Controller - spring mvc controller
 @Repository - data repository
 @Service
+@Aspect - spring finds this AspectJ annotation.  I had to put in the include-filter to get this to work (wasn't in the book)
 
 P. 79 spring in action mentions was that you don't have to annotate if you
 define to automatically bring in all classes that inherit from another. An advantage
@@ -21,9 +26,12 @@ of this approach is that you can springify classes you don't own.
 
 Note page 81 shows how you can more or less replace this xml file with java code
 though that seems nonstandard to me.
+
 -->
- <context:component-scan
-        base-package="com.stevesouza">
+<aop:aspectj-autoproxy/>
+
+<context:component-scan base-package="com.stevesouza">
+    <context:include-filter type="annotation"  expression="org.aspectj.lang.annotation.Aspect"/>
 </context:component-scan>
 
  <!--
