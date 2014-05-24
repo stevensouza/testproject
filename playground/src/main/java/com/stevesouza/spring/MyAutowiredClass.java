@@ -20,4 +20,17 @@ public class MyAutowiredClass {
     public String getString() {
         return helloSpringBean.helloSpring();
     }
+
+    public String getThrowException() {
+        throw new RuntimeException("Exception thrown!!!");
+    }
+
+    public void getSlowMethod() throws InterruptedException {
+        Thread.sleep(250);
+    }
+
+    // monitored with JamonPerformanceMonitorInterceptor in applicationContext.xml
+    public void getSlowerMethod() throws InterruptedException {
+        Thread.sleep(500);
+    }
 }

@@ -1,6 +1,9 @@
 package com.stevesouza.spring;
 
+import com.jamonapi.Monitor;
+import com.jamonapi.MonitorFactory;
 import org.apache.log4j.Logger;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 
 /**
@@ -49,14 +52,26 @@ public class SpringAop1 {
         System.out.println("mySecondBeforeMethod");
       }
 
-    @AfterReturning("anyMethod()")
-    public void myAfterReturning() {
-        System.out.println("myAfterReturning");
+    // retVal has the return value of the invoked method
+    @AfterReturning(pointcut = "anyMethod()", returning = "retVal")
+    public void myAfterReturning(String retVal) {
+        System.out.println("myAfterReturning "+retVal);
     }
 
     @AfterThrowing("anyMethod()")
     public void myAfterThrowingException() {
         System.out.println("myAfterThrowingException");
+    }
+
+    @Around("execution(* MyAutowiredClass.getSlowMethod(..))")
+    public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
+        Monitor mon = MonitorFactory.start(pjp.toLongString());
+        System.out.println(pjp.getSignature());
+        System.out.println(pjp.toShortString());
+        Object retVal = pjp.proceed();
+        mon.stop();
+        System.out.println(mon);
+        return retVal;
     }
 
 }

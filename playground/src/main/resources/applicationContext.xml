@@ -39,5 +39,16 @@ though that seems nonstandard to me.
  -->
 <bean id="hiSpringBean" class="com.stevesouza.spring.HelloSpringBean"/>
 
+<bean id="jamonMonitoringAspectInterceptor"
+          class="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor">
+    <property name="trackAllInvocations" value="true"></property>
+</bean>
+
+    <aop:config>
+        <aop:pointcut id="jamonMonitoringPointcut"
+            expression="execution(* com.stevesouza.spring.MyAutowiredClass.getSlowerMethod(..))"/>
+        <aop:advisor pointcut-ref="jamonMonitoringPointcut" advice-ref="jamonMonitoringAspectInterceptor"/>
+    </aop:config>
+
 </beans>
 
