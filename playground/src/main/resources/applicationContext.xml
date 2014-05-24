@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://camel.apache.org/schema/spring
+    http://camel.apache.org/schema/spring/camel-spring.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<!-- autoscan for spring components as well as autowiring
+looks for
+@Component - general spring component (usually use)
+@Controller - spring mvc controller
+@Repository - data repository
+@Service
+
+P. 79 spring in action mentions was that you don't have to annotate if you
+define to automatically bring in all classes that inherit from another. An advantage
+of this approach is that you can springify classes you don't own.
+
+Note page 81 shows how you can more or less replace this xml file with java code
+though that seems nonstandard to me.
+-->
+ <context:component-scan
+        base-package="com.stevesouza">
+</context:component-scan>
+
+ <!--
+ This could instead be declared with @Component annotation
+ -->
+<bean id="hiSpringBean" class="com.stevesouza.spring.HelloSpringBean"/>
+
+</beans>
+
