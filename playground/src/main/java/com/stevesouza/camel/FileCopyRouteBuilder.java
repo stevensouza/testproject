@@ -2,11 +2,15 @@ package com.stevesouza.camel;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
+import org.apache.camel.spring.SpringRouteBuilder;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.junit4.statements.SpringRepeat;
 
 
 /* Camel route builder that copies files from one directory to another and leaves original file in place
  */
-public class FileCopyRouteBuilder extends RouteBuilder {
+@Component
+public class FileCopyRouteBuilder extends SpringRouteBuilder {
     public FileCopyRouteBuilder() {
     }// body=${body}
 

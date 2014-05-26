@@ -2,6 +2,7 @@ package com.stevesouza.spring;
 
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
+import com.stevesouza.Utils;
 import com.stevesouza.camel.MessagePeeker;
 import org.apache.camel.Exchange;
 import org.apache.log4j.Logger;
@@ -32,9 +33,8 @@ public class SpringMain {
         // monitored with jamon
         myAutowiredClass.getSlowMethod();
         myAutowiredClass.getSlowerMethod();
-        for (Monitor mon : MonitorFactory.getRootMonitor().getMonitors()) {
-            LOG.info(mon);
-        }
+        Utils.displayJamon();
+        myAutowiredClass.getPassArgs("myStringValue", new HelloSpringBean(), "notUsedValue");
     }
 
 

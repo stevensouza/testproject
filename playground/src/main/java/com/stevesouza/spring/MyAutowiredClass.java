@@ -33,4 +33,8 @@ public class MyAutowiredClass {
     public void getSlowerMethod() throws InterruptedException {
         Thread.sleep(500);
     }
+
+    public void getPassArgs(String myString, HelloSpringBean helloSpringBean, String notUsed) {
+        System.out.println("in getPassArgs: "+"myString="+myString+", helloSpringBean="+helloSpringBean+", notUsed="+notUsed);
+    }
 }

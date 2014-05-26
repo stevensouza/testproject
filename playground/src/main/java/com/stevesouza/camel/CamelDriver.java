@@ -1,12 +1,18 @@
 package com.stevesouza.camel;
 
+import com.stevesouza.Utils;
 import com.stevesouza.camel.json.jackson.FileToJsonToPojoRouteBuilder;
 import com.stevesouza.camel.json.xstream.FileToJsonToPojoRouteBuilderXstream;
 import com.stevesouza.camel.json.jackson.PojoToJsonToFileRouteBuilder;
 import com.stevesouza.camel.json.xstream.PojoToJsonToFileRouteBuilderXstream;
+import com.stevesouza.spring.HelloSpringBean;
+import com.stevesouza.spring.MyAutowiredClass;
 import org.apache.camel.*;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultCamelContextNameStrategy;
+import org.apache.camel.spring.SpringCamelContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Program that launches various camel tests.
@@ -14,7 +20,10 @@ import org.apache.camel.impl.DefaultCamelContextNameStrategy;
 public class CamelDriver {
 
     public static void main(String[] ags) throws Exception {
-        CamelContext camel = new DefaultCamelContext();
+        ApplicationContext context = new ClassPathXmlApplicationContext("camelSpringApplicationContext.xml");
+
+        //CamelContext camel = new DefaultCamelContext();
+        CamelContext camel = new SpringCamelContext(context);
         // shows up in jmx with this context name instead of camel-1
         camel.setNameStrategy(new DefaultCamelContextNameStrategy("steves_camel_driver"));
         camel.setTracing(true);
@@ -34,6 +43,9 @@ public class CamelDriver {
         ProducerTemplate template = camel.createProducerTemplate();
 
         camel.start();
+        MyAutowiredClass myAutowiredClass = (MyAutowiredClass) context.getBean("myComponent");
+        myAutowiredClass.getSlowerMethod();
+
 
         // Send to a specific queue
         template.sendBodyAndHeader("direct:messagetofile", "<hello>world!</hello>", "filename", "helloworld.txt");
@@ -44,6 +56,8 @@ public class CamelDriver {
 
         Thread.sleep(10000);
         camel.stop();
+        Utils.displayJamon();
+
     }
 
 
