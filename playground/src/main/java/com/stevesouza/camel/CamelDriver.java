@@ -21,9 +21,16 @@ public class CamelDriver {
 
     public static void main(String[] ags) throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("camelSpringApplicationContext.xml");
+        System.out.println("*****"+context);
+        System.out.println("*****"+context.getClass());
+        System.out.println("*****"+context.getParent());
+        CamelContext camel = (CamelContext) context.getBean("myCamelContext");
+        System.out.println("****routes="+camel.getRoutes());
+
+
 
         //CamelContext camel = new DefaultCamelContext();
-        CamelContext camel = new SpringCamelContext(context);
+ //       CamelContext camel = new SpringCamelContext(context);
         // shows up in jmx with this context name instead of camel-1
         camel.setNameStrategy(new DefaultCamelContextNameStrategy("steves_camel_driver"));
         camel.setTracing(true);
@@ -32,13 +39,13 @@ public class CamelDriver {
             public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
                 System.out.println("Seeing when startup strategy is called.  CamelContext=" + context);
             }
-        });
-        camel.addRoutes(new FileCopyRouteBuilder());
-        camel.addRoutes(new MessageToFileRouteBuilder());
-        camel.addRoutes(new PojoToJsonToFileRouteBuilder());
-        camel.addRoutes(new FileToJsonToPojoRouteBuilder());
-        camel.addRoutes(new PojoToJsonToFileRouteBuilderXstream());
-        camel.addRoutes(new FileToJsonToPojoRouteBuilderXstream());
+       });
+//        camel.addRoutes(new FileCopyRouteBuilder());
+//        camel.addRoutes(new MessageToFileRouteBuilder());
+//        camel.addRoutes(new PojoToJsonToFileRouteBuilder());
+//        camel.addRoutes(new FileToJsonToPojoRouteBuilder());
+//        camel.addRoutes(new PojoToJsonToFileRouteBuilderXstream());
+//        camel.addRoutes(new FileToJsonToPojoRouteBuilderXstream());
 
         ProducerTemplate template = camel.createProducerTemplate();
 
@@ -48,9 +55,9 @@ public class CamelDriver {
 
 
         // Send to a specific queue
-        template.sendBodyAndHeader("direct:messagetofile", "<hello>world!</hello>", "filename", "helloworld.txt");
-        template.sendBodyAndHeader("direct:messagetofile", "<hello>steve!</hello>", "filename", "hellosteve.txt");
-        template.sendBody("direct:personsname", new PersonsName("steve","souza"));
+        template.sendBodyAndHeader("direct:messagetofile", "<hello>world!</hello>", "filename", "WOOHOOhelloworld.txt");
+        template.sendBodyAndHeader("direct:messagetofile", "<hello>steve!</hello>", "filename", "WOOHOOhellosteve.txt");
+    //    template.sendBody("direct:personsname", new PersonsName("steve","souza"));
         template.sendBody("direct:personsname_xstream", new PersonsName("joel","souza"));
 
 

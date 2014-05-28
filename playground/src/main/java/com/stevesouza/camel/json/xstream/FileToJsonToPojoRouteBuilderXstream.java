@@ -2,11 +2,14 @@ package com.stevesouza.camel.json.xstream;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
+import org.apache.camel.spring.SpringRouteBuilder;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by stevesouza on 5/19/14.
  */
-public class FileToJsonToPojoRouteBuilderXstream extends RouteBuilder {
+@Component
+public class FileToJsonToPojoRouteBuilderXstream extends SpringRouteBuilder {
 
     @Override
     public void configure() throws Exception {

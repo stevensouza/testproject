@@ -36,7 +36,7 @@ public class PersonsName {
     }
 
     public String toString() {
-        return "PersonsName (fname="+fname+", lname"+lname+")";
+        return "PersonsName (fname="+fname+", lname="+lname+")";
     }
 
 }

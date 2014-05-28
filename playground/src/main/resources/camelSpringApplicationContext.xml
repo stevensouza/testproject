@@ -30,14 +30,14 @@ though that seems nonstandard to me.
 
 -->
 
-<aop:aspectj-autoproxy/>
+ <aop:aspectj-autoproxy/>
 
 <context:component-scan base-package="com.stevesouza">
     <context:include-filter type="annotation"  expression="org.aspectj.lang.annotation.Aspect"/>
 </context:component-scan>
 
-<camelContext xmlns="http://camel.apache.org/schema/spring">
-   <contextScan></contextScan>
+<camelContext id="myCamelContext" xmlns="http://camel.apache.org/schema/spring">
+    <contextScan/>
 </camelContext>
 
 
@@ -51,15 +51,15 @@ though that seems nonstandard to me.
 I could use annotations (see MySpringAspect for an example
  -->
 
-<bean id="jamonMonitoringAspectInterceptor" class="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor">
-    <property name="trackAllInvocations" value="true"></property>
-</bean>
+    <bean id="jamonMonitoringAspectInterceptor" class="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor">
+        <property name="trackAllInvocations" value="true"></property>
+    </bean>
 
-<aop:config>
-        <aop:pointcut id="jamonMonitoringPointcut"
-            expression="execution(* com.stevesouza.spring.MyAutowiredClass.getSlowerMethod(..))"/>
-        <aop:advisor pointcut-ref="jamonMonitoringPointcut" advice-ref="jamonMonitoringAspectInterceptor"/>
-</aop:config>
+    <aop:config proxy-target-class="true">
+            <aop:pointcut id="jamonMonitoringPointcut"
+                expression="execution(* com.stevesouza.spring.MyAutowiredClass.getSlowerMethod(..))"/>
+            <aop:advisor pointcut-ref="jamonMonitoringPointcut" advice-ref="jamonMonitoringAspectInterceptor"/>
+    </aop:config>
 
 </beans>
 

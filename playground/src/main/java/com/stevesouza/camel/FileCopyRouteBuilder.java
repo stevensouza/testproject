@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.statements.SpringRepeat;
 
 /* Camel route builder that copies files from one directory to another and leaves original file in place
  */
-@Component
+//@Component
 public class FileCopyRouteBuilder extends SpringRouteBuilder {
     public FileCopyRouteBuilder() {
     }// body=${body}
