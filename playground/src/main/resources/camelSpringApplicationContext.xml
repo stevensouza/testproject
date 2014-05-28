@@ -30,13 +30,26 @@ though that seems nonstandard to me.
 
 -->
 
- <aop:aspectj-autoproxy/>
+<aop:aspectj-autoproxy/>
 
 <context:component-scan base-package="com.stevesouza">
     <context:include-filter type="annotation"  expression="org.aspectj.lang.annotation.Aspect"/>
 </context:component-scan>
 
-<camelContext id="myCamelContext" xmlns="http://camel.apache.org/schema/spring">
+<!-- trace="true" enables log messages like the following:
+2014-05-28 19:21:14 INFO  Tracer:96 - ID-Macintosh-c8bcc88febc6-local-50235-1401297671656-0-18 >>>
+(FileCopyRouteBuilder) com.stevesouza.camel.MessagePeeker@26ccfa41 -> file:///Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out  >>>
+Pattern:InOnly, Headers:{CamelFileNameConsumed=wordcount.json, CamelFileName=wordcount.json, CamelFileLength=11173,
+CamelFileLastModified=1389960314000, CamelFilePath=/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in/wordcount.json,
+CamelFileAbsolutePath=/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in/wordcount.json,
+myheader=my first header value, CamelFileAbsolute=true, CamelFileRelativePath=wordcount.json,
+CamelFileParent=/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in,
+breadcrumbId=ID-Macintosh-c8bcc88febc6-local-50235-1401297671656-0-17, CamelFileNameOnly=wordcount.json},
+BodyType:org.apache.camel.component.file.GenericFile,
+Body:[Body is file based: GenericFile[/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in/wordcount.json]]
+-->
+<camelContext id="myCamelContext" xmlns="http://camel.apache.org/schema/spring" autoStartup="true" trace="true">
+    <!-- autoStartup -->
     <contextScan/>
 </camelContext>
 
@@ -48,7 +61,8 @@ though that seems nonstandard to me.
 <bean id="hiSpringBean" class="com.stevesouza.spring.HelloSpringBean"/>
 
 <!-- if i created my own version of jamonPerformanceMonitorInterceptor
-I could use annotations (see MySpringAspect for an example
+I could use annotations (see com.stevesouza.spring.aop.MySpringAspect, and com.stevesouza.spring.aop.SpringMain
+for examples of configuring aop this way.)
  -->
 
     <bean id="jamonMonitoringAspectInterceptor" class="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor">

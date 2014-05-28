@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MessagePeeker  implements Processor {
 
-    private static final Logger LOG = Logger.getLogger(MessagePeeker.class);
+    private final Logger LOG = Logger.getLogger(getClass());
 
     @Override
     public void process(Exchange exchange) throws Exception {

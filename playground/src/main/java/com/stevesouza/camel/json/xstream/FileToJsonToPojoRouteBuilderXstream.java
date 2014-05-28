@@ -17,6 +17,6 @@ public class FileToJsonToPojoRouteBuilderXstream extends SpringRouteBuilder {
         from("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in?fileName=personsnamexstream.json&noop=true")
         .routeId(getClass().getSimpleName())
         .unmarshal().json()
-          .log("json file to pojo (unmarshal): messageid=${id}, Person name pojo=${body}");
+        .log("json file to pojo (unmarshal): messageid=${id}, Person name pojo=${body}");
     }
 }
