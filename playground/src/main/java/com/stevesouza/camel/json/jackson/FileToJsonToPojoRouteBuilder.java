@@ -1,15 +1,17 @@
 package com.stevesouza.camel.json.jackson;
 
+import com.stevesouza.camel.BaseRouteBuilder;
 import com.stevesouza.camel.PersonsName;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
+import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by stevesouza on 5/19/14.
  */
 @Component
-public class FileToJsonToPojoRouteBuilder extends RouteBuilder {
+public class FileToJsonToPojoRouteBuilder extends BaseRouteBuilder {
 
     @Override
     public void configure() throws Exception {

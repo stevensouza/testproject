@@ -11,7 +11,7 @@ import javax.inject.Named;
 /* Camel route builder that copies files from one directory to another and leaves original file in place
  */
 @Component
-public class MessageToFileRouteBuilder extends SpringRouteBuilder {
+public class MessageToFileRouteBuilder extends BaseRouteBuilder {
     // (Processor)getApplicationContext().getBean("messagePeeker")
    @Inject
    @Named("messagePeeker")

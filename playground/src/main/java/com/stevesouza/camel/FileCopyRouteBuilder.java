@@ -14,7 +14,7 @@ import javax.inject.Named;
 /* Camel route builder that copies files from one directory to another and leaves original file in place
  */
 @Component
-public class FileCopyRouteBuilder extends SpringRouteBuilder {
+public class FileCopyRouteBuilder extends BaseRouteBuilder {
 
     // Note the only way Spring aop will work is if you use spring to create the bean.
     // If you create with 'new MessagePeeker()' spring doesn't manage the object and so

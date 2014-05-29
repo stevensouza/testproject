@@ -10,6 +10,7 @@ import com.stevesouza.spring.MyAutowiredClass;
 import org.apache.camel.*;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultCamelContextNameStrategy;
+import org.apache.camel.spi.InterceptStrategy;
 import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

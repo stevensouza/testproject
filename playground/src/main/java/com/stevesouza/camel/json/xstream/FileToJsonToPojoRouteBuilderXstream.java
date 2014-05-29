@@ -1,5 +1,6 @@
 package com.stevesouza.camel.json.xstream;
 
+import com.stevesouza.camel.BaseRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
  * Created by stevesouza on 5/19/14.
  */
 @Component
-public class FileToJsonToPojoRouteBuilderXstream extends SpringRouteBuilder {
+public class FileToJsonToPojoRouteBuilderXstream extends BaseRouteBuilder {
 
     @Override
     public void configure() throws Exception {

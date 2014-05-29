@@ -1,23 +1,27 @@
 package com.stevesouza.camel.json.jackson;
 
+import com.stevesouza.camel.BaseRouteBuilder;
 import com.stevesouza.camel.lifecycle.MyInterceptProcessor;
 import com.stevesouza.camel.PersonsName;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
+import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by stevesouza on 5/19/14.
  */
 @Component
-public class PojoToJsonToFileRouteBuilder extends RouteBuilder  {
+public class PojoToJsonToFileRouteBuilder extends BaseRouteBuilder {
 
 
     @Override
     public void configure() throws Exception {
         // intercept called 3 times.  Starting from after 'from' and ending right before 'to'
-        intercept().process(new MyInterceptProcessor("intercept"));
-        interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
+//        intercept().process(new MyInterceptProcessor("intercept"));
+//        interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
+
+      //  useInterceptors();
        /* You have full control over jackson and can maniuplate the JacksonDataFormat with the following:
         JacksonDataFormat format = new JacksonDataFormat();
 
