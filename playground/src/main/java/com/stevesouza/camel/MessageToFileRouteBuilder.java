@@ -17,9 +17,6 @@ public class MessageToFileRouteBuilder extends SpringRouteBuilder {
    @Named("messagePeeker")
    private Processor messagePeeker;
 
-    public MessageToFileRouteBuilder() {
-    }// body=${body}
-
     @Override
     public void configure() throws Exception {
        // messagePeeker = (Processor)getApplicationContext().getBean("messagePeeker");

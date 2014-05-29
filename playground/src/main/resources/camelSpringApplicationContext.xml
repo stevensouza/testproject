@@ -48,12 +48,20 @@ breadcrumbId=ID-Macintosh-c8bcc88febc6-local-50235-1401297671656-0-17, CamelFile
 BodyType:org.apache.camel.component.file.GenericFile,
 Body:[Body is file based: GenericFile[/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in/wordcount.json]]
 -->
-<camelContext id="myCamelContext" xmlns="http://camel.apache.org/schema/spring" autoStartup="true" trace="true">
+
+    <!--
+    doesn't work
+<bean id="camelContextNameStrategy" class="org.apache.camel.impl.DefaultCamelContextNameStrategy">
+  <constructor-arg value="steves_camel_driver"/>
+</bean>
+-->
+<bean id="camelJamonInterceptStrategy" class="com.stevesouza.camel.lifecycle.CamelJamonInterceptStrategy" />
+<bean id="camelJamonEventNotifier" class="com.stevesouza.camel.lifecycle.CamelJamonEventNotifier"/>
+<camelContext id="myCamelContext" xmlns="http://camel.apache.org/schema/spring" autoStartup="true" trace="true" typeConverterStatisticsEnabled="true">
     <!-- autoStartup -->
     <contextScan/>
 </camelContext>
 
-<bean id="camelJamonEventNotifier" class="com.stevesouza.camel.lifecycle.CamelJamonEventNotifier"/>
 
  <!--
  This could instead be declared with @Component annotation
