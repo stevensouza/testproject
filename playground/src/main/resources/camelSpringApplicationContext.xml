@@ -53,7 +53,7 @@ Body:[Body is file based: GenericFile[/Users/stevesouza/gitrepo/testproject/play
     <contextScan/>
 </camelContext>
 
-
+<bean id="camelJamonEventNotifier" class="com.stevesouza.camel.lifecycle.CamelJamonEventNotifier"/>
 
  <!--
  This could instead be declared with @Component annotation

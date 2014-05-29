@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Pointcut;
  * Created by stevesouza on 5/26/14.
  */
 @Aspect
-public class SystemAopDefinitions {
+public class SystemAopPointcutDefinitions {
 
     @Pointcut("execution(public * *(..))")
     public void anyPublicOperation() {}

@@ -21,20 +21,8 @@ public class CamelDriver {
 
     public static void main(String[] ags) throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("camelSpringApplicationContext.xml");
-        //normal way of getting camel context but i have it defined in camelSpringApplicationContext.xml
-        // CamelContext camel = new DefaultCamelContext();
-        // CamelContext camel = new SpringCamelContext(context);
-        CamelContext camel = (CamelContext) context.getBean("myCamelContext");
+        CamelContext camel = configureCamelContext(context);
 
-        // shows up in jmx with this context name instead of camel-1
-        camel.setNameStrategy(new DefaultCamelContextNameStrategy("steves_camel_driver"));
-        // camel.setTracing(true);  // set in camelSpringApplicationContext.xml
-        camel.addStartupListener(new StartupListener() {
-            @Override
-            public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
-                System.out.println("Seeing when startup strategy is called.  CamelContext=" + context);
-            }
-       });
 
         ProducerTemplate template = camel.createProducerTemplate();
 
@@ -55,6 +43,26 @@ public class CamelDriver {
         camel.stop();
         Utils.displayJamon();
 
+    }
+
+    // should also be able to do this in spring xml?
+    private static CamelContext configureCamelContext(ApplicationContext context) throws Exception {
+        //normal way of getting camel context but i have it defined in camelSpringApplicationContext.xml
+        // CamelContext camel = new DefaultCamelContext();
+        // CamelContext camel = new SpringCamelContext(context);
+        CamelContext camel = (CamelContext) context.getBean("myCamelContext");
+
+        // shows up in jmx with this context name instead of camel-1
+        camel.setNameStrategy(new DefaultCamelContextNameStrategy("steves_camel_driver"));
+        // camel.setTracing(true);  // set in camelSpringApplicationContext.xml
+        camel.addStartupListener(new StartupListener() {
+            @Override
+            public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
+                System.out.println("Seeing when startup strategy is called.  CamelContext=" + context);
+            }
+         });
+
+        return camel;
     }
 
 

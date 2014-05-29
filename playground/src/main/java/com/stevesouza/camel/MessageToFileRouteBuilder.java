@@ -24,9 +24,9 @@ public class MessageToFileRouteBuilder extends SpringRouteBuilder {
     public void configure() throws Exception {
        // messagePeeker = (Processor)getApplicationContext().getBean("messagePeeker");
         from("direct:messagetofile").
-                routeId(getClass().getSimpleName()). // note this gives the route a name in the jmx console.
-                log("messageid=${id}, myheader=${headers.myheader}, allheaders=${headers}").
-                process(messagePeeker).
-                to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out/?fileName=${headers.filename}");
+         routeId(getClass().getSimpleName()). // note this gives the route a name in the jmx console.
+         log("messageid=${id}, myheader=${headers.myheader}, allheaders=${headers}").
+         process(messagePeeker).
+         to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out/?fileName=${headers.filename}");
     }
 }

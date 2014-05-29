@@ -94,7 +94,7 @@ public class MySpringAspect {
         return retVal;
     }
 
-    @Around("com.stevesouza.spring.aop.SystemAopDefinitions.camelOperation()")
+    @Around("com.stevesouza.spring.aop.SystemAopPointcutDefinitions.camelOperation()")
     public Object jamon(ProceedingJoinPoint pjp) throws Throwable {
         Monitor mon = MonitorFactory.start(pjp.toLongString());
         try {
