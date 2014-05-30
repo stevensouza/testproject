@@ -37,7 +37,7 @@ public class CamelJamonEventNotifier extends EventNotifierSupport {
 
     public void notify(EventObject event) throws Exception {
             // keep stats for events such as: org.apache.camel.management.event.ExchangeCompletedEvent
-            String summaryLabel = event.getClass().toString();
+            String summaryLabel = "camel.event."+event.getClass().toString();
             String details = event.toString();
             MonKey key = new MonKeyImp(summaryLabel, details, "count" );
             MonitorFactory.add(key, 1);

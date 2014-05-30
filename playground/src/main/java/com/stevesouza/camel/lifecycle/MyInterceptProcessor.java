@@ -23,7 +23,7 @@ public class MyInterceptProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         LOG.info(message + " id=" + exchange.getExchangeId());
-        MonitorFactory.add(message + ".camelInterceptor: " + getClass().getCanonicalName(), "count", 1);
+        MonitorFactory.add("camel."+message + ": " + getClass().getCanonicalName(), "count", 1);
         //exchange.getProperties();
         //exchange.getIn()
     }
