@@ -4,6 +4,7 @@ import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
 import com.stevesouza.spring.HelloSpringBean;
 import org.apache.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 
@@ -52,13 +53,15 @@ public class MySpringAspect {
     }
 
      @Before("advisedMethod()")
-     public void myFirstBeforeMethod() {
-        System.out.println("myFirstBeforeMethod");
+     // note use of JoinPoint to get further info here
+     public void myFirstBeforeMethod(JoinPoint pjp) {
+        LOG.info("myFirstBeforeMethod() (@Before). Target method ivoked: "+pjp.toLongString());
       }
 
-     @Before("advisedMethod()")
+    // JoinPoint is not required.  Can have access to other args too.
+    @Before("advisedMethod()")
       public void mySecondBeforeMethod() {
-        System.out.println("mySecondBeforeMethod");
+        LOG.info("mySecondBeforeMethod() (@Before)");
       }
 
     // other options
@@ -68,18 +71,18 @@ public class MySpringAspect {
     // retVal has the return value of the invoked method
     @AfterReturning(pointcut = "advisedMethod()", returning = "retVal")
     public void myAfterReturning(String retVal) {
-        System.out.println("myAfterReturning "+retVal);
+        LOG.info("myAfterReturning() (@AfterReturning): "+retVal);
     }
 
     @AfterThrowing("advisedMethod()")
     public void myAfterThrowingException() {
-        System.out.println("myAfterThrowingException()");
+        LOG.info("myAfterThrowingException() (@AfterThrowing)");
     }
 
     @AfterThrowing(pointcut = "advisedMethod()",
             throwing="exception")
     public void myAfterThrowingException2(Throwable exception) {
-        System.out.println("myAfterThrowingException2 and exception="+exception);
+        LOG.info("myAfterThrowingException2() and exception="+exception);
     }
 
     @Around("execution(* com.stevesouza.spring.MyAutowiredClass.getSlowMethod(..))")
@@ -90,7 +93,7 @@ public class MySpringAspect {
         System.out.println(pjp.getTarget()); // the advised object
         Object retVal = pjp.proceed();
         mon.stop();
-        System.out.println(mon);
+        LOG.info(mon);
         return retVal;
     }
 
@@ -117,7 +120,7 @@ public class MySpringAspect {
         System.out.println("myString="+myString);
         System.out.println("helloSpringBean="+helloSpringBean);
         for (Object arg : proceedingJoinPoint.getArgs()) {
-            System.out.println("arg="+arg);
+            LOG.info("arg="+arg);
         }
 
         // can also call  proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());

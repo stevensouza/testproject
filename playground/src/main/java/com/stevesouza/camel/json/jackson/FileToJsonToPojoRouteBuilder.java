@@ -15,7 +15,7 @@ public class FileToJsonToPojoRouteBuilder extends BaseRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in?fileName=personsname.json&noop=true")
+        from("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in2?fileName=personsname.json&noop=true")
         .routeId(getClass().getSimpleName())
         .unmarshal().json(JsonLibrary.Jackson, PersonsName.class)
         .log("json file to pojo (unmarshal): messageid=${id}, Person name pojo=${body}");

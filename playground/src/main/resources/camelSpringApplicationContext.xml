@@ -57,7 +57,8 @@ Body:[Body is file based: GenericFile[/Users/stevesouza/gitrepo/testproject/play
 -->
 <bean id="camelJamonInterceptStrategy" class="com.stevesouza.camel.lifecycle.CamelJamonInterceptStrategy" />
 <bean id="camelJamonEventNotifier" class="com.stevesouza.camel.lifecycle.CamelJamonEventNotifier"/>
-<camelContext id="myCamelContext" xmlns="http://camel.apache.org/schema/spring" autoStartup="true" trace="true" typeConverterStatisticsEnabled="true">
+<!-- could also add this attribute to the camelContext: trace="true" -->
+<camelContext id="myCamelContext" xmlns="http://camel.apache.org/schema/spring" autoStartup="true" typeConverterStatisticsEnabled="true">
     <!-- autoStartup -->
     <contextScan/>
 </camelContext>

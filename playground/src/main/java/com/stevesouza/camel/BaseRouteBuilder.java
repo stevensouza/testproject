@@ -25,8 +25,9 @@ public abstract class BaseRouteBuilder extends SpringRouteBuilder {
 
 
     protected void useInterceptors() {
-        intercept().process(new MyInterceptProcessor("intercept"));
-        interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
+        // disabling as it is redundant to all the other monitoring being done.
+  //      intercept().process(new MyInterceptProcessor("intercept"));
+  //      interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
     }
 
 
