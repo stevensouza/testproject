@@ -21,7 +21,6 @@ public class PojoToJsonToFileRouteBuilder extends BaseRouteBuilder {
 //        intercept().process(new MyInterceptProcessor("intercept"));
 //        interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
 
-      //  useInterceptors();
        /* You have full control over jackson and can maniuplate the JacksonDataFormat with the following:
         JacksonDataFormat format = new JacksonDataFormat();
 
