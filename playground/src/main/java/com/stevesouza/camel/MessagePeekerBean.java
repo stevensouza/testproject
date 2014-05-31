@@ -3,6 +3,7 @@ package com.stevesouza.camel;
 import org.apache.camel.Body;
 import org.apache.camel.Handler;
 import org.apache.camel.Header;
+import org.apache.camel.language.Simple;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +22,8 @@ public class MessagePeekerBean {
      * @return
      */
     @Handler
-    public String peek(@Body String message, @Header("filename") String fileName) {
-        String fileContents=getClass()+", fileName="+fileName+", changed message: "+message;
+    public String peek(@Body String message, @Header("filename") String fileName, @Simple("[header[filename]=${header[filename]}, routeId=${routeId}, id=${id}, camelId=${camelId}]") String simpleStr) {
+        String fileContents=getClass()+", using simpleExpressionLanguage="+simpleStr+", fileName="+fileName+", changed message: "+message;
         LOG.info(fileContents);
         return fileContents;  // new body
     }
