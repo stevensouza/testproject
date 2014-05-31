@@ -22,7 +22,8 @@ public class MessagePeekerBean {
      */
     @Handler
     public String peek(@Body String message, @Header("filename") String fileName) {
-        LOG.info("The message is: "+message+", fileName="+fileName);
-        return getClass()+", fileName="+fileName+", changed message: "+message;  // new body
+        String fileContents=getClass()+", fileName="+fileName+", changed message: "+message;
+        LOG.info(fileContents);
+        return fileContents;  // new body
     }
 }
