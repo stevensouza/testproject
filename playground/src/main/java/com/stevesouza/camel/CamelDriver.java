@@ -43,6 +43,8 @@ public class CamelDriver {
         template.sendBody("direct:personsname", new PersonsName("steve","souza"));
         LOG.info("4 ***********");
         template.sendBody("direct:personsname_xstream", new PersonsName("joel","souza"));
+        LOG.info("5 ***********");
+        template.sendBodyAndHeader("direct:messageusingbean", "<hello>world!</hello>", "filename", "messageusingbean.txt");
 
         LOG.info("* Start - aop calls on myAutoWiredClass.getSlowerMethod()");
         MyAutowiredClass myAutowiredClass = context.getBean("myComponent", MyAutowiredClass.class);
