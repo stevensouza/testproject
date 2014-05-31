@@ -8,6 +8,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
+ * Note if you don't call this in the routeL: routeId(getClass().getSimpleName())
+ * the route would be called route1, route2 etc.
+
  * Created by stevesouza on 5/29/14.
  */
 public abstract class BaseRouteBuilder extends SpringRouteBuilder {
