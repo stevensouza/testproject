@@ -55,5 +55,38 @@ I could use annotations (see MySpringAspect for an example
         <aop:advisor pointcut-ref="jamonMonitoringPointcut" advice-ref="jamonMonitoringAspectInterceptor"/>
 </aop:config>
 
+<!-- MonitorAnnotated on class -->
+<aop:config>
+        <aop:pointcut id="jamonMonitoringPointcut2"
+                      expression="com.stevesouza.spring.aop.SystemAopPointcutDefinitions.monitorAnnotated()"/>
+        <aop:advisor pointcut-ref="jamonMonitoringPointcut2" advice-ref="jamonMonitoringAspectInterceptor"/>
+</aop:config>
+
+<!-- I like this way of doing it. @Aspect is a pojo, and I can define what I want to monitor with
+    SystemAopPointcutDefinitions if i want.
+-->
+<aop:config>
+    <aop:pointcut id="jamonMonitoringPointcut3"
+                  expression="execution(* com.stevesouza.spring.MonitorMe3.my*(..))"/>
+    <!-- not mySpringAspect is MySpringAspect class annotated with @Aspect  (@Component would probably work
+     too) and it has the referenced method doProfiling -->
+    <aop:aspect id="myAspect" ref="mySpringAspect">
+         <aop:around
+            pointcut-ref="jamonMonitoringPointcut3"
+            method="doProfiling"/>
+     </aop:aspect>
+</aop:config>
+
+
+<!-- MonitorAnnotation on method name -->
+    <aop:config>
+        <aop:pointcut id="jamonMonitoringPointcut4"
+                      expression="com.stevesouza.spring.aop.SystemAopPointcutDefinitions.monitorAnnotatedMethod()"/>
+        <aop:aspect id="myAspect2" ref="mySpringAspect">
+            <aop:around
+                    pointcut-ref="jamonMonitoringPointcut4"
+                    method="doProfiling"/>
+        </aop:aspect>
+    </aop:config>
 </beans>
 

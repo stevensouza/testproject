@@ -19,7 +19,7 @@ import java.util.List;
 public class SpringMain {
     private static final Logger LOG = Logger.getLogger(SpringMain.class);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         HelloSpringBean hi = (HelloSpringBean) context.getBean("hiSpringBean");
         LOG.info("SpringBeanSays: "+hi.helloSpring());
@@ -29,14 +29,28 @@ public class SpringMain {
         try {
             LOG.info("MyAutowiredClass says: " + myAutowiredClass.getThrowException());
         } catch (Exception e) {
+        }
 
         // monitored with jamon
         myAutowiredClass.getSlowMethod();
         myAutowiredClass.getSlowerMethod();
-        Utils.displayJamon();
-        myAutowiredClass.getPassArgs("myStringValue", new HelloSpringBean(), "notUsedValue");
-    }
+        // marked with @MonitoredAnnotation
+        MonitorMe1 monitorMe1 = context.getBean("monitorMe1", MonitorMe1.class);
+        MonitorMe2 monitorMe2 = context.getBean("monitorMe2", MonitorMe2.class);
 
+        // monitored not with annotation, but in applicationContext.xml
+        MonitorMe3 monitorMe3 = context.getBean("monitorMe3", MonitorMe3.class);
+
+        for (int i=0;i<10;i++) {
+            monitorMe1.myMethod();
+            monitorMe2.myMethod();
+            monitorMe3.myMethod();
+            monitorMe3.myMethod2("hello world");
+            monitorMe3.hiMethod3("hello world", null);
+        }
+
+        myAutowiredClass.getPassArgs("myStringValue", new HelloSpringBean(), "notUsedValue");
+        Utils.displayJamon();
 
     }
 }

@@ -85,15 +85,17 @@ public class MySpringAspect {
         LOG.info("myAfterThrowingException2() and exception="+exception);
     }
 
+    // note this is also used to advise another method defined in applicationContext.xml
     @Around("execution(* com.stevesouza.spring.MyAutowiredClass.getSlowMethod(..))")
     public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
-        Monitor mon = MonitorFactory.start(pjp.toLongString());
-        System.out.println(pjp.getSignature());
-        System.out.println(pjp.toShortString());
-        System.out.println(pjp.getTarget()); // the advised object
+        Monitor mon = MonitorFactory.start(pjp.getSignature().toString());
+        LOG.info("toString="+pjp.getSignature());
+        LOG.info(" toShortString="+pjp.toShortString());
+        LOG.info(" toLongString="+pjp.toLongString());
+        LOG.info(" target="+pjp.getTarget()); // the advised object
         Object retVal = pjp.proceed();
         mon.stop();
-        LOG.info(mon);
+        LOG.info(" "+mon);
         return retVal;
     }
 
