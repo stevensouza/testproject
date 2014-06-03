@@ -58,7 +58,7 @@ I could use annotations (see MySpringAspect for an example
 <!-- MonitorAnnotated on class -->
 <aop:config>
         <aop:pointcut id="jamonMonitoringPointcut2"
-                      expression="com.stevesouza.spring.aop.SystemAopPointcutDefinitions.monitorAnnotated()"/>
+                      expression="com.stevesouza.spring.aop.SystemAopPointcutDefinitions.monitorAnnotatedClass()"/>
         <aop:advisor pointcut-ref="jamonMonitoringPointcut2" advice-ref="jamonMonitoringAspectInterceptor"/>
 </aop:config>
 

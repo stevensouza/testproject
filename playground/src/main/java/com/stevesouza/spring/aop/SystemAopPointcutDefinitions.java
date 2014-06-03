@@ -32,9 +32,9 @@ public class SystemAopPointcutDefinitions {
 
     // The pointcut below will find all methods in all types marked with @MonitorAnnotation
     @Pointcut("within(@com.stevesouza.spring.aop.MonitorAnnotation *)")
-    public void monitorAnnotated() {}
+    public void monitorAnnotatedClass() {}
 
-    // The pointcut below will find all methonds marked in with @MonitorAnnotation regardless of whether or not
+    // The pointcut below will find all methods marked in with @MonitorAnnotation regardless of whether or not
     // class is marked that way or not.
     @Pointcut("anyPublicMethod() && @annotation(com.stevesouza.spring.aop.MonitorAnnotation)")
     public void monitorAnnotatedMethod() {}

@@ -31,6 +31,8 @@ public class JamonAspect {
 
     // The pointcut could be defined here, but it is more flexibly defined in applicationContext.xml
     //     @Around("com.stevesouza.spring.aop.SystemAopPointcutDefinitions.camelOperation()")
+    // or  @Around("com.stevesouza.spring.aop.SystemAopPointcutDefinitions.monitorAnnotatedClass()")
+
     public Object monitor(ProceedingJoinPoint pjp) throws Throwable {
         Object retVal = null;
         String methodName = pjp.getSignature().toString();
