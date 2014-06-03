@@ -3,6 +3,7 @@ package com.stevesouza.spring;
 import com.stevesouza.spring.aop.MonitorAnnotation;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -22,5 +23,13 @@ public class MonitorMe3 {
     @MonitorAnnotation
     public void hiMethod3(String str, Date date) throws Exception {
         Thread.sleep(5);
+    }
+
+    public void anotherMethod1() throws Exception {
+        Thread.sleep(10);
+    }
+
+    public void anotherMethod2() throws Exception {
+        throw new IOException("file io exception simulation");
     }
 }

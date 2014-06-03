@@ -47,6 +47,12 @@ public class SpringMain {
             monitorMe3.myMethod();
             monitorMe3.myMethod2("hello world");
             monitorMe3.hiMethod3("hello world", null);
+            monitorMe3.anotherMethod1();
+            try {
+                monitorMe3.anotherMethod2(); // throws exception
+            } catch (Exception e) {
+
+            }
         }
 
         myAutowiredClass.getPassArgs("myStringValue", new HelloSpringBean(), "notUsedValue");

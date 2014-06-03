@@ -81,11 +81,11 @@ I could use annotations (see MySpringAspect for an example
 <!-- MonitorAnnotation on method name -->
     <aop:config>
         <aop:pointcut id="jamonMonitoringPointcut4"
-                      expression="com.stevesouza.spring.aop.SystemAopPointcutDefinitions.monitorAnnotatedMethod()"/>
-        <aop:aspect id="myAspect2" ref="mySpringAspect">
+                      expression="execution(* com.stevesouza.spring.MonitorMe3.anotherMethod*(..))"/>
+        <aop:aspect id="jamonSpringAspect" ref="jamonAspect">
             <aop:around
                     pointcut-ref="jamonMonitoringPointcut4"
-                    method="doProfiling"/>
+                    method="monitor"/>
         </aop:aspect>
     </aop:config>
 </beans>
