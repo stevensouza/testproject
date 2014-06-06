@@ -1,10 +1,6 @@
 package com.stevesouza.camel;
 
-import org.apache.camel.Processor;
 import org.springframework.stereotype.Component;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 
 /* Could also use

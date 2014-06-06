@@ -1,7 +1,6 @@
 package com.stevesouza.camel;
 
 import org.apache.camel.Processor;
-import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;

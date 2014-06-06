@@ -2,10 +2,6 @@ package com.stevesouza.camel;
 
 import com.stevesouza.camel.lifecycle.MyInterceptProcessor;
 import org.apache.camel.spring.SpringRouteBuilder;
-import org.springframework.stereotype.Component;
-
-import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * Note if you don't call this in the routeL: routeId(getClass().getSimpleName())

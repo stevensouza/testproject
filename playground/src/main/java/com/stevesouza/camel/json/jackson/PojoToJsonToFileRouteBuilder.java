@@ -1,11 +1,8 @@
 package com.stevesouza.camel.json.jackson;
 
 import com.stevesouza.camel.BaseRouteBuilder;
-import com.stevesouza.camel.lifecycle.MyInterceptProcessor;
 import com.stevesouza.camel.PersonsName;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
-import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 
 /**

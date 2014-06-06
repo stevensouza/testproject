@@ -2,7 +2,6 @@ package com.stevesouza;
 
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
-import com.stevesouza.spring.SpringMain;
 import org.apache.log4j.Logger;
 
 /**

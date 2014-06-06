@@ -4,7 +4,6 @@ import com.jamonapi.MonKey;
 import com.jamonapi.MonKeyImp;
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
-import org.apache.camel.management.event.AbstractExchangeEvent;
 import org.apache.camel.management.event.ExchangeFailedEvent;
 import org.apache.camel.management.event.ExchangeSentEvent;
 import org.apache.camel.support.EventNotifierSupport;

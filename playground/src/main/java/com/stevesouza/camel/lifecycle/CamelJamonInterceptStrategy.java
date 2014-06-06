@@ -1,6 +1,5 @@
 package com.stevesouza.camel.lifecycle;
 
-import com.stevesouza.camel.CamelDriver;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -8,7 +7,6 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.processor.DelegateAsyncProcessor;
 import org.apache.camel.spi.InterceptStrategy;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by stevesouza on 5/29/14.

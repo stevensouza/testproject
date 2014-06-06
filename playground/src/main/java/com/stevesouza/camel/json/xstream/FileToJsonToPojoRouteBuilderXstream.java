@@ -1,9 +1,6 @@
 package com.stevesouza.camel.json.xstream;
 
 import com.stevesouza.camel.BaseRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JsonLibrary;
-import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.stereotype.Component;
 
 /**

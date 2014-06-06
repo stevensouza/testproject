@@ -1,18 +1,11 @@
 package com.stevesouza.camel;
 
 import com.stevesouza.Utils;
-import com.stevesouza.camel.json.jackson.FileToJsonToPojoRouteBuilder;
-import com.stevesouza.camel.json.xstream.FileToJsonToPojoRouteBuilderXstream;
-import com.stevesouza.camel.json.jackson.PojoToJsonToFileRouteBuilder;
-import com.stevesouza.camel.json.xstream.PojoToJsonToFileRouteBuilderXstream;
-import com.stevesouza.spring.HelloSpringBean;
 import com.stevesouza.spring.MyAutowiredClass;
-import com.stevesouza.spring.aop.MySpringAspect;
-import org.apache.camel.*;
-import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.StartupListener;
 import org.apache.camel.impl.DefaultCamelContextNameStrategy;
-import org.apache.camel.spi.InterceptStrategy;
-import org.apache.camel.spring.SpringCamelContext;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

@@ -4,11 +4,9 @@ import com.jamonapi.MonKeyImp;
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
 import com.jamonapi.utils.Misc;
-import com.stevesouza.spring.HelloSpringBean;
 import org.apache.log4j.Logger;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Aspect;
 
 /**
  * Created by stevesouza on 5/24/14.

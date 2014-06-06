@@ -1,11 +1,7 @@
 package com.stevesouza.camel;
 
-import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.springframework.stereotype.Component;
-
-import javax.inject.Inject;
 
 
 /* Camel route builder that throws an exception due to file not existing.

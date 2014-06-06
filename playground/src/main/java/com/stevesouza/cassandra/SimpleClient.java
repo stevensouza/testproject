@@ -4,7 +4,6 @@ package com.stevesouza.cassandra;
 import com.datastax.driver.core.*;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
-import org.elasticsearch.client.*;
 
 import java.util.HashSet;
 import java.util.Set;

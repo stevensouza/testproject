@@ -1,6 +1,5 @@
 package com.stevesouza.jackson;
 
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 

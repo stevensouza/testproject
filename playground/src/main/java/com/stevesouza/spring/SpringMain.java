@@ -1,17 +1,9 @@
 package com.stevesouza.spring;
 
-import com.jamonapi.Monitor;
-import com.jamonapi.MonitorFactory;
 import com.stevesouza.Utils;
-import com.stevesouza.camel.MessagePeeker;
-import org.apache.camel.Exchange;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by stevesouza on 5/24/14.

@@ -1,10 +1,9 @@
 package com.stevesouza;
 
 
-import org.junit.Test;
-
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.net.URLDecoder;
@@ -12,7 +11,6 @@ import java.net.URLEncoder;
 
 import static junit.framework.Assert.assertEquals;
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
 
 /**
  * Unit test for simple App.
