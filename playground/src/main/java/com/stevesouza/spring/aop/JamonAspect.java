@@ -24,8 +24,6 @@ import org.aspectj.lang.annotation.Aspect;
 // By default each aspect is a singleton within the applicationContext
 @Aspect
 public class JamonAspect {
-    private static final Logger LOG = Logger.getLogger(JamonAspect.class);
-
 
     // The pointcut could be defined here, but it is more flexibly defined in applicationContext.xml
     //     @Around("com.stevesouza.spring.aop.SystemAopPointcutDefinitions.camelOperation()")
@@ -34,7 +32,7 @@ public class JamonAspect {
     public Object monitor(ProceedingJoinPoint pjp) throws Throwable {
         Object retVal = null;
         String methodName = pjp.getSignature().toString();
-        MonKeyImp key = new MonKeyImp(methodName, "", "ms.");
+        MonKeyImp key = new MonKeyImp(methodName, methodName, "ms.");
         Monitor mon = MonitorFactory.start(key);
         try {
             retVal = pjp.proceed();
