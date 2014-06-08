@@ -87,5 +87,15 @@ I could use annotations (see MySpringAspect for an example
                     method="monitor"/>
         </aop:aspect>
     </aop:config>
+
+    <aop:config>
+        <aop:pointcut id="jamonMonitoringPointcut5"
+                      expression="bean(monitorMe4)"/>
+        <aop:aspect id="jamonSpringAspect2" ref="jamonAspect">
+            <aop:around
+                    pointcut-ref="jamonMonitoringPointcut5"
+                    method="monitor"/>
+        </aop:aspect>
+    </aop:config>
 </beans>
 

@@ -32,6 +32,8 @@ public class SpringMain {
 
         // monitored not with annotation, but in applicationContext.xml
         MonitorMe3 monitorMe3 = context.getBean("monitorMe3", MonitorMe3.class);
+        MonitorMe4 monitorMe4 = context.getBean("monitorMe4", MonitorMe4.class);
+
 
         for (int i=0;i<10;i++) {
             monitorMe1.myMethod();
@@ -40,6 +42,7 @@ public class SpringMain {
             monitorMe3.myMethod2("hello world");
             monitorMe3.hiMethod3("hello world", null);
             monitorMe3.anotherMethod1();
+            monitorMe4.myMethod();
             try {
                 monitorMe3.anotherMethod2(); // throws exception
             } catch (Exception e) {
