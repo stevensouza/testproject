@@ -13,4 +13,9 @@ public class MonitorMe4 {
     public void myMethod() throws Exception {
         Thread.sleep(150);
     }
+
+
+    public void myName(String fname, String lname) {
+
+    }
 }

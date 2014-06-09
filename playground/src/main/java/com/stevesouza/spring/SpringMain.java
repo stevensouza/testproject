@@ -43,6 +43,7 @@ public class SpringMain {
             monitorMe3.hiMethod3("hello world", null);
             monitorMe3.anotherMethod1();
             monitorMe4.myMethod();
+            monitorMe4.myName("steve", "souza");
             try {
                 monitorMe3.anotherMethod2(); // throws exception
             } catch (Exception e) {

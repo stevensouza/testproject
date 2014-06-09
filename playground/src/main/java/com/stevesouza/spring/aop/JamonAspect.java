@@ -1,5 +1,6 @@
 package com.stevesouza.spring.aop;
 
+import com.jamonapi.JAMonListenerFactory;
 import com.jamonapi.MonKeyImp;
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
@@ -28,16 +29,28 @@ public class JamonAspect {
     // The pointcut could be defined here, but it is more flexibly defined in applicationContext.xml
     //     @Around("com.stevesouza.spring.aop.SystemAopPointcutDefinitions.camelOperation()")
     // or  @Around("com.stevesouza.spring.aop.SystemAopPointcutDefinitions.monitorAnnotatedClass()")
+    private JamonAopKeyHelperInt keyHelper;
+
+    public JamonAspect() {
+        keyHelper = new JamonAopKeyHelper();
+    }
+
+    public JamonAspect(JamonAopKeyHelperInt keyHelper) {
+        this.keyHelper = keyHelper;
+    }
 
     public Object monitor(ProceedingJoinPoint pjp) throws Throwable {
         Object retVal = null;
-        String methodName = pjp.getSignature().toString();
-        MonKeyImp key = new MonKeyImp(methodName, methodName, "ms.");
+        String label = keyHelper.getLabel(pjp);
+        String details = keyHelper.getDetails(pjp);
+        MonKeyImp key = new MonKeyImp(label, details, "ms.");
         Monitor mon = MonitorFactory.start(key);
         try {
             retVal = pjp.proceed();
         } catch (Throwable t) {
-            trackException(key, methodName, t);
+            String exceptionDetails = keyHelper.getDetails(pjp, t);
+            key.setDetails(exceptionDetails);
+            trackException(t, exceptionDetails);
         } finally {
             mon.stop();
         }
@@ -46,14 +59,42 @@ public class JamonAspect {
     }
 
     // add monitors for the thrown exception and also put the stack trace in the details portion of the key
-    private void trackException(MonKeyImp key, String methodName, Throwable t) {
-        String details =  new StringBuffer("stackTrace=")
-                        .append(Misc.getExceptionTrace(t))
-                        .toString();
-        MonitorFactory.add(new MonKeyImp(t.getClass().getName(), details, "Exception"), 1);
-        MonitorFactory.add(new MonKeyImp(MonitorFactory.EXCEPTIONS_LABEL, details, "Exception"), 1);
-        key.setDetails(details);
+    private void trackException(Throwable exception, String exceptionDetails) {
+        MonitorFactory.add(new MonKeyImp(keyHelper.getExceptionLabel(exception), exceptionDetails, "Exception"), 1);
+        MonitorFactory.add(new MonKeyImp(MonitorFactory.EXCEPTIONS_LABEL, exceptionDetails, "Exception"), 1);
     }
 
+    public void setKeyHelper(JamonAopKeyHelperInt keyHelper) {
+        this.keyHelper = keyHelper;
+    }
+
+    public void enableExceptionBufferListener(boolean enable) {
+        if (enable) {
+            MonitorFactory.getMonitor(MonitorFactory.EXCEPTIONS_LABEL, "Exception")
+                    .addListener("value", JAMonListenerFactory.get("FIFOBuffer"));
+        } else {
+            MonitorFactory.getMonitor(MonitorFactory.EXCEPTIONS_LABEL, "Exception")
+                    .removeListener("value", "FIFOBuffer");
+        }
+                /*
+                private void addListeners(HttpServletRequest request, MonKey key) {
+  String addListener=request.getParameter("addlistener");
+  String listenerType=request.getParameter("listenertype");
+  if (addListener!=null && listenerType!=null) {
+
+   String[] add=request.getParameterValues("availablelistener");
+   int rows=(add==null) ? 0 : add.length;
+
+   if (MonitorFactory.exists(key)) {
+     Monitor mon=MonitorFactory.getMonitor(key);
+     for (int i=0;i<rows;i++) {
+
+      if (!mon.hasListener(listenerType,add[i])) {
+         JAMonListener listener=JAMonListenerFactory.get(add[i]);
+         mon.addListener(listenerType,listener);
+      }
+
+                 */
+    }
 
 }
