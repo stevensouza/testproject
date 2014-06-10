@@ -1,5 +1,6 @@
 package com.stevesouza.spring;
 
+import com.jamonapi.MonitorFactory;
 import com.stevesouza.Utils;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
@@ -52,6 +53,7 @@ public class SpringMain {
         }
 
         myAutowiredClass.getPassArgs("myStringValue", new HelloSpringBean(), "notUsedValue");
+        LOG.info("Has value FIFOBuffer listener: "+MonitorFactory.getMonitor(MonitorFactory.EXCEPTIONS_LABEL, "Exception").hasListener("value", "FIFOBuffer"));
         Utils.displayJamon();
 
     }

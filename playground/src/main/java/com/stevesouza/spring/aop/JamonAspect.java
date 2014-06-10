@@ -1,9 +1,6 @@
 package com.stevesouza.spring.aop;
 
-import com.jamonapi.JAMonListenerFactory;
-import com.jamonapi.MonKeyImp;
-import com.jamonapi.Monitor;
-import com.jamonapi.MonitorFactory;
+import com.jamonapi.*;
 import com.jamonapi.utils.Misc;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -70,32 +67,13 @@ public class JamonAspect {
     }
 
     public void setExceptionBufferListener(boolean enable) {
-        if (enable) {
-            MonitorFactory.getMonitor(MonitorFactory.EXCEPTIONS_LABEL, "Exception")
-                    .addListener("value", JAMonListenerFactory.get("FIFOBuffer"));
-        } else {
-            MonitorFactory.getMonitor(MonitorFactory.EXCEPTIONS_LABEL, "Exception")
-                    .removeListener("value", "FIFOBuffer");
+        MonKey key = new MonKeyImp(MonitorFactory.EXCEPTIONS_LABEL, "Exception");
+        boolean hasBufferListener = MonitorFactory.getMonitor(key).hasListener("value", "FIFOBuffer");
+
+        if (enable && !hasBufferListener) {
+          MonitorFactory.getMonitor(key).addListener("value", JAMonListenerFactory.get("FIFOBuffer"));
+        } else if (!enable && hasBufferListener) {
+          MonitorFactory.getMonitor(key).removeListener("value", "FIFOBuffer");
         }
-                /*
-                private void addListeners(HttpServletRequest request, MonKey key) {
-  String addListener=request.getParameter("addlistener");
-  String listenerType=request.getParameter("listenertype");
-  if (addListener!=null && listenerType!=null) {
-
-   String[] add=request.getParameterValues("availablelistener");
-   int rows=(add==null) ? 0 : add.length;
-
-   if (MonitorFactory.exists(key)) {
-     Monitor mon=MonitorFactory.getMonitor(key);
-     for (int i=0;i<rows;i++) {
-
-      if (!mon.hasListener(listenerType,add[i])) {
-         JAMonListener listener=JAMonListenerFactory.get(add[i]);
-         mon.addListener(listenerType,listener);
-      }
-
-                 */
     }
-
 }
