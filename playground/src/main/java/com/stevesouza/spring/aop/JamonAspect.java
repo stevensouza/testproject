@@ -51,6 +51,7 @@ public class JamonAspect {
             String exceptionDetails = keyHelper.getDetails(pjp, t);
             key.setDetails(exceptionDetails);
             trackException(t, exceptionDetails);
+            throw t;
         } finally {
             mon.stop();
         }
