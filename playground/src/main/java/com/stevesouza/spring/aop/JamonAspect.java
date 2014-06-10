@@ -68,7 +68,7 @@ public class JamonAspect {
         this.keyHelper = keyHelper;
     }
 
-    public void enableExceptionBufferListener(boolean enable) {
+    public void setExceptionBufferListener(boolean enable) {
         if (enable) {
             MonitorFactory.getMonitor(MonitorFactory.EXCEPTIONS_LABEL, "Exception")
                     .addListener("value", JAMonListenerFactory.get("FIFOBuffer"));

@@ -101,6 +101,7 @@ I could use annotations (see MySpringAspect for an example
 
 
     <bean id="jamonAspect" class="com.stevesouza.spring.aop.JamonAspect">
+        <property name="exceptionBufferListener" value="true" />
         <!-- look how to enable/disable exception fifo buffer listener on all values -->
         <!--     <constructor-arg ref="jamonAopKeyHelper" /> -->
         <!--   <constructor-arg ref="jamonAopKeyHelperWithArgs" /> -->
