@@ -15,6 +15,6 @@ public class MessageUsingBeanRouteBuilder extends BaseRouteBuilder {
         from("direct:messageusingbean").
                 routeId(getClass().getSimpleName()). // Note if you don't do this the route would be called route1 etc.
                 beanRef("messagePeekerBean").
-        to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out/?fileName=${headers.filename}");
+        to(getOutputDir()+"?fileName=${headers.filename}");
     }
 }

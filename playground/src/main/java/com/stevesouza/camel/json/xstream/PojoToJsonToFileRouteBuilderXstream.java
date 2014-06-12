@@ -28,6 +28,6 @@ public class PojoToJsonToFileRouteBuilderXstream extends BaseRouteBuilder {
           // 2) calls intercept
           .log("from pojo to json: messageid=${id}, Person name as json=${body}")
           // 3) calls intercept
-          .to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out/?fileName=personsnamexstream_pojotojson.json");
+          .to(getOutputDir()+"?fileName=personsnamexstream_pojotojson.json");
     }
 }

@@ -19,13 +19,13 @@ public class FileCopyRouteBuilder extends BaseRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in?noop=true").
+        from(getInputDir()+"?noop=true").
                 routeId(getClass().getSimpleName()).
                 setHeader("myheader", constant("my first header value")).
                 log("messageid=${id}, myheader=${headers.myheader}, allheaders=${headers}").
                //marshal().json(JsonLibrary.Jackson).
                 process(messagePeeker).
-                to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out").
+                to(getOutputDir()).
                 log("messageid=${id}, myheader=${headers.myheader}, allheaders=${in.headers}");
     }
 }

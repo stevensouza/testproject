@@ -33,6 +33,6 @@ public class PojoToJsonToFileRouteBuilder extends BaseRouteBuilder {
           // 2) calls intercept
           .log("from pojo to json: messageid=${id}, Person name as json=${body}")
           // 3) calls intercept
-          .to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out/?fileName=personsname_pojotojson.json");
+          .to(getOutputDir()+"?fileName=personsname_pojotojson.json");
     }
 }

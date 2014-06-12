@@ -20,9 +20,9 @@ public class ExceptionFileCopyRouteBuilder extends BaseRouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in2?noop=true").
+        from(getInput2Dir()+"?noop=true").
           process(new MyExceptionProcessor()).
-          to("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/out");
+          to(getOutputDir());
     }
 
     private static class MyExceptionProcessor implements Processor {

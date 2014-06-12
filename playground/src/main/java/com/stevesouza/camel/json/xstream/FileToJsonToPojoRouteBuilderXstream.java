@@ -12,7 +12,7 @@ public class FileToJsonToPojoRouteBuilderXstream extends BaseRouteBuilder {
     @Override
     public void configure() throws Exception {
         // jackson at least by default required PersonsName.class whereas xstream doesn't (class name is in the json)
-        from("file:/Users/stevesouza/gitrepo/testproject/playground/src/main/resources/data/in2?fileName=personsnamexstream.json&noop=true")
+        from(getInput2Dir()+"?fileName=personsnamexstream.json&noop=true")
         .routeId(getClass().getSimpleName())
         .unmarshal().json()
         .log("json file to pojo (unmarshal): messageid=${id}, Person name pojo=${body}");

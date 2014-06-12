@@ -1,5 +1,6 @@
 package com.stevesouza.camel;
 
+import com.stevesouza.Utils;
 import com.stevesouza.camel.lifecycle.MyInterceptProcessor;
 import org.apache.camel.spring.SpringRouteBuilder;
 
@@ -22,6 +23,17 @@ public abstract class BaseRouteBuilder extends SpringRouteBuilder {
 //    @Named("interceptFromProcessor")
 //   protected MyInterceptProcessor interceptFromProcessor;
 
+    protected String getInput2Dir() {
+        return Utils.getInput2Dir();
+    }
+
+    protected String getInputDir() {
+        return Utils.getInputDir();
+    }
+
+    protected String getOutputDir() {
+        return Utils.getOutputDir();
+    }
 
     protected void useInterceptors() {
         // not clear how this relates to all the other forms of intercepting that can occur via Spring and camel.
