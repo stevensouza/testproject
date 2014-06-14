@@ -7,7 +7,13 @@ import org.aspectj.lang.ProceedingJoinPoint;
  * Created by stevesouza on 6/10/14.
  */
 public abstract class JamonAopMethodInvoker<T> {
+
     private JamonAopKeyHelperInt<T> keyHelper;
+
+    public JamonAopMethodInvoker(JamonAopKeyHelperInt keyHelper) {
+        this.keyHelper = keyHelper;
+    }
+
     public Object monitor(T invoker) throws Throwable {
         Object retVal = null;
         String label = keyHelper.getLabel(invoker);
@@ -15,7 +21,7 @@ public abstract class JamonAopMethodInvoker<T> {
         MonKeyImp key = new MonKeyImp(label, details, "ms.");
         Monitor mon = MonitorFactory.start(key);
         try {
-            retVal = proceed();
+            retVal = proceed(invoker);
         } catch (Throwable t) {
             String exceptionDetails = keyHelper.getDetails(invoker, t);
             key.setDetails(exceptionDetails);
@@ -28,7 +34,8 @@ public abstract class JamonAopMethodInvoker<T> {
         return retVal;
     }
 
-    abstract protected Object proceed();
+    /** The normal proceed method.  This would have a different implementation for say a MethodInvocation or JoinPoint */
+    abstract protected Object proceed(T invoker) throws Throwable;
 
     // add monitors for the thrown exception and also put the stack trace in the details portion of the key
     private void trackException(Throwable exception, String exceptionDetails) {
@@ -50,4 +57,5 @@ public abstract class JamonAopMethodInvoker<T> {
             MonitorFactory.getMonitor(key).removeListener("value", "FIFOBuffer");
         }
     }
+
 }

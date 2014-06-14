@@ -20,5 +20,4 @@ public interface JamonAopKeyHelperInt<T> {
     public String getDetails(T proceedingJoinPoint);
     /**  details for when an exception occurred in the method */
     public String getDetails(T proceedingJoinPoint, Throwable exception);
-
 }

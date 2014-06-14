@@ -85,16 +85,16 @@ I could use annotations (see MySpringAspect for an example
     <!-- default for jamon aspects if you don't specify a key helper.
          based class key generator (lable and details) which doesn't track arguments
     -->
-    <bean class="com.stevesouza.spring.aop.JamonAopKeyHelper"/>
+    <bean class="com.stevesouza.spring.aop.JamonAopKeyHelperSimple"/>
 
     <!-- puts args in jamon details. note either doing it for standard execution or exceptions can be disabled
          independently
      -->
-    <bean class="com.stevesouza.spring.aop.JamonAopKeyHelperWithArgs"/>
+    <bean class="com.stevesouza.spring.aop.JamonAopKeyHelper"/>
 
 
     <!-- disable -->
-    <bean id="jamonAopKeyHelperWithArgsDisabled" class="com.stevesouza.spring.aop.JamonAopKeyHelperWithArgs">
+    <bean id="jamonAopKeyHelperWithArgsDisabled" class="com.stevesouza.spring.aop.JamonAopKeyHelper">
       <property name="useArgsWithMethodDetails" value="false" />
       <property name="useArgsWithExceptionDetails" value="false" />
     </bean>
