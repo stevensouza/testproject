@@ -15,7 +15,7 @@ public class JamonAopKeyHelperTest {
     private static final String SIGNATURE = "void com.stevesouza.spring.MonitorMeClass.anotherMethod(String)";
     private static final String EXCEPTION_LABEL = FileNotFoundException.class.getName();
 
-    private JamonAopKeyHelper helper = new JamonAopKeyHelper();
+    private JamonAopKeyHelper helper;
 
     private ProceedingJoinPoint pjp;
     private Signature signature;
@@ -27,6 +27,9 @@ public class JamonAopKeyHelperTest {
         signature  = mock(Signature.class);
         when(pjp.getSignature()).thenReturn(signature);
         when(signature.toString()).thenReturn(SIGNATURE);
+        helper = new JamonAopKeyHelper();
+        helper.setUseArgsWithExceptionDetails(true);
+        helper.setUseArgsWithMethodDetails(true);
     }
 
     @Test
