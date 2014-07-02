@@ -17,6 +17,7 @@
       <joda.version>2.3</joda.version>
       <camel.version>2.13.1</camel.version>
       <jamonapi.version>2.76</jamonapi.version>
+      <hazelcast.version>3.2.3</hazelcast.version>
   </properties>
 
   <dependencies>
@@ -214,6 +215,12 @@
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
           <version>17.0</version>
+      </dependency>
+
+      <dependency>
+          <groupId>com.hazelcast</groupId>
+          <artifactId>hazelcast-all</artifactId>
+          <version>${hazelcast.version}</version>
       </dependency>
 
       <!-- for spring aop -->
