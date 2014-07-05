@@ -4,6 +4,7 @@ import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.jamonapi.MonKey;
+import com.jamonapi.MonitorComposite;
 import com.jamonapi.MonitorFactory;
 
 import java.util.*;
@@ -37,29 +38,26 @@ import java.util.concurrent.TimeUnit;
 public class HazelcastDriver {
     // could be Map if we don't want the instance methods of hazelcast
     private IMap map;
+    private HazelcastInstance hazelCastInstance = Hazelcast.newHazelcastInstance();
 
     public HazelcastDriver() {
-        HazelcastInstance instance = Hazelcast.newHazelcastInstance();
-        map = instance.getMap("MyDistributedMap");
+        map = hazelCastInstance.getMap("MyDistributedMap");
    //     MonitorFactory.setMap(map);
     }
 
     public static void main(String[] args) throws InterruptedException {
         HazelcastDriver driver = new HazelcastDriver();
+        String nodeName = driver.hazelCastInstance.getCluster().getLocalMember().toString();
         int i=0;
         while (true) {
             i++;
             MonitorFactory.add(args[0] + "-" + i, "count", i);
-           // driver.map.putIfAbsent(args[0] + "-" + i, "myvalue" + i);
             TimeUnit.SECONDS.sleep(1);
             if (i%10==0) {
-                Set<Map.Entry<Object, Object>> set = MonitorFactory.getMap().entrySet();
-                Iterator iter = set.iterator();
-                while (iter.hasNext()) {
-                    Map.Entry<Object, Object> entry = (Map.Entry<Object, Object>) iter.next();
-                    driver.map.putIfAbsent(entry.getKey().toString(), entry.getValue().toString());
-                }
-                System.out.println("****distributed mapsize: " + driver.map.size() + ", values: " + new TreeMap(driver.map));
+                driver.map.put(nodeName, MonitorFactory.getRootMonitor());
+                MonitorComposite composite =  (MonitorComposite) driver.map.get(nodeName);
+                System.out.println("****distributed mapsize: " + driver.map.size() + ", MonitorComposite rows: " + composite.getNumRows());
+                System.out.println("**** cluster members: "+driver.hazelCastInstance.getCluster().getMembers());
             }
         }
     }
