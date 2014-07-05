@@ -16,6 +16,23 @@ import java.util.concurrent.TimeUnit;
  *
  * mvn exec:java -Dexec.mainClass="com.stevesouza.ditributedmap.HazelcastDriver" -Dexec.args="arg1"
  * mvn exec:java -Dexec.mainClass="com.stevesouza.ditributedmap.HazelcastDriver" -Dexec.args="zarg2"
+ *
+ * From HazelCast documentation:
+ *
+ * get
+ *
+ *  V get(Object key)
+ * Returns the value for the specified key, or null if this map does not contain this key.
+ * Warning:
+ * This method returns a clone of original value, modifying the returned value does not change the actual value in the map. One should put modified value back to make changes visible to all nodes.
+ *
+ * V value = map.get(key);
+ * value.updateSomeProperty();
+ * map.put(key, value);
+ *
+ * Warning-2:
+ *
+ * This method uses hashCode and equals of binary form of the key, not the actual implementations of hashCode and equals defined in key's class.
  */
 public class HazelcastDriver {
     // could be Map if we don't want the instance methods of hazelcast
