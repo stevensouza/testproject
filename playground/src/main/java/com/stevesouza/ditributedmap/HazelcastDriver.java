@@ -37,12 +37,25 @@ import java.util.concurrent.TimeUnit;
  */
 public class HazelcastDriver {
     // could be Map if we don't want the instance methods of hazelcast
-    private IMap map;
+    private IMap<String, MonitorComposite> map;
     private HazelcastInstance hazelCastInstance = Hazelcast.newHazelcastInstance();
 
     public HazelcastDriver() {
-        map = hazelCastInstance.getMap("MyDistributedMap");
-   //     MonitorFactory.setMap(map);
+        map = hazelCastInstance.getMap("com.jamonapi");
+    }
+
+
+    public IMap<String, MonitorComposite> getMap() {
+        return map;
+    }
+
+
+    public void put(String key, MonitorComposite monitorComposite) {
+        map.set(key, monitorComposite);
+    }
+
+    public MonitorComposite get(String key) {
+        return map.get(key);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -54,9 +67,9 @@ public class HazelcastDriver {
             MonitorFactory.add(args[0] + "-" + i, "count", i);
             TimeUnit.SECONDS.sleep(1);
             if (i%10==0) {
-                driver.map.put(nodeName, MonitorFactory.getRootMonitor());
-                MonitorComposite composite =  (MonitorComposite) driver.map.get(nodeName);
-                System.out.println("****distributed mapsize: " + driver.map.size() + ", MonitorComposite rows: " + composite.getNumRows());
+                driver.put(nodeName, MonitorFactory.getRootMonitor());
+                MonitorComposite composite =  driver.get(nodeName);
+                System.out.println("****distributed mapsize: " + driver.getMap().size() + ", MonitorComposite rows: " + composite.getNumRows());
                 System.out.println("**** cluster members: "+driver.hazelCastInstance.getCluster().getMembers());
             }
         }
