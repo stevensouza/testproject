@@ -31,7 +31,9 @@ import org.apache.commons.logging.Log;
 /**
  * Performance monitor interceptor that uses <b>JAMon</b> library
  * to perform the performance measurement on the intercepted method
- * and output the stats.
+ * and output the stats. In addition it can track/count exceptions
+ * thrown by the intercepted method the stacktraces can be viewed in
+ * the JAMon web application.
  *
  * <p>This code is inspired by Thierry Templier's blog.
  *
@@ -58,7 +60,7 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
      * Create a new JamonPerformanceMonitorInterceptor with a dynamic or static logger,
      * according to the given flag.
      * @param useDynamicLogger whether to use a dynamic logger or a static logger
-     * @see #setUseDynamicLogger
+     * @see #setUseDynamicLogger(boolean)
      */
     public JamonPerformanceMonitorInterceptor(boolean useDynamicLogger) {
         setUseDynamicLogger(useDynamicLogger);
@@ -70,7 +72,8 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
      * @param useDynamicLogger whether to use a dynamic logger or a static logger
      * @param trackAllInvocations whether to track all invocations that go through
      * this interceptor, or just invocations with trace logging enabled
-     * @see #setUseDynamicLogger
+     * @see #setUseDynamicLogger(boolean)
+     * @see #setTrackAllInvocations(boolean)
      */
     public JamonPerformanceMonitorInterceptor(boolean useDynamicLogger, boolean trackAllInvocations) {
         this(useDynamicLogger, trackAllInvocations, false);
@@ -83,7 +86,9 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
      * @param trackAllInvocations whether to track all invocations that go through
      * this interceptor, or just invocations with trace logging enabled
      * @param trackExceptions whether to track/count exceptions that are thrown
-     * @see #setUseDynamicLogger
+     * @see #setUseDynamicLogger(boolean)
+     * @see #setTrackAllInvocations(boolean)
+     * @see #setTrackExceptions(boolean)
      * @since 4.1
      */
     public JamonPerformanceMonitorInterceptor(boolean useDynamicLogger, boolean trackAllInvocations, boolean trackExceptions) {
@@ -104,8 +109,8 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
     }
 
     /**
-     * Set whether to track/count all exceptions thrown by invocations that go through this interceptor.
-     * In addition stack traces will be visible through the JAMon war if this is enabled.
+     * Set whether to track/count exceptions thrown by invocations that go through this interceptor.
+     * In addition stack traces will be able available to be viewed with the JAMon web application.
      * <p>For backwards compatibility the default is "false", however it is recommended that
      * it is enabled.</p>
      * @since  4.1
@@ -154,18 +159,20 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
 
 
     /**
-     * Add monitors for the thrown exception and also put the stack trace in the details portion of the key.
-     * This will allow the stack trace to be displayed in the JAMon war.
+     * Count the thrown exception and also put the stack trace in the details portion of the key.
+     * This will allow the stack trace to be viewed in the JAMon web application.
      * @since 4.1
      */
     private void trackException(MonKeyImp key, Throwable exception) {
-        String stackTrace = new StringBuffer()
+        String stackTrace = new StringBuilder()
                 .append("stackTrace=")
                 .append(Misc.getExceptionTrace(exception))
                 .toString();
 
         key.setDetails(stackTrace);
+        // Specific exception counter. Example: java.lang.RuntimeException
         MonitorFactory.add(new MonKeyImp(exception.getClass().getName(), stackTrace, EXCEPTION), 1);
+        // General exception counter which is a total for all exceptions thrown
         MonitorFactory.add(new MonKeyImp(MonitorFactory.EXCEPTIONS_LABEL, stackTrace, EXCEPTION), 1);
     }
 
