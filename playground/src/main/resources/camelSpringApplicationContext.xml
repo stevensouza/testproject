@@ -73,15 +73,19 @@ I could use annotations (see com.stevesouza.spring.aop.MySpringAspect, and com.s
 for examples of configuring aop this way.)
  -->
 
-    <bean id="jamonMonitoringAspectInterceptor" class="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor">
+    <!--   <bean id="jamonMonitoringAspectInterceptor" class="org.springframework.aop.interceptor.JamonPerformanceMonitorInterceptor"> -->
+
+    <!-- testing my spring contribution -->
+    <bean id="jamonMonitoringAspectInterceptor" class="com.stevesouza.spring.contrib.JamonPerformanceMonitorInterceptor">
         <property name="trackAllInvocations" value="true"></property>
+        <property name="trackExceptions" value="true"></property>
     </bean>
 
-    <aop:config proxy-target-class="true">
-            <aop:pointcut id="jamonMonitoringPointcut"
-                expression="execution(* com.stevesouza.spring.MyAutowiredClass.getSlowerMethod(..))"/>
-            <aop:advisor pointcut-ref="jamonMonitoringPointcut" advice-ref="jamonMonitoringAspectInterceptor"/>
-    </aop:config>
+        <aop:config proxy-target-class="true">
+                <aop:pointcut id="jamonMonitoringPointcut"
+                    expression="execution(* com.stevesouza.spring.MyAutowiredClass.getSlowerMethod(..))"/>
+                <aop:advisor pointcut-ref="jamonMonitoringPointcut" advice-ref="jamonMonitoringAspectInterceptor"/>
+        </aop:config>
 
-</beans>
+    </beans>
 
