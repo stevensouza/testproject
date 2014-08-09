@@ -10,6 +10,14 @@
   <name>playground</name>
   <url>http://maven.apache.org</url>
 
+    <repositories>
+        <repository>
+            <id>in-project</id>
+            <name>In Project Repo</name>
+             <url>file://${project.basedir}/libs</url>
+         </repository>
+    </repositories>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <jackson-2-version>2.2.2</jackson-2-version>
@@ -18,9 +26,16 @@
       <camel.version>2.13.1</camel.version>
       <jamonapi.version>2.78</jamonapi.version>
       <hazelcast.version>3.3-RC2</hazelcast.version>
+      <fdsapi.version>1.2</fdsapi.version>
   </properties>
 
   <dependencies>
+
+      <dependency>
+          <groupId>fdsapi-groupid</groupId>
+          <artifactId>fdsapi</artifactId>
+          <version>1.2</version>
+      </dependency>
 
       <dependency>
           <groupId>org.apache.commons</groupId>
