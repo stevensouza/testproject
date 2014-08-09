@@ -1,12 +1,11 @@
 package com.stevesouza.ditributedmap;
 
-import com.hazelcast.core.Hazelcast;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
+import com.hazelcast.core.*;
 import com.jamonapi.MonKey;
 import com.jamonapi.MonitorComposite;
 import com.jamonapi.MonitorFactory;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -36,12 +35,14 @@ import java.util.concurrent.TimeUnit;
  * This method uses hashCode and equals of binary form of the key, not the actual implementations of hashCode and equals defined in key's class.
  */
 public class HazelcastDriver {
+    public static final String MAP_NAME = "com.jamonapi";
     // could be Map if we don't want the instance methods of hazelcast
     private IMap<String, MonitorComposite> map;
     private HazelcastInstance hazelCastInstance = Hazelcast.newHazelcastInstance();
 
+
     public HazelcastDriver() {
-        map = hazelCastInstance.getMap("com.jamonapi");
+        map = hazelCastInstance.getMap(MAP_NAME);
     }
 
 
@@ -61,6 +62,7 @@ public class HazelcastDriver {
     public static void main(String[] args) throws InterruptedException {
         HazelcastDriver driver = new HazelcastDriver();
         String nodeName = driver.hazelCastInstance.getCluster().getLocalMember().toString();
+        IExecutorService executorService = driver.hazelCastInstance.getExecutorService("my-distributed-executor");
         int i=0;
         while (true) {
             i++;
@@ -69,9 +71,39 @@ public class HazelcastDriver {
             if (i%10==0) {
                 driver.put(nodeName, MonitorFactory.getRootMonitor());
                 MonitorComposite composite =  driver.get(nodeName);
+                executorService.executeOnKeyOwner(new MessagePrinter("message to the member that owns the following key", nodeName), nodeName);
                 System.out.println("****distributed mapsize: " + driver.getMap().size() + ", MonitorComposite rows: " + composite.getNumRows());
                 System.out.println("**** cluster members: "+driver.hazelCastInstance.getCluster().getMembers());
             }
+        }
+    }
+
+
+
+    // execute this code on each member in the cluster
+    static class MessagePrinter implements Runnable, Serializable, HazelcastInstanceAware {
+        public static final String MAP_NAME = "com.jamonapi";
+
+        private final String message;
+        private final String key;// nodename
+        private transient HazelcastInstance hazelcastInstance;
+
+        MessagePrinter(String message, String key) {
+            this.message = message;
+            this.key = key;
+        }
+
+        @Override
+        public void run() {
+            Map<String, MonitorComposite> map =  hazelcastInstance.getMap(MAP_NAME);
+            //Hazelcast.getAllHazelcastInstances();
+            System.out.println("** Executor service message: key="+key+", instanceName="+hazelcastInstance.toString()+", MonitorComposite="+map.get(key));
+        }
+
+        @Override
+        public void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
+            System.out.println("setting local instance");
+            this.hazelcastInstance = hazelcastInstance;
         }
     }
 }
