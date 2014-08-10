@@ -1,6 +1,10 @@
 package com.stevesouza.ditributedmap;
 
+import com.fdsapi.ResultSetConverter;
+import com.fdsapi.arrays.ArraySQL;
 import com.hazelcast.core.*;
+import com.hazelcast.map.AbstractEntryProcessor;
+import com.hazelcast.map.EntryProcessor;
 import com.jamonapi.MonKey;
 import com.jamonapi.MonitorComposite;
 import com.jamonapi.MonitorFactory;
@@ -8,6 +12,7 @@ import com.jamonapi.MonitorFactory;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by stevesouza on 7/2/14.
@@ -67,43 +72,93 @@ public class HazelcastDriver {
         while (true) {
             i++;
             MonitorFactory.add(args[0] + "-" + i, "count", i);
+            MonitorFactory.add("steve", "count", 1);
             TimeUnit.SECONDS.sleep(1);
-            if (i%10==0) {
+            if (i%20==0) {
                 driver.put(nodeName, MonitorFactory.getRootMonitor());
                 MonitorComposite composite =  driver.get(nodeName);
-                executorService.executeOnKeyOwner(new MessagePrinter("message to the member that owns the following key", nodeName), nodeName);
-                System.out.println("****distributed mapsize: " + driver.getMap().size() + ", MonitorComposite rows: " + composite.getNumRows());
-                System.out.println("**** cluster members: "+driver.hazelCastInstance.getCluster().getMembers());
+                // go to key owner and execute code.  this makes it so data doesn't have to cross the network.
+                executorService.executeOnKeyOwner(new MessagePrinter(nodeName), nodeName);
+                // The same concept as above but a different approach. It uses EntryProcessors to do the trick.  Will
+                // probably use this approach in jamon to run arraysql against the data.
+                Map<String, Object> map = driver.getMap().executeOnKeys(new TreeSet<String>(driver.getMap().keySet()), new DistributedJamonFilter(nodeName, "select * from array"));
+                System.out.println("entryProcessor return map size: "+map.size()+", map="+map);
+                System.out.println("nodeName:  " + nodeName + ", MonitorComposite rows: " + composite.getNumRows());
+                System.out.println("rows in jamon map: "+driver.getMap().size());
+                System.out.println();
             }
         }
     }
 
 
-
     // execute this code on each member in the cluster
+    // Note Callable allows you to return a value.
     static class MessagePrinter implements Runnable, Serializable, HazelcastInstanceAware {
+        private static final long serialVersionUID = 279L;
         public static final String MAP_NAME = "com.jamonapi";
 
-        private final String message;
         private final String key;// nodename
         private transient HazelcastInstance hazelcastInstance;
+        private String string;
 
-        MessagePrinter(String message, String key) {
-            this.message = message;
+        MessagePrinter(String key) {
             this.key = key;
         }
 
         @Override
         public void run() {
             Map<String, MonitorComposite> map =  hazelcastInstance.getMap(MAP_NAME);
+            MonitorComposite monitorComposite = map.get(key);
+            string = monitorComposite.toString();
             //Hazelcast.getAllHazelcastInstances();
-            System.out.println("** Executor service message: key="+key+", instanceName="+hazelcastInstance.toString()+", MonitorComposite="+map.get(key));
+            ResultSetConverter rsc = new ResultSetConverter(monitorComposite.getHeader(), monitorComposite.getData());
+            rsc = rsc.execute("select * from array");
+        }
+
+        public String getData() {
+            return string;
         }
 
         @Override
         public void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
-            System.out.println("setting local instance");
             this.hazelcastInstance = hazelcastInstance;
         }
     }
+
+    // EntryProcessors go to the jvm that owns the key and executes the code locally.  So it covers data locality
+    // much like hadoop.
+    private static class DistributedJamonFilter extends AbstractEntryProcessor<String, MonitorComposite> implements  Serializable{
+        private static final long serialVersionUID = 279L;
+
+        private static AtomicInteger idGenerator=new AtomicInteger();
+        private int id;
+        private String generatingNode;
+        private String arraySql;
+
+
+        public DistributedJamonFilter(String generatingNode, String arraySql) {
+            id = idGenerator.incrementAndGet();
+            this.generatingNode = generatingNode;
+            this.arraySql = arraySql;
+        }
+
+        @Override
+        public Object process(Map.Entry<String, MonitorComposite> entry) {
+            String key = entry.getKey();
+            MonitorComposite monitorComposite = entry.getValue();
+            if (monitorComposite!=null) {
+                System.out.println("EntryProcessor key=" + key +", id="+id+ ", monitorComposite rows = " + monitorComposite.getNumRows()+", generatingNode="+generatingNode);
+            } else {
+                System.out.println("EntryProcessor key=" + key +", id="+id + ",  monitorComposite rows = NO DATA"+", generatingNode="+generatingNode);
+            }
+
+            // Just executing this as a placeholder for the logic that will go in jamon.
+            // It is currently a noop.
+            ResultSetConverter rsc = new ResultSetConverter(monitorComposite.getHeader(), monitorComposite.getData()).execute(arraySql);
+
+            return monitorComposite;
+        }
+    }
+
+
 }
