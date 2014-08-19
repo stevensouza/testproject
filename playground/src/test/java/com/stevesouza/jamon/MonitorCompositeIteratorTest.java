@@ -6,10 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-import static org.junit.Assert.*;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 
@@ -39,7 +37,7 @@ public class MonitorCompositeIteratorTest {
     }
 
     private int size(MonitorCompositeIterator iter) {
-        int size=0;
+        int size = 0;
         while (iter.hasNext()) {
             size++;
         }
@@ -65,7 +63,9 @@ public class MonitorCompositeIteratorTest {
         MonitorCompositeIterator iter = new MonitorCompositeIterator(set);
         int size = size(iter);
 
-        assertThat(size).isEqualTo(monitorComposite1.getNumRows()+monitorComposite2.getNumRows());
+        assertThat(size).isEqualTo(monitorComposite1.getNumRows() + monitorComposite2.getNumRows());
 
     }
+
 }
+
