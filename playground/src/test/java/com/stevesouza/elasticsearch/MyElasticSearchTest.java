@@ -102,8 +102,8 @@ public class MyElasticSearchTest {
         assertThat(getResponse.getId()).isEqualTo(ID);
     }
 
-      @Test
-         public void testMatch_AllQuery() throws InterruptedException {
+     @Test
+     public void testMatch_AllQuery() throws InterruptedException {
         IndexResponse response = indexDocument();
         displayIndexResponse(response);
         // note when a document is indexed it can take a configurable amount of time before
@@ -140,7 +140,7 @@ public class MyElasticSearchTest {
         displayIndexResponse(response);
         Thread.sleep(2000);
 
-        // note there is no "query" outer wrappe below.  The following can take any json formatted query though.  handy!
+        // note there is no "query" outer wrapper below.  The following can take any json formatted query though.  handy!
         SearchResponse searchResponse =  client.prepareSearch()
                 .setQuery(QueryBuilders.wrapperQuery("{\"match_all\": {}}"))
                 .execute()
