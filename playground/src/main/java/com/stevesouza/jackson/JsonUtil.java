@@ -1,6 +1,7 @@
 package com.stevesouza.jackson;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.io.IOException;
@@ -13,6 +14,8 @@ public class JsonUtil {
     public static String toJsonString(Object pojo) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+        // done so MonitorComposite didn't fail on rangeHolder.  Not sure what should be done.
+        mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
         String json = null;
         try {
             json = mapper.writeValueAsString(pojo);
