@@ -1,5 +1,7 @@
 package com.stevesouza.jackson;
 
+import com.jamonapi.Monitor;
+import com.jamonapi.MonitorFactory;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -23,4 +25,17 @@ public class JsonUtilTest {
         System.out.println(pojo.getFname());
    
      }
+
+
+
+    @Test
+    public void shouldConvertJamonToJson() throws IOException {
+        Monitor m1 = MonitorFactory.start("m1").stop();
+        Monitor m2 = MonitorFactory.start("m2").stop();
+        Monitor m3 = MonitorFactory.start("m3").stop();
+        Monitor m4 = MonitorFactory.add("m4", "counter", 1);
+
+        String json=JsonUtil.toJsonString(MonitorFactory.getRootMonitor());
+        System.out.println(json);
+    }
 }
