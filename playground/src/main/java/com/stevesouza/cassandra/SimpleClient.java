@@ -4,7 +4,9 @@ package com.stevesouza.cassandra;
 import com.datastax.driver.core.*;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
+import org.apache.cassandra.service.CassandraDaemon;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -147,13 +149,21 @@ public class SimpleClient {
         System.out.println();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        System.setProperty("cassandra.start_native_transport", "true");
+
+        CassandraDaemon cassandraDaemon = new CassandraDaemon();
+        cassandraDaemon.init(null);
+        cassandraDaemon.start();
+
         SimpleClient client = new SimpleClient();
         client.connect("127.0.0.1");
-       // client.createSchema();
+        client.createSchema();
         client.loadData();
         client.loadDataBound();
         client.querySchema();
         client.close();
+
+        cassandraDaemon.deactivate();
     }
 }
