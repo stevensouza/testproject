@@ -6,6 +6,7 @@ import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 import org.apache.cassandra.service.CassandraDaemon;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +25,7 @@ import java.util.UUID;
  *
  * Created by stevesouza on 4/29/14.
  */
-public class SimpleClient {
+public class SimpleClient implements Closeable {
 
     private Cluster cluster;
     private Session session;
@@ -43,6 +44,7 @@ public class SimpleClient {
     }
 
     public void close() {
+        System.out.println("shutting down cassandra client");
         cluster.close();
     }
 
@@ -149,21 +151,35 @@ public class SimpleClient {
         System.out.println();
     }
 
+    public static class CassandraDaemonCloseable extends CassandraDaemon implements Closeable {
+
+        @Override
+        public void close()  {
+            System.out.println("shutting down casandra");
+            deactivate();
+        }
+    }
+
     public static void main(String[] args) throws IOException {
-        System.setProperty("cassandra.start_native_transport", "true");
+        // can do cassandra properties like this or in cassandra.yaml (i think)
+        // System.setProperty("cassandra.start_native_transport", "true");
 
-        CassandraDaemon cassandraDaemon = new CassandraDaemon();
-        cassandraDaemon.init(null);
-        cassandraDaemon.start();
 
-        SimpleClient client = new SimpleClient();
-        client.connect("127.0.0.1");
-        client.createSchema();
-        client.loadData();
-        client.loadDataBound();
-        client.querySchema();
-        client.close();
+        // try-with-resources - closes resources automatically.
+        try (
+                CassandraDaemonCloseable cassandraDaemon = new CassandraDaemonCloseable();
+                SimpleClient client = new SimpleClient();
+        ) {
+            cassandraDaemon.init(null);
+            cassandraDaemon.start();
+            client.connect("127.0.0.1");
+            client.createSchema();
+            client.loadData();
+            client.loadDataBound();
+            client.querySchema();
+        }
 
-        cassandraDaemon.deactivate();
+
+
     }
 }

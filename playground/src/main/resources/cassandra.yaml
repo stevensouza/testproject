@@ -136,6 +136,12 @@ rpc_port: 9272
 # enable or disable keepalive on rpc connections
 rpc_keepalive: true
 
+# (Default: false ) Enable or disable the native transport server.
+# Currently, only the Thrift server is started by default because the native transport is considered beta.
+# Note that the address on which the native transport is bound is the same as the rpc_address.
+# However, the port is different from the rpc_port and specified in native_transport_port.
+start_native_transport: true
+
 # uncomment to set socket buffer sizes on rpc connections
 # rpc_send_buff_size_in_bytes:
 # rpc_recv_buff_size_in_bytes:
