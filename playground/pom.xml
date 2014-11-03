@@ -19,15 +19,35 @@
     </repositories>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <jdk.version>1.7</jdk.version>
       <jackson-2-version>2.2.2</jackson-2-version>
       <metrics.version>3.0.1</metrics.version>
       <joda.version>2.3</joda.version>
-      <camel.version>2.13.1</camel.version>
+      <camel.version>2.14.0</camel.version>
       <jamonapi.version>2.79</jamonapi.version>
-      <hazelcast.version>3.3-RC2</hazelcast.version>
+      <hazelcast.version>3.3.1</hazelcast.version>
       <fdsapi.version>1.2</fdsapi.version>
+      <spring.version>4.1.1.RELEASE</spring.version>
+      <aspectj.version>1.8.2</aspectj.version>
+      <cassandra.version>2.1.0</cassandra.version>
   </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+    </build>
 
   <dependencies>
 
@@ -223,13 +243,19 @@
       <dependency>
           <groupId>org.apache.cassandra</groupId>
           <artifactId>cassandra-all</artifactId>
-          <version>2.1.0</version>
+          <version>${cassandra.version}</version>
       </dependency>
 
       <dependency>
           <groupId>com.datastax.cassandra</groupId>
           <artifactId>cassandra-driver-core</artifactId>
-          <version>2.0.5</version>
+          <version>${cassandra.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.cassandraunit</groupId>
+          <artifactId>cassandra-unit</artifactId>
+          <version>2.0.2.2</version>
       </dependency>
 
 
@@ -255,16 +281,64 @@
       <dependency>
           <groupId>org.aspectj</groupId>
           <artifactId>aspectjrt</artifactId>
-          <version>1.8.0</version>
+          <version>${aspectj.version}</version>
       </dependency>
 
 
       <dependency>
           <groupId>org.aspectj</groupId>
           <artifactId>aspectjweaver</artifactId>
-          <version>1.8.0</version>
+          <version>${aspectj.version}</version>
       </dependency>
 
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+       </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-expression</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jms</artifactId>
+          <version>${spring.version}</version>
+      </dependency>
 
   </dependencies>
 </project>

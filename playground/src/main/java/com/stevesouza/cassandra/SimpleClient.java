@@ -4,7 +4,12 @@ package com.stevesouza.cassandra;
 import com.datastax.driver.core.*;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
+import org.apache.cassandra.contrib.utils.service.CassandraServiceDataCleaner;
+import org.apache.cassandra.exceptions.ConfigurationException;
 import org.apache.cassandra.service.CassandraDaemon;
+import org.apache.cassandra.service.EmbeddedCassandraService;
+import org.apache.thrift.transport.TTransportException;
+import org.cassandraunit.utils.EmbeddedCassandraServerHelper;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -27,6 +32,7 @@ import java.util.UUID;
  */
 public class SimpleClient implements Closeable {
 
+    private static EmbeddedCassandraService cassandra;
     private Cluster cluster;
     private Session session;
 
@@ -160,24 +166,28 @@ public class SimpleClient implements Closeable {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+
+
+    public static void main(String[] args) throws IOException, InterruptedException, ConfigurationException, TTransportException {
         // can do cassandra properties like this or in cassandra.yaml (i think)
         // System.setProperty("cassandra.start_native_transport", "true");
-
+        EmbeddedCassandraServerHelper.startEmbeddedCassandra("cassandra.yaml");
 
         // try-with-resources - closes resources automatically.
         try (
-                CassandraDaemonCloseable cassandraDaemon = new CassandraDaemonCloseable();
+               // CassandraDaemonCloseable cassandraDaemon = new CassandraDaemonCloseable();
                 SimpleClient client = new SimpleClient();
         ) {
-            cassandraDaemon.init(null);
-            cassandraDaemon.start();
+           // cassandraDaemon.init(null);
+           // cassandraDaemon.start();
             client.connect("127.0.0.1");
             client.createSchema();
             client.loadData();
             client.loadDataBound();
             client.querySchema();
         }
+
+        EmbeddedCassandraServerHelper.cleanEmbeddedCassandra();
 
 
 
