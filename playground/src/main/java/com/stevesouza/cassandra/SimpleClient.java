@@ -4,15 +4,16 @@ package com.stevesouza.cassandra;
 import com.datastax.driver.core.*;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
-import org.apache.cassandra.contrib.utils.service.CassandraServiceDataCleaner;
 import org.apache.cassandra.exceptions.ConfigurationException;
 import org.apache.cassandra.service.CassandraDaemon;
 import org.apache.cassandra.service.EmbeddedCassandraService;
 import org.apache.thrift.transport.TTransportException;
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper;
 
+import javax.management.*;
 import java.io.Closeable;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -168,9 +169,10 @@ public class SimpleClient implements Closeable {
 
 
 
-    public static void main(String[] args) throws IOException, InterruptedException, ConfigurationException, TTransportException {
+    public static void main(String[] args) throws IOException, InterruptedException, ConfigurationException, TTransportException, MBeanException, InstanceNotFoundException, ReflectionException, MalformedObjectNameException {
         // can do cassandra properties like this or in cassandra.yaml (i think)
         // System.setProperty("cassandra.start_native_transport", "true");
+
         EmbeddedCassandraServerHelper.startEmbeddedCassandra("cassandra.yaml");
 
         // try-with-resources - closes resources automatically.
@@ -187,8 +189,13 @@ public class SimpleClient implements Closeable {
             client.querySchema();
         }
 
-        EmbeddedCassandraServerHelper.cleanEmbeddedCassandra();
 
+
+
+        EmbeddedCassandraServerHelper.cleanEmbeddedCassandra();
+        ObjectName mxbeanName = new ObjectName("org.apache.cassandra.db:type=StorageService");
+        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+        mbs.invoke(mxbeanName, "stopDaemon", null, null);
 
 
     }
