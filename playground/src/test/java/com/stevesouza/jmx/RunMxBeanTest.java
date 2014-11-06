@@ -60,6 +60,31 @@ public class RunMxBeanTest {
     }
 
     @Test
+    public void testGetGarbageCollectionMbeans() throws Exception {
+        Set<ObjectName> mbeans = runMxBean.getGarbageCollectionMbeans();
+        assertThat(mbeans).isNotEmpty();
+        JmxNotificationListener listener = new JmxNotificationListener();
+
+        for (ObjectName name : mbeans) {
+            ManagementFactory.getPlatformMBeanServer().addNotificationListener(name, listener, null, null);
+        }
+        System.gc();
+        Thread.sleep(1000);
+
+        assertThat(listener.getMessage()).contains("Message is:");
+        for (ObjectName name : mbeans) {
+            ManagementFactory.getPlatformMBeanServer().removeNotificationListener(name, listener, null, null);
+        }
+        listener.resetMessage();
+        System.gc();
+        Thread.sleep(1000);
+
+        assertThat(listener.getMessage()).isEmpty();
+        // IMyMXBean has to support Notification (extends or implements a notification class/interface)
+
+    }
+
+    @Test
     public void testMbeanCount() throws Exception {
         assertThat(ManagementFactory.getPlatformMBeanServer().getMBeanCount()).isPositive();
     }
@@ -74,6 +99,7 @@ public class RunMxBeanTest {
         assertThat(ManagementFactory.getGarbageCollectorMXBeans().size()).isPositive();
         assertThat(ManagementFactory.getGarbageCollectorMXBeans().get(0).getCollectionCount()).isNotNegative();
         assertThat(ManagementFactory.getGarbageCollectorMXBeans().get(0).getCollectionTime()).isNotNegative();
+        assertThat(ManagementFactory.getThreadMXBean().getThreadCount()).isNotNegative();
     }
 
     @Test

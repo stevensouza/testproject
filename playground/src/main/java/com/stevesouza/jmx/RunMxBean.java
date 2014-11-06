@@ -2,6 +2,7 @@ package com.stevesouza.jmx;
 
 
 import java.lang.management.ManagementFactory;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.management.*;
@@ -38,6 +39,18 @@ public class RunMxBean {
         String  signature[] = { String.class.getName(), String.class.getName()};
 
         return mBeanServer.invoke(new ObjectName(MXBEAN1), "printName", params, signature);
+    }
+
+    public Set<ObjectName> getGarbageCollectionMbeans() throws Exception {
+        Set<ObjectName> mbeans = ManagementFactory.getPlatformMBeanServer().queryNames(null, null);
+        Set<ObjectName> gcMbeans = new HashSet<ObjectName>();
+
+        for (ObjectName objectInstance : mbeans) {
+            if (objectInstance.toString().contains("type=GarbageCollector")) {
+                gcMbeans.add(objectInstance);
+            }
+        }
+        return gcMbeans;
     }
 
     /** Test invocation with method with no arguments */
