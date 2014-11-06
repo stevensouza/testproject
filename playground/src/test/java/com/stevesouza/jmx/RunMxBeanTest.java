@@ -60,7 +60,7 @@ public class RunMxBeanTest {
     }
 
     @Test
-         public void testMbeanCount() throws Exception {
+    public void testMbeanCount() throws Exception {
         assertThat(ManagementFactory.getPlatformMBeanServer().getMBeanCount()).isPositive();
     }
 
