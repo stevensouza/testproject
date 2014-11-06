@@ -32,8 +32,7 @@ public class NumberDeltaTest {
 
     @Test
     public void testWith2Numbers() throws Exception {
-        delta.setValue(1);
-        delta.setValue(101);
+        delta.setValue(1).setValue(101);
         assertThat(delta.getDelta()).isEqualTo(100);
     }
 

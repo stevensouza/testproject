@@ -21,9 +21,10 @@ public class NumberDelta {
     private double prevValue;
     private double value;
     
-    public void setValue(double val) {
+    public NumberDelta setValue(double val) {
         prevValue=value;
         this.value=val;
+        return this;
     }
     
     public double getDelta() {
