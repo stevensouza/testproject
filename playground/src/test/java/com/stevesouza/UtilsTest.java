@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.Properties;
 
 import static org.junit.Assert.*;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class UtilsTest {

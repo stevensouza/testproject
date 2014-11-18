@@ -10,7 +10,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import static junit.framework.Assert.assertEquals;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Unit test for simple App.
