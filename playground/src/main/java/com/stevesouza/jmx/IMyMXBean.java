@@ -1,6 +1,6 @@
 package com.stevesouza.jmx;
 
-/** Note the the inerface needs to end in MXBean. And MyClass implements IMyMXBean.
+/** Note the the interface needs to end in MXBean. And MyClass implements IMyMXBean.
  * alternatively @MXBean() annotation can be used. */
 public interface IMyMXBean {
 

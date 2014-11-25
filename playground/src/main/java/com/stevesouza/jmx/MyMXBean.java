@@ -8,7 +8,8 @@ import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 
 
-/** Must extend NotificationBroadcasterSupport, or implement NotificationEmitter if it supports notifications */
+/** Must extend NotificationBroadcasterSupport, or implement NotificationEmitter if it supports notifications.
+ * Notifications are messages sent to any class that listens for the notifications */
 public class MyMXBean  extends NotificationBroadcasterSupport implements IMyMXBean {
 
     private String attrib1="";
