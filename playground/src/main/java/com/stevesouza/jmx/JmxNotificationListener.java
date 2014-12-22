@@ -39,8 +39,8 @@ public class JmxNotificationListener implements NotificationListener {
 
         // http://docs.oracle.com/javase/7/docs/jre/api/management/extension/com/sun/management/GcInfo.html
         // count times fired for each type, duration for each type, and delta between firings for each type.
-        System.out.println("    gcInfo.getEndTime:"+gcInfo.getEndTime());  // ms since server started
         System.out.println("    gcInfo.getStartTime:"+gcInfo.getStartTime()); // ms since server started
+        System.out.println("    gcInfo.getEndTime:"+gcInfo.getEndTime());  // ms since server started
         System.out.println("    gcInfo.getDuration (ms):"+gcInfo.getDuration()); // simple math of above
         System.out.println("    gcInfo.getId:"+gcInfo.getId()); // number of times this collector has fired since startup
         // probably for jamon use the following for each of the following maps.  not sure what yet, but used looks good and maybe deltas
