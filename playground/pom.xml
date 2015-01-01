@@ -32,6 +32,7 @@
       <aspectj.version>1.8.2</aspectj.version>
       <cassandra.version>2.1.0</cassandra.version>
       <assertj.version>1.7.0</assertj.version>
+      <sigar.version>1.6.4</sigar.version>
   </properties>
 
     <build>
@@ -87,6 +88,12 @@
           <groupId>com.codahale.metrics</groupId>
           <artifactId>metrics-core</artifactId>
           <version>${metrics.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.fusesource</groupId>
+          <artifactId>sigar</artifactId>
+          <version>${sigar.version}</version>
       </dependency>
 
 
