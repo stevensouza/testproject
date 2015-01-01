@@ -111,7 +111,10 @@ public class SigarTest {
         // http://www.mkyong.com/java/how-to-get-free-disk-space-in-java/
         File file = new File("/");
         long totalSpace = file.getTotalSpace(); //total disk space in bytes.
-        long usableSpace = file.getUsableSpace(); ///unallocated / free disk space in bytes.
+        long usableSpace = file.getUsableSpace(); ///unallocated / free disk space in bytes. according to javadoc
+            // the diff between this method and getFreeSpace is that this one MAY check
+            // permissions too.  I think this means some users may not have access
+            // to the full free space and this method considers this.
         long freeSpace = file.getFreeSpace(); //unallocated / free disk space in bytes.
         System.out.println("t="+totalSpace+", u="+usableSpace+", f="+freeSpace);
         assertThat(totalSpace).isPositive();
