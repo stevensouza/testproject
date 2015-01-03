@@ -58,7 +58,7 @@ public class MyDynamicMBean implements DynamicMBean {
         MBeanAttributeInfo[] attributeInfo = mBeanInfo.getAttributes();
         List<String> list = new ArrayList<String>();
         for (int i=0; i<attributeInfo.length; i++) {
-            list.add(attributeInfo[i].getName())
+            list.add(attributeInfo[i].getName());
         }
 
         return getAttributes(list.toArray(new String[0]));
