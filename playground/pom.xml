@@ -47,6 +47,14 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Djava.library.path=/Applications/myapps/sigar/hyperic-sigar-1.6.4/sigar-bin/lib</argLine>
+                </configuration>
+            </plugin>
+
 
         </plugins>
     </build>
