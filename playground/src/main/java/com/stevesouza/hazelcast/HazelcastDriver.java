@@ -1,11 +1,8 @@
-package com.stevesouza.ditributedmap;
+package com.stevesouza.hazelcast;
 
 import com.fdsapi.ResultSetConverter;
-import com.fdsapi.arrays.ArraySQL;
 import com.hazelcast.core.*;
 import com.hazelcast.map.AbstractEntryProcessor;
-import com.hazelcast.map.EntryProcessor;
-import com.jamonapi.MonKey;
 import com.jamonapi.MonitorComposite;
 import com.jamonapi.MonitorFactory;
 
@@ -19,8 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * execute with maven. run 2 instance and pass different arguments.  you will see that their maps have the same replicated
  * data.  hazelcast isn't cheap.  free for 2 nodes and after that a couple thousand dollars per node.
  *
- * mvn exec:java -Dexec.mainClass="com.stevesouza.ditributedmap.HazelcastDriver" -Dexec.args="arg1"
- * mvn exec:java -Dexec.mainClass="com.stevesouza.ditributedmap.HazelcastDriver" -Dexec.args="zarg2"
+ * mvn exec:java -Dexec.mainClass="com.stevesouza.hazelcast.HazelcastDriver" -Dexec.args="arg1"
+ * mvn exec:java -Dexec.mainClass="com.stevesouza.hazelcast.HazelcastDriver" -Dexec.args="zarg2"
  *
  * From HazelCast documentation:
  *

@@ -1,4 +1,4 @@
-package com.stevesouza.ditributedmap;
+package com.stevesouza.hazelcast;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
