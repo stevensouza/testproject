@@ -5,10 +5,10 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.IntPredicate;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
+
+import static java.util.stream.Collectors.toList;
+
 
 import static org.assertj.core.api.Assertions.anyOf;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +25,7 @@ public class Java8FeaturesTest {
         // simplified form of above.
         stringList.forEach(System.out::println);
 
-        IntStream stream=IntStream.iterate(1, i->i+1).limit(10);
+        IntStream stream= IntStream.iterate(1, i -> i + 1).limit(10);
         stream.forEach(System.out::println);
 
         stream=IntStream.iterate(1, i->i+1).limit(10);
@@ -102,7 +102,21 @@ public class Java8FeaturesTest {
         assertThat(stream1.max((String s1, String s2)->s1.compareToIgnoreCase(s2)).get()).isEqualTo("X");
 
         stream1 = Stream.of("a", "hi", "mom", "X");
-        assertThat(stream1.min((s1, s2)->s1.compareToIgnoreCase(s2)).get()).isEqualTo("a");
+        assertThat(stream1.min((s1, s2) -> s1.compareToIgnoreCase(s2)).get()).isEqualTo("a");
+
+        // orElse is like get, but a default is provided.  get will throw and exception if the element isn't there
+        stream1 = Stream.of("a", "hi", "mom", "X");
+        assertThat(stream1.min((s1, s2)->s1.compareToIgnoreCase(s2)).orElse("default")).isEqualTo("a");
+
+        // collect
+        // static import on Collectors.toList()
+        //  import static java.util.stream.Collectors.toList;
+        stream1 = Stream.of("a", "hi", "mom", "X");
+        assertThat(stream1.collect(toList())).hasSize(4);
+
+        // not-static use of toSet()
+        stream1 = Stream.of("a", "hi", "mom", "X");
+        assertThat(stream1.collect(Collectors.toSet())).hasSize(4);
 
     }
 }
