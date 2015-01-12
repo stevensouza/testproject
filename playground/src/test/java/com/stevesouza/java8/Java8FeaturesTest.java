@@ -236,19 +236,27 @@ public class Java8FeaturesTest {
         assertThat(names.stream().map(Name::getLast).collect(Collectors.toSet())).containsOnly("souza", "beck", "reid");
         assertThat(names.stream().collect(Collectors.toMap(Name::getFirst, Name::getLast))).containsOnlyKeys("steve", "jeff", "william", "jim");
 
-        Map<String, List<Name>> list1 = names.stream().collect(Collectors.groupingBy(Name::getLast));
-        assertThat(list1.size()).isEqualTo(3);
+        Map<String, List<Name>> map1 = names.stream().collect(Collectors.groupingBy(Name::getLast));
+        assertThat(map1.size()).isEqualTo(3);
 
-        // take the stream of Name objects and group by lastName, salary
-        Map<String, Integer> map = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.summingInt(Name::getSalary)));
-        IntSummaryStatistics stats = map.values().stream().mapToInt(i->i).summaryStatistics();
+        // Note the above is the same as if we provided the downstream collector to provide a list...
+        map1 = names.stream().collect(Collectors.groupingBy(Name::getLast, toList()));
+        assertThat(map1.size()).isEqualTo(3);
+
+        // ...but other downstream collectors are possible.  This one does a group by:
+        //  take the stream of Name objects and group by lastName, salary
+        Map<String, Integer> map2 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.summingInt(Name::getSalary)));
+        IntSummaryStatistics stats = map2.values().stream().mapToInt(i->i).summaryStatistics();
         assertThat(stats.getSum()).isEqualTo(40);
+
+        // max(firstName) group by lastName
+        Map<String, Optional<Name>> map3 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.maxBy(Comparator.comparing(Name::getFirst))));
+        assertThat(map3.get("reid").get().getFirst()).isEqualTo("william");
 
         // partitioningBy is like groupingBy but the groupings are only true/false
         Map<Boolean, List<String>> booleanMap = list.stream().collect(Collectors.partitioningBy(str->str.length()>3));
         assertThat(booleanMap.get(true)).hasSize(3);
         assertThat(booleanMap.get(false)).hasSize(1);
-
     }
 
     private static class Name {
