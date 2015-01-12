@@ -253,6 +253,11 @@ public class Java8FeaturesTest {
         Map<String, Optional<Name>> map3 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.maxBy(Comparator.comparing(Name::getFirst))));
         assertThat(map3.get("reid").get().getFirst()).isEqualTo("william");
 
+        // group by lastName, firstName
+        Map<String, Map<String, List<Name>>> map4 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.groupingBy(Name::getFirst)));
+
+        System.out.println(map4);
+
         // partitioningBy is like groupingBy but the groupings are only true/false
         Map<Boolean, List<String>> booleanMap = list.stream().collect(Collectors.partitioningBy(str->str.length()>3));
         assertThat(booleanMap.get(true)).hasSize(3);
