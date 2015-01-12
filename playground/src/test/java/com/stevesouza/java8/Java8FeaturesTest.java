@@ -3,16 +3,11 @@ package com.stevesouza.java8;
 import org.junit.Test;
 
 import java.util.*;
-import java.util.function.IntPredicate;
+import java.util.function.*;
 import java.util.stream.*;
 
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.joining;
-
-
-
-import static org.assertj.core.api.Assertions.anyOf;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Java8FeaturesTest {
@@ -24,6 +19,62 @@ public class Java8FeaturesTest {
             new Name("jim", "reid")
             );
 
+    @Test
+    public void testLambdas() {
+        int i=10;
+        // noArgs/noReturn
+        Runnable runnable = () -> System.out.println("hello");
+        runnable.run();
+        runnable = () -> {
+            System.out.println("hello");
+            System.out.println("world");
+        };
+        runnable.run();
+
+        // equivalent functions: Integer function(String)
+        Function<String, Integer> function = (str) -> i;
+        assertThat(function.apply("steve")).isEqualTo(10);
+        function = (String str) -> {return i;};
+        assertThat(function.apply("steve")).isEqualTo(10);
+
+        // UnaryOperator is a function that takes the same arg as it returns:  String function(String)
+        UnaryOperator<String> unaryOperator = (str)->str+i;
+        assertThat(unaryOperator.apply("steve")).isEqualTo("steve10");
+        unaryOperator = (String str)->{return str+i;};
+        assertThat(unaryOperator.apply("steve")).isEqualTo("steve10");
+
+        // Predicate always returns a boolean Tboolean: boolean function(String)
+        Predicate<String> isGreaterThan4 = (String str)->{return str.length()>4;};
+        Predicate<String> isJoe = (String str)->{return "joe".equals(str);};
+
+        assertThat(isGreaterThan4.test("steve")).isTrue();
+        assertThat(isGreaterThan4.negate().test("steve")).isFalse();
+        assertThat(isGreaterThan4.and(isJoe).test("steve")).isFalse();
+        assertThat(isGreaterThan4.or(isJoe).test("steve")).isTrue();
+        assertThat(isGreaterThan4.negate().or(isJoe).test("steve")).isFalse();
+
+        // BinaryOperator:  String function(String, String)
+        //  equivalent forms
+        BinaryOperator<String> binaryOperator = (String str1, String str2)->{return str1+str2;};
+        assertThat(binaryOperator.apply("steve","souza")).isEqualTo("stevesouza");
+        binaryOperator = (str1, str2)->str1+str2;
+        assertThat(binaryOperator.apply("steve","souza")).isEqualTo("stevesouza");
+
+        // Consumer - TNone.  takes arg returns nothing
+        Consumer<String> consumer = (String str)->{System.out.println(str);};
+        consumer.accept("steve");
+
+        // Supplier - voidT - factory is good example.  String function()
+        Supplier<String> factorySupplier = ()->"helloworld";
+        assertThat(factorySupplier.get()).isEqualTo("helloworld");
+        factorySupplier = ()->{
+            int myNum=15;
+            System.out.println("just playin");
+            return "helloworld"+myNum;
+        };
+        assertThat(factorySupplier.get()).isEqualTo("helloworld15");
+
+    }
 
     @Test
     public void testForEach() {
