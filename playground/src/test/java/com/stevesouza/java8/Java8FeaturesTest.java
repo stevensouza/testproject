@@ -6,7 +6,10 @@ import java.util.*;
 import java.util.function.IntPredicate;
 import java.util.stream.*;
 
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.joining;
+
 
 
 import static org.assertj.core.api.Assertions.anyOf;
@@ -14,6 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Java8FeaturesTest {
     static List<String> stringList = Arrays.asList("Lambdas", "Default Method", "Stream API", "Date and Time API", "Lambdas");
+    static List<Name> names = Arrays.asList(
+            new Name("steve","souza"),
+            new Name("jeff", "beck"),
+            new Name("william", "reid"),
+            new Name("jim", "reid")
+            );
 
 
     @Test
@@ -166,10 +175,10 @@ public class Java8FeaturesTest {
         assertThat(stream.allMatch(s->s.length()==2)).isFalse();
 
         stream = Stream.of("a", "b", "c", "d");
-        assertThat(stream.noneMatch(s->s.length()==2)).isTrue();
+        assertThat(stream.noneMatch(s -> s.length() == 2)).isTrue();
 
         stream = Stream.of("a", "b", "c", "d");
-        assertThat(stream.anyMatch(s->s.length()==1)).isTrue();
+        assertThat(stream.anyMatch(s -> s.length() == 1)).isTrue();
 
         stream = Stream.of("a", "b", "c", "d");
         assertThat(stream.anyMatch(s->s.length()==2)).isFalse();
@@ -212,6 +221,56 @@ public class Java8FeaturesTest {
         // note List::stream won't work below
         assertThat(list.stream().flatMap(strm->strm.stream()).mapToInt(Integer::intValue).sum()).isEqualTo(21);
 
+    }
+
+    @Test
+    public void testCollector() {
+        List<String> list = Arrays.asList("sun","moon","star","earth");
+        assertThat(list.stream().collect(joining())).isEqualTo("sunmoonstarearth");
+        assertThat(list.stream().collect(joining(","))).isEqualTo("sun,moon,star,earth");
+        assertThat(names.stream().map(Name::getLast).collect(joining(","))).isEqualTo("souza,beck,reid,reid");
+        // same as above
+        assertThat(names.stream().map(name->"n="+name.getLast()).collect(joining(","))).isEqualTo("n=souza,n=beck,n=reid,n=reid");
+        // note containsOnly ensures only those elements are there in any order. To have order counted then containsExactly should
+        // be used.
+        assertThat(names.stream().map(Name::getLast).collect(Collectors.toSet())).containsOnly("souza", "beck", "reid");
+        assertThat(names.stream().collect(Collectors.toMap(Name::getFirst, Name::getLast))).containsOnlyKeys("steve", "jeff", "william", "jim");
+
+        Map<String, List<Name>> list1 = names.stream().collect(Collectors.groupingBy(Name::getLast));
+        assertThat(list1.size()).isEqualTo(3);
+
+        // take the stream of Name objects and group by lastName, salary
+        Map<String, Integer> map = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.summingInt(Name::getSalary)));
+        IntSummaryStatistics stats = map.values().stream().mapToInt(i->i).summaryStatistics();
+        assertThat(stats.getSum()).isEqualTo(40);
+
+        // partitioningBy is like groupingBy but the groupings are only true/false
+        Map<Boolean, List<String>> booleanMap = list.stream().collect(Collectors.partitioningBy(str->str.length()>3));
+        assertThat(booleanMap.get(true)).hasSize(3);
+        assertThat(booleanMap.get(false)).hasSize(1);
+
+    }
+
+    private static class Name {
+        private String first;
+
+        public String getFirst() {
+            return first;
+        }
+
+        public String getLast() {
+            return last;
+        }
+
+        public int getSalary() {
+            return 10;
+        }
+
+        private String last;
+        public Name(String first, String last) {
+            this.first=first;
+            this.last=last;
+        }
     }
 
 }
