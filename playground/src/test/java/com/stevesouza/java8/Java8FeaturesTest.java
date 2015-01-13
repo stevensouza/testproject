@@ -432,10 +432,19 @@ public class Java8FeaturesTest {
         assertThat(sum3).isEqualTo(6);
         // starting value to add is not 0 but 1.
         assertThat(IntStream.of(1,2,3).reduce(1, (a,b)->a+b)).isEqualTo(7);
-
-
-
     }
+
+    @Test
+    public void testInterfaceDefaultMethods() {
+        MyClass myClass=new MyClass();
+        assertThat(myClass.hello()).isEqualTo("hello");
+        assertThat(myClass.goodbye()).isEqualTo("goodbye");
+        // Note interface static methods only allow access via the interface name (not the class name: MyClass.getInt() is illegal).
+        // This is different behaviour from a static method implemented in a base class.
+        assertThat(MyInterface.getInt()).isEqualTo(10);
+    }
+
+
 
     private static class Name {
 
@@ -458,6 +467,31 @@ public class Java8FeaturesTest {
             return 10;
         }
 
+    }
+
+
+
+    // interface with default and static method
+    //  note that 'public' is optional in interface function definitions.
+    private static interface MyInterface {
+        static final int myInt=10;
+        public String hello();
+
+        default public String goodbye() {
+            return "goodbye";
+        }
+
+        public static int getInt() {
+            return myInt;
+        }
+    }
+
+    private static class MyClass implements MyInterface {
+
+        @Override
+        public String hello() {
+            return "hello";
+        }
     }
 
 }
