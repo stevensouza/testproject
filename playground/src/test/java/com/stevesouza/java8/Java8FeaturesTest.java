@@ -294,8 +294,26 @@ public class Java8FeaturesTest {
         map1 = names.stream().collect(Collectors.groupingBy(Name::getLast, toList()));
         assertThat(map1.size()).isEqualTo(3);
 
-        // ...but other downstream collectors are possible.  This one does a group by:
-        //  take the stream of Name objects and group by lastName, salary
+        // ...but other "downstream" collectors are possible.  This one does a group by lastName and a count on the grouping.
+        //  count(*) group by lastName
+        Map<String, Long> mapCounting = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.counting()));
+        assertThat(mapCounting.size()).isEqualTo(3);
+        assertThat(mapCounting.get("reid")).isEqualTo(2);// count of 2 for reid
+
+        // Take the aggregate map from above  (lastName, count) and find the entry with the highest count.
+        Optional<String> maxCountKey=mapCounting.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
+        assertThat(maxCountKey.get()).isEqualTo("reid");
+
+        // alternatively - and in this case I think simpler.
+        String maxKey = mapCounting.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+        assertThat(maxKey).isEqualTo("reid");
+
+        //  Some of the summarizing downstream collectors which are in the Collectors class follow:
+        //   * For any data type: counting, minBy, maxBy
+        //   * For primitive streams you have things like: summingInt, averagingInt which do total and average
+        //   * For primitive streams you can also do all aggregates:  summarizingInt, summarizingDouble, summarisingLong
+
+        //  take the stream of Name objects and: sum(salary), count(), average(salary)...all aggregates... group by lastName
         Map<String, Integer> map2 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.summingInt(Name::getSalary)));
         IntSummaryStatistics stats = map2.values().stream().mapToInt(i->i).summaryStatistics();
         assertThat(stats.getSum()).isEqualTo(40);
@@ -306,22 +324,36 @@ public class Java8FeaturesTest {
 
         // group by lastName, firstName
         Map<String, Map<String, List<Name>>> map4 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.groupingBy(Name::getFirst)));
-
-        System.out.println(map4);
+        assertThat(map4.get("reid").get("william").get(0).getFirst()).isEqualTo("william");
 
         // partitioningBy is like groupingBy but the groupings are only true/false
         Map<Boolean, List<String>> booleanMap = list.stream().collect(Collectors.partitioningBy(str->str.length()>3));
         assertThat(booleanMap.get(true)).hasSize(3);
         assertThat(booleanMap.get(false)).hasSize(1);
+
+        // The following takes all elements in a group and maps them.  In this case it takes all the values of the group
+        // and concatenates them i.e. reid=william,jim
+        Map<String, String> map5 = names.stream().collect(
+                Collectors.groupingBy(Name::getLast,
+                        Collectors.mapping(Name::getFirst, Collectors.joining(","))) // concatenates names in a group.
+        );
+        assertThat(map5.get("reid")).isEqualTo("william,jim");
+        System.out.println(map5);
     }
 
     private static class Name {
-        private String first;
 
+        public Name(String first, String last) {
+            this.first=first;
+            this.last=last;
+        }
+
+        private String first;
         public String getFirst() {
             return first;
         }
 
+        private String last;
         public String getLast() {
             return last;
         }
@@ -330,11 +362,6 @@ public class Java8FeaturesTest {
             return 10;
         }
 
-        private String last;
-        public Name(String first, String last) {
-            this.first=first;
-            this.last=last;
-        }
     }
 
 }
