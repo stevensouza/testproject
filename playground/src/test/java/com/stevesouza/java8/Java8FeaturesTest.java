@@ -2,8 +2,15 @@ package com.stevesouza.java8;
 
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.StringReader;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.*;
+import java.util.regex.Pattern;
 import java.util.stream.*;
 
 import static java.util.stream.Collectors.joining;
@@ -206,6 +213,75 @@ public class Java8FeaturesTest {
 
     }
 
+    // Note they aren't tested below but java.util.jar.JarFile.stream() - returns Stream<JarEntry>
+    // and java.util.jar.ZipFile.stream() - returns Stream<ZipEntry>
+    // are also there.
+    @Test
+    public void testOtherStreamCreations() throws Exception {
+        // Object and primitive Arrays can be converted to streams with:  Arrays.stream(...)
+        String[] strArray=stringList.toArray(new String[0]);
+        Stream<String> stream1=Arrays.stream(strArray);
+        assertThat(stream1.count()).isEqualTo(5);
+        stream1=Arrays.stream(strArray);
+        Stream<String> stream2=Arrays.stream(strArray);
+        stream1=Stream.concat(stream1,stream2);
+        assertThat(stream1.count()).isEqualTo(10);
+
+        // BufferedReader.lines returns Stream<String> which is tokenized at lines.
+        // Note to do the same with files you can use:
+        //   Stream<String> linesStream=Files.lines(new File("myfile.txt").toPath());
+        StringReader stringReader=new StringReader("line1\nline2\nline3\n\n\n");
+        BufferedReader bufferedReader = new BufferedReader(stringReader);
+        Stream<String> stream3=bufferedReader.lines();
+        assertThat(stream3.count()).isEqualTo(5);
+
+        // Regular expression stream of tokens.
+        Pattern pattern=Pattern.compile(",");
+        assertThat(pattern.splitAsStream("steven,thomas,souza").count()).isEqualTo(3);
+
+        // Characters in a string.
+        CharSequence charSequence="steve souza";  // String inherits from CharSequence
+        assertThat(charSequence.chars().count()).isEqualTo(11);
+        assertThat(charSequence.chars().distinct().count()).isEqualTo(9); // duplicate s and e
+
+        // java.nio.file.Files provides streams of Path's.
+        Stream<Path> stream4=Files.list(new File(".").toPath());
+        // print all files in the directory
+        stream4.forEach(path->System.out.println(path));
+        stream4=Files.list(new File(".").toPath());
+        // Get summary stats of file size of all files in the directory.  Note the lambdas could use shorter/less explicit forms too.
+        LongSummaryStatistics summaryStats1=stream4.
+                map((Path path)->path.toFile()).  // could do Path::toFile
+                filter((File file) -> file.isFile()).
+                mapToLong((File file)->file.length()).
+                summaryStatistics();
+        System.out.println(summaryStats1);
+        assertThat(summaryStats1.getCount()).isNotNegative();
+        assertThat(summaryStats1.getSum()).isNotNegative();
+        assertThat(summaryStats1.getMin()).isNotNegative();
+        assertThat(summaryStats1.getMax()).isNotNegative();
+        assertThat(summaryStats1.getAverage()).isNotNegative();
+
+        // walk current directory and into its subdirectories and get a count of files.
+        stream4=Files.walk(new File(".").toPath(), FileVisitOption.FOLLOW_LINKS);
+        assertThat(stream4.
+                map(Path::toFile).  // use short form of calling a function
+                filter(File::canRead).
+                count()).isNotNegative();
+
+        // Some examples of creating random data streams.  Note you can generate ints, longs, doubles.
+        Random random=new Random();
+        IntStream intStream1=random.ints(10);
+        intStream1.sorted().forEach(System.out::println);
+        intStream1=random.ints(10);
+        assertThat(intStream1.count()).isEqualTo(10);
+
+        SplittableRandom splittableRandom = new SplittableRandom();
+        LongStream longStream1=splittableRandom.longs().limit(20);
+        assertThat(longStream1.count()).isEqualTo(20);
+
+    }
+
     @Test
     public void testSummaryStats() {
         IntStream stream = IntStream.of(1, 2, 3, 4, 5);
@@ -339,6 +415,26 @@ public class Java8FeaturesTest {
         );
         assertThat(map5.get("reid")).isEqualTo("william,jim");
         System.out.println(map5);
+    }
+
+    @Test
+    public void testReduce() {
+        // note reduce is a special case of collect,  It returns an int or OptionalInt depending on the reduce method used
+        // Per the javadocs Sum, min, max, and average are all special cases of reduction.
+
+        // note all of the following are equivalent.
+        int sum1 = IntStream.of(1,2,3).sum();
+        int sum2 = IntStream.of(1,2,3).reduce(0, (a,b)->a+b);
+        // note use of OptionalInt.  Also note seed value starts at 0 when left off
+        int sum3 = IntStream.of(1,2,3).reduce((a,b)->a+b).getAsInt();
+        assertThat(sum1).isEqualTo(6);
+        assertThat(sum2).isEqualTo(6);
+        assertThat(sum3).isEqualTo(6);
+        // starting value to add is not 0 but 1.
+        assertThat(IntStream.of(1,2,3).reduce(1, (a,b)->a+b)).isEqualTo(7);
+
+
+
     }
 
     private static class Name {
