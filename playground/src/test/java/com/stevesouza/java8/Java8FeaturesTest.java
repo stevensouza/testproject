@@ -547,12 +547,30 @@ public class Java8FeaturesTest {
 
     @Test
     public void testInterfaceDefaultMethods() {
-        MyClass myClass=new MyClass();
+        MyFunctionalClass myClass=new MyFunctionalClass();
         assertThat(myClass.hello()).isEqualTo("hello");
         assertThat(myClass.goodbye()).isEqualTo("goodbye");
-        // Note interface static methods only allow access via the interface name (not the class name: MyClass.getInt() is illegal).
+        // Note interface static methods only allow access via the interface name (not the class name: MyFunctionalClass.getInt() is illegal).
         // This is different behaviour from a static method implemented in a base class.
-        assertThat(MyInterface.getInt()).isEqualTo(10);
+        assertThat(MyFunctionalInterface.getInt()).isEqualTo(10);
+    }
+
+    @Test
+    public void testOptional() {
+        Optional<String> optional = Optional.of("hi");
+        assertThat(optional.get()).isEqualTo("hi");
+        assertThat(optional.isPresent()).isTrue();
+        assertThat(optional.map(String::length).get()).isEqualTo(2);
+
+        Optional empty=Optional.empty();
+        assertThat(empty.isPresent()).isFalse();
+        assertThat(empty.orElse("b")).isEqualTo("b");
+        // Supplier lambda
+        assertThat(empty.orElseGet(()->"steve")).isEqualTo("steve");
+
+        // returns Optional based on passed in value or if it is null it simply returns Optional.empty()
+        Optional alsoEmpty = Optional.ofNullable(null);
+        assertThat(alsoEmpty.isPresent()).isFalse()
     }
 
 
@@ -582,9 +600,11 @@ public class Java8FeaturesTest {
 
 
 
-    // interface with default and static method
+    // Functional interface with default and static method
     //  note that 'public' is optional in interface function definitions.
-    private static interface MyInterface {
+    //  Also @FunctionaInterface is optional but preferred.
+    @FunctionalInterface
+    private static interface MyFunctionalInterface {
         static final int myInt=10;
         public String hello();
 
@@ -597,7 +617,7 @@ public class Java8FeaturesTest {
         }
     }
 
-    private static class MyClass implements MyInterface {
+    private static class MyFunctionalClass implements MyFunctionalInterface {
 
         @Override
         public String hello() {
