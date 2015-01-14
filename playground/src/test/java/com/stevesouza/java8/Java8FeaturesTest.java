@@ -28,6 +28,7 @@ public class Java8FeaturesTest {
 
     @Test
     public void testLambdas() {
+        // Can use lambdas with Functional interfaces - One method class.
         int i=10;
         // noArgs/noReturn
         Runnable runnable = () -> System.out.println("hello");
@@ -106,19 +107,33 @@ public class Java8FeaturesTest {
 
     @Test
     public void testCount() {
-        assertThat(stringList.stream().limit(2).count()).isEqualTo(2);
-        assertThat(stringList.stream().distinct().count()).isEqualTo(4);
+        assertThat(stringList.stream().
+                limit(2).
+                count()).isEqualTo(2);
+        assertThat(stringList.stream().
+                distinct().
+                count()).isEqualTo(4);
         // skip is like limit except it skips the first n and leaves the remaining.
-        assertThat(stringList.stream().skip(2).count()).isEqualTo(3);
+        assertThat(stringList.stream().
+                skip(2).
+                count()).isEqualTo(3);
     }
 
     @Test
     public void testFind() {
-        assertThat(stringList.stream().findAny().isPresent()).isTrue();
-        assertThat(stringList.stream().findAny().get()).isIn(stringList);
+        assertThat(stringList.stream().
+                findAny().
+                isPresent()).isTrue();
+        assertThat(stringList.stream().
+                findAny().
+                get()).isIn(stringList);
 
-        assertThat(stringList.stream().findFirst().isPresent()).isTrue();
-        assertThat(stringList.stream().findFirst().get()).isIn(stringList);
+        assertThat(stringList.stream().
+                findFirst().
+                isPresent()).isTrue();
+        assertThat(stringList.stream().
+                findFirst().
+                get()).isIn(stringList);
     }
 
     @Test
@@ -169,15 +184,46 @@ public class Java8FeaturesTest {
         Stream<String> stream1 = stringList.stream();
         assertThat(stream1.distinct().count()).isEqualTo(4);
 
+        // note in sorting, uppercase comes before upper case.
+        // You must provide the Comparator for any type T.  This is not true of the primitive streams where you can just
+        //  call max(), min(), average(), sum() etc.
+        stream1 = Stream.of("x", "a", "X");
+        assertThat(stream1.max(Comparator.naturalOrder()).get()).isEqualTo("x");
+
+        // reversing order
+        stream1 = Stream.of("x", "a", "X");
+        assertThat(stream1.max(Comparator.reverseOrder()).get()).isEqualTo("X");
+
+        // The hard way of doing the comparison yourself by providing the full Comparator.
+        stream1 = Stream.of("x", "mom", "Xhi");
+        assertThat(stream1.max((String s1, String s2) -> s1.compareToIgnoreCase(s2)).get()).isEqualTo("Xhi");
+
+        // easier as you just pass in a getter method and Comparator.comparing returns the Comparator that calls
+        // this on each object to do the actual comparison
+        stream1 = Stream.of("x", "mom", "Xhi");
+        assertThat(stream1.max(Comparator.comparing((str)->str.toUpperCase())).get()).isEqualTo("Xhi");
+
+        // Note: stream.map(...) does a 1 to one mapping of input stream to output stream.
+        // to convert back to a collection you must call stream.collect(...)
         stream1 = Stream.of("hi", "mom", "X");
-        assertThat(stream1.max((String s1, String s2) -> s1.compareToIgnoreCase(s2)).get()).isEqualTo("X");
+        assertThat(stream1.
+                map(str -> str.toUpperCase()).
+                collect(toList())).isEqualTo(Arrays.asList("HI","MOM","X"));
+
+        // flatmap denormalizes a collection i.e each value is a Collection and call collection.stream() on each value.
+        List<Integer> listOfLists=Stream.of(Arrays.asList(1,2), Arrays.asList(3,4)).
+                flatMap((list) -> list.stream()).
+                collect(toList());
+        assertThat(listOfLists).isEqualTo(Arrays.asList(1,2,3,4));
 
         stream1 = Stream.of("a", "hi", "mom", "X");
         assertThat(stream1.min((s1, s2) -> s1.compareToIgnoreCase(s2)).get()).isEqualTo("a");
 
         // orElse is like get, but a default is provided.  get will throw and exception if the element isn't there
         stream1 = Stream.of("a", "hi", "mom", "X");
-        assertThat(stream1.min((s1, s2) -> s1.compareToIgnoreCase(s2)).orElse("default")).isEqualTo("a");
+        assertThat(stream1.
+                min((s1, s2) -> s1.compareToIgnoreCase(s2)).
+                orElse("default")).isEqualTo("a");
 
         // collect
         // static import on Collectors.toList()
@@ -196,20 +242,36 @@ public class Java8FeaturesTest {
         assertThat(stream1.filter(str -> str.length() < 2).count()).isEqualTo(2);
 
         stream1 = Stream.of("b", "a", "d", "c");
-        assertThat(stream1.sorted().findFirst().get()).isEqualTo("a");
+        assertThat(stream1.
+                sorted().
+                findFirst().
+                get()).isEqualTo("a");
 
         stream1 = Stream.of("b", "a", "d", "c");
-        assertThat(stream1.sorted(Comparator.reverseOrder()).findFirst().get()).isEqualTo("d");
+        assertThat(stream1.
+                sorted(Comparator.reverseOrder()).
+                findFirst().
+                get()).isEqualTo("d");
 
         stream1 = Stream.of("bbb", "aaa", "c", "dd");
-        assertThat(stream1.sorted(Comparator.comparingInt(str -> str.length())).findFirst().get()).isEqualTo("c");
+        assertThat(stream1.
+                sorted(Comparator.comparingInt(str -> str.length())).
+                findFirst().
+                get()).isEqualTo("c");
 
         // same as above but Class::method syntax
         stream1 = Stream.of("bbb", "aaa", "c", "dd");
-        assertThat(stream1.sorted(Comparator.comparingInt(String::length)).findFirst().get()).isEqualTo("c");
+        assertThat(stream1.
+                sorted(Comparator.comparingInt(String::length)).
+                findFirst().
+                get()).isEqualTo("c");
 
         stream1 = Stream.of("bbb", "aaa", "cccc", "dd");
-        assertThat(stream1.sorted(Comparator.comparingInt(String::length).reversed()).findFirst().get()).isEqualTo("cccc");
+        assertThat(stream1.
+                sorted(Comparator.comparingInt(String::length).
+                        reversed()).
+                findFirst().
+                get()).isEqualTo("cccc");
 
     }
 
@@ -242,7 +304,10 @@ public class Java8FeaturesTest {
         // Characters in a string.
         CharSequence charSequence="steve souza";  // String inherits from CharSequence
         assertThat(charSequence.chars().count()).isEqualTo(11);
-        assertThat(charSequence.chars().distinct().count()).isEqualTo(9); // duplicate s and e
+        assertThat(charSequence.
+                chars().
+                distinct().
+                count()).isEqualTo(9); // duplicate s and e
 
         // java.nio.file.Files provides streams of Path's.
         Stream<Path> stream4=Files.list(new File(".").toPath());
@@ -317,15 +382,24 @@ public class Java8FeaturesTest {
         assertThat(stringList.stream().mapToInt(s->1).distinct().count()).isEqualTo(1);
 
         Stream<String> stream = Stream.of("aa", "bbb", "cccc", "ddddd");
-        assertThat(stream.mapToInt(String::length).distinct().count()).isEqualTo(4);
+        assertThat(stream.
+                mapToInt(String::length).
+                distinct().
+                count()).isEqualTo(4);
 
         stream = Stream.of("aa", "bbb", "cccc", "ddddd");
-        assertThat(stream.mapToInt(String::length).distinct().max().getAsInt()).isEqualTo(5);
+        assertThat(stream.
+                mapToInt(String::length).distinct().
+                max().
+                getAsInt()).isEqualTo(5);
 
         stream = Stream.of("aa", "bbb", "cccc", "ddddd");
-        assertThat(stream.map(String::length).collect(toList()).size()).isEqualTo(4);
+        assertThat(stream.
+                map(String::length).
+                collect(toList()).
+                size()).isEqualTo(4);
 
-        // flatMap merges a group of Streams/collections.
+        // flatMap merges a group of Streams/collections when they are values i.e. denormalizes
         // so the following would be flattened so it looks like a continuous stream.
         // flatmap expects streams.
         List<List<Integer>> list = new ArrayList();
@@ -333,55 +407,81 @@ public class Java8FeaturesTest {
         list.add(Arrays.asList(3, 4));
         list.add(Arrays.asList(5,6));
 
-        assertThat(list.stream().flatMap(strm->strm.stream()).collect(toList()).size()).isEqualTo(6);
+        assertThat(list.stream().
+                flatMap(strm -> strm.stream()).
+                collect(toList()).
+                size()).isEqualTo(6);
 
         list = new ArrayList();
         list.add(Arrays.asList(1, 2));
         list.add(Arrays.asList(3, 4));
         list.add(Arrays.asList(5,6));
-        assertThat(list.stream().flatMap(List::stream).collect(toList()).size()).isEqualTo(6);
+        assertThat(list.stream().
+                flatMap(List::stream).
+                collect(toList()).
+                size()).isEqualTo(6);
 
         list = new ArrayList();
         list.add(Arrays.asList(1, 2));
         list.add(Arrays.asList(3, 4));
         list.add(Arrays.asList(5,6));
         // note List::stream won't work below
-        assertThat(list.stream().flatMap(strm->strm.stream()).mapToInt(Integer::intValue).sum()).isEqualTo(21);
-
+        assertThat(list.stream().
+                flatMap(strm -> strm.stream()).
+                mapToInt(Integer::intValue).
+                sum()).isEqualTo(21);
     }
 
     @Test
     public void testCollector() {
         List<String> list = Arrays.asList("sun","moon","star","earth");
-        assertThat(list.stream().collect(joining())).isEqualTo("sunmoonstarearth");
-        assertThat(list.stream().collect(joining(","))).isEqualTo("sun,moon,star,earth");
-        assertThat(names.stream().map(Name::getLast).collect(joining(","))).isEqualTo("souza,beck,reid,reid");
+        assertThat(list.stream().
+                collect(joining())).isEqualTo("sunmoonstarearth");
+        assertThat(list.stream().
+                collect(joining(","))).isEqualTo("sun,moon,star,earth");
+        assertThat(names.stream().
+                map(Name::getLast).
+                collect(joining(","))).isEqualTo("souza,beck,reid,reid");
         // same as above
-        assertThat(names.stream().map(name->"n="+name.getLast()).collect(joining(","))).isEqualTo("n=souza,n=beck,n=reid,n=reid");
+        assertThat(names.stream().
+                map(name -> "n=" + name.getLast()).
+                collect(joining(","))).isEqualTo("n=souza,n=beck,n=reid,n=reid");
         // note containsOnly ensures only those elements are there in any order. To have order counted then containsExactly should
         // be used.
-        assertThat(names.stream().map(Name::getLast).collect(Collectors.toSet())).containsOnly("souza", "beck", "reid");
-        assertThat(names.stream().collect(Collectors.toMap(Name::getFirst, Name::getLast))).containsOnlyKeys("steve", "jeff", "william", "jim");
+        assertThat(names.stream().
+                map(Name::getLast).
+                collect(Collectors.toSet())).containsOnly("souza", "beck", "reid");
+        assertThat(names.stream().
+                collect(Collectors.toMap(Name::getFirst, Name::getLast))).
+                containsOnlyKeys("steve", "jeff", "william", "jim");
 
-        Map<String, List<Name>> map1 = names.stream().collect(Collectors.groupingBy(Name::getLast));
+        Map<String, List<Name>> map1 = names.stream().
+                collect(Collectors.groupingBy(Name::getLast));
         assertThat(map1.size()).isEqualTo(3);
 
         // Note the above is the same as if we provided the downstream collector to provide a list...
-        map1 = names.stream().collect(Collectors.groupingBy(Name::getLast, toList()));
+        map1 = names.stream().
+                collect(Collectors.groupingBy(Name::getLast, toList()));
         assertThat(map1.size()).isEqualTo(3);
 
         // ...but other "downstream" collectors are possible.  This one does a group by lastName and a count on the grouping.
         //  count(*) group by lastName
-        Map<String, Long> mapCounting = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.counting()));
+        Map<String, Long> mapCounting = names.stream().
+                collect(Collectors.groupingBy(Name::getLast, Collectors.counting()));
         assertThat(mapCounting.size()).isEqualTo(3);
         assertThat(mapCounting.get("reid")).isEqualTo(2);// count of 2 for reid
 
         // Take the aggregate map from above  (lastName, count) and find the entry with the highest count.
-        Optional<String> maxCountKey=mapCounting.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
+        Optional<String> maxCountKey=mapCounting.entrySet().stream().
+                max(Map.Entry.comparingByValue()).
+                map(Map.Entry::getKey);
         assertThat(maxCountKey.get()).isEqualTo("reid");
 
         // alternatively - and in this case I think simpler.
-        String maxKey = mapCounting.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+        String maxKey = mapCounting.entrySet().stream().
+                max(Map.Entry.comparingByValue()).
+                get().
+                getKey();
         assertThat(maxKey).isEqualTo("reid");
 
         //  Some of the summarizing downstream collectors which are in the Collectors class follow:
@@ -390,29 +490,36 @@ public class Java8FeaturesTest {
         //   * For primitive streams you can also do all aggregates:  summarizingInt, summarizingDouble, summarisingLong
 
         //  take the stream of Name objects and: sum(salary), count(), average(salary)...all aggregates... group by lastName
-        Map<String, Integer> map2 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.summingInt(Name::getSalary)));
-        IntSummaryStatistics stats = map2.values().stream().mapToInt(i->i).summaryStatistics();
+        Map<String, Integer> map2 = names.stream().
+                collect(Collectors.groupingBy(Name::getLast, Collectors.summingInt(Name::getSalary)));
+        IntSummaryStatistics stats = map2.values().stream().
+                mapToInt(i -> i).
+                summaryStatistics();
         assertThat(stats.getSum()).isEqualTo(40);
 
         // max(firstName) group by lastName
-        Map<String, Optional<Name>> map3 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.maxBy(Comparator.comparing(Name::getFirst))));
+        Map<String, Optional<Name>> map3 = names.stream().
+                collect(Collectors.groupingBy(Name::getLast, Collectors.maxBy(Comparator.comparing(Name::getFirst))));
         assertThat(map3.get("reid").get().getFirst()).isEqualTo("william");
 
         // group by lastName, firstName
-        Map<String, Map<String, List<Name>>> map4 = names.stream().collect(Collectors.groupingBy(Name::getLast, Collectors.groupingBy(Name::getFirst)));
+        Map<String, Map<String, List<Name>>> map4 = names.stream().
+                collect(Collectors.groupingBy(Name::getLast, Collectors.groupingBy(Name::getFirst)));
         assertThat(map4.get("reid").get("william").get(0).getFirst()).isEqualTo("william");
 
         // partitioningBy is like groupingBy but the groupings are only true/false
-        Map<Boolean, List<String>> booleanMap = list.stream().collect(Collectors.partitioningBy(str->str.length()>3));
+        Map<Boolean, List<String>> booleanMap = list.stream().
+                collect(Collectors.partitioningBy(str -> str.length() > 3));
         assertThat(booleanMap.get(true)).hasSize(3);
         assertThat(booleanMap.get(false)).hasSize(1);
 
         // The following takes all elements in a group and maps them.  In this case it takes all the values of the group
         // and concatenates them i.e. reid=william,jim
-        Map<String, String> map5 = names.stream().collect(
-                Collectors.groupingBy(Name::getLast,
-                        Collectors.mapping(Name::getFirst, Collectors.joining(","))) // concatenates names in a group.
-        );
+        Map<String, String> map5 = names.stream().
+                collect(
+                        Collectors.groupingBy(Name::getLast,
+                                Collectors.mapping(Name::getFirst, Collectors.joining(","))) // concatenates names in a group.
+                );
         assertThat(map5.get("reid")).isEqualTo("william,jim");
         System.out.println(map5);
     }
@@ -426,12 +533,16 @@ public class Java8FeaturesTest {
         int sum1 = IntStream.of(1,2,3).sum();
         int sum2 = IntStream.of(1,2,3).reduce(0, (a,b)->a+b);
         // note use of OptionalInt.  Also note seed value starts at 0 when left off
-        int sum3 = IntStream.of(1,2,3).reduce((a,b)->a+b).getAsInt();
+        int sum3 = IntStream.of(1,2,3).
+                reduce((a, b) -> a + b).
+                getAsInt();
         assertThat(sum1).isEqualTo(6);
         assertThat(sum2).isEqualTo(6);
         assertThat(sum3).isEqualTo(6);
         // starting value to add is not 0 but 1.
-        assertThat(IntStream.of(1,2,3).reduce(1, (a,b)->a+b)).isEqualTo(7);
+        assertThat(IntStream.of(1,2,3).
+                reduce(1, (a, b) -> a + b)).
+                isEqualTo(7);
     }
 
     @Test
