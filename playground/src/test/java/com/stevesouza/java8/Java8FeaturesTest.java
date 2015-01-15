@@ -570,7 +570,7 @@ public class Java8FeaturesTest {
 
         // returns Optional based on passed in value or if it is null it simply returns Optional.empty()
         Optional alsoEmpty = Optional.ofNullable(null);
-        assertThat(alsoEmpty.isPresent()).isFalse()
+        assertThat(alsoEmpty.isPresent()).isFalse();
     }
 
 
