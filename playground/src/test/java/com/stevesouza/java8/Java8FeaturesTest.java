@@ -573,6 +573,15 @@ public class Java8FeaturesTest {
         assertThat(alsoEmpty.isPresent()).isFalse();
     }
 
+    @Test
+    public void testPeek() {
+        OptionalInt max=stringList.stream().
+                mapToInt(String::length).
+                peek((len)->System.out.println("peek at: "+len)).
+                max();
+        assertThat(max.getAsInt()).isEqualTo(17);
+    }
+
 
 
     private static class Name {
