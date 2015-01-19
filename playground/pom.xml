@@ -25,7 +25,7 @@
       <metrics.version>3.0.1</metrics.version>
       <joda.version>2.3</joda.version>
       <camel.version>2.14.0</camel.version>
-      <jamonapi.version>2.80</jamonapi.version>
+      <jamonapi.version>2.81-SNAPSHOT</jamonapi.version>
       <hazelcast.version>3.3.1</hazelcast.version>
       <fdsapi.version>1.2</fdsapi.version>
       <spring.version>4.1.1.RELEASE</spring.version>
