@@ -51,7 +51,7 @@ public class JamonPerformanceMonitorInterceptorTest {
 
         interceptor.invokeUnderTrace(mi, log);
 
-        assertEquals("jamon must track the method being invoked", 1, MonitorFactory.getNumRows());
+        assertEquals("jamon must track the method being invoked", 2, MonitorFactory.getNumRows());
         assertTrue("The jamon report must contain the toString method that was invoked", MonitorFactory.getReport().contains("toString"));
     }
 
@@ -67,7 +67,7 @@ public class JamonPerformanceMonitorInterceptorTest {
         } catch (IllegalArgumentException expected) {
         }
 
-        assertEquals("A monitor must exist for the method being invoked", 1, MonitorFactory.getNumRows());
+        assertEquals("A monitor must exist for the method being invoked", 2, MonitorFactory.getNumRows());
         assertTrue("The jamon report must contain the toString method that was invoked",  MonitorFactory.getReport().contains("toString"));
     }
 
