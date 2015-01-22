@@ -18,6 +18,8 @@ public class MessagePeekerBean {
      * as it will see the message is a String and if the class has only 1 method where the message matches
      * the body it would be picked.
      *
+     * @param fileName
+     * @param simpleStr
      * @Header("filename") == @Simple("${header.filename}")
      *
      *  Nice examples of Camel SEL (simple expression language) - http://camel.apache.org/simple.html
