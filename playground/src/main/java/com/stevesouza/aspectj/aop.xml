@@ -1,0 +1,11 @@
+<!--
+java -Dorg.aspectj.weaver.loadtime.configuration=file:aspectj_aop.xml -classpath playground-1.0-SNAPSHOT.jar -javaagent:/Applications/myapps/aspectj/lib/aspectjweaver.jar com.stevesouza.aspectj.MessageCommunicator
+-->
+
+<aspectj>
+
+    <aspects>
+        <aspect name="com.stevesouza.aspectj.JavaStyleAspect"/>
+    </aspects>
+
+</aspectj>
