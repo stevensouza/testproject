@@ -4,12 +4,13 @@ playground/src/main/resources/data/out/*
 #   http://gary-rowe.com/agilestack/2012/10/12/a-gitignore-file-for-intellij-and-eclipse-with-maven/
 
 # Eclipse
-playground/.classpath
-playground/.project
-playground/.settings/
+.classpath/
+.project/
+.settings/
 
 # Intellij
-playground/.idea/
+# ignore directories that contain .idea/ (can even be in subdirectory)
+.idea/
 *.iml
 *.iws
 
@@ -17,5 +18,5 @@ playground/.idea/
 .DS_Store
 
 # Maven
-playground/log/
-playground/target/
+log/
+target/
