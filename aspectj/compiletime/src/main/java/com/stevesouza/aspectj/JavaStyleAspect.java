@@ -21,7 +21,8 @@ public class JavaStyleAspect {
     private int callDepth;
 
     // Wildcards - all methods starting with get.
-    @Pointcut("!within(JavaStyleAspect) && execution(* *(..))")
+    // @Pointcut("!within(JavaStyleAspect) && execution(* *(..))")
+    @Pointcut("within(MessageCommunicator)")
     public void traced() {
     }
 
