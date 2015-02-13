@@ -17,12 +17,12 @@ import org.aspectj.lang.annotation.Pointcut;
  *
  */
 @Aspect
-public class JavaStyleAspect {
+public class JavaStyleExternalAspect {
     private int callDepth;
 
     // Wildcards - all methods starting with get.
     // @Pointcut("!within(JavaStyleAspect) && execution(* *(..))")
-    @Pointcut("within(MessageCommunicator)  && execution(* *(..))")
+    @Pointcut("!within(JavaStyleAspect) && !within(JavaStyleExternalAspect) && !within(NativeAspect) && execution(* *(..))")
     public void traced() {
     }
 

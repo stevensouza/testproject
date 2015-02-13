@@ -1,0 +1,7 @@
+<aspectj>
+<aspects>
+<aspect name="com.stevesouza.aspectj.NativeAspect"/>
+<aspect name="com.stevesouza.aspectj.JavaStyleExternalAspect"/>
+<aspect name="com.stevesouza.aspectj.JavaStyleAspect"/>
+</aspects>
+</aspectj>

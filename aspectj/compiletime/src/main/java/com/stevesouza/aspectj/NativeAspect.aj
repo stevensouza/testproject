@@ -30,7 +30,7 @@ package com.stevesouza.aspectj;
 public aspect NativeAspect {
     private int callDepth;
   //  pointcut traced() : !within(NativeAspect);
-    pointcut traced() : within(MessageCommunicator);
+    pointcut traced() : within(MessageCommunicator)  && execution(* *(..));
 
     before() : traced() {
         print("Before", thisJoinPoint);

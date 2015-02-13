@@ -3,16 +3,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.stevesouza</groupId>
-  <artifactId>aspect_jcompiletime</artifactId>
+  <artifactId>aspectj_helloworld</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>aspectj_compiletime</name>
+  <name>aspectj_helloworld</name>
   <url>http://maven.apache.org</url>
 
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <!-- note for aspectj compiling above 1.5 i found some errors if the pointcut let everything be monitored -->
       <jdk.version>1.8</jdk.version>
       <metrics.version>3.0.1</metrics.version>
       <jamonapi.version>2.81-SNAPSHOT</jamonapi.version>
@@ -25,26 +24,16 @@
     <build>
         <plugins>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <version>${mojo.ajc.version}</version>
-                <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <complianceLevel>${jdk.version}</complianceLevel>
-                    <!-- generates META-INF/aop-ajc.xml file and puts it in jar.  Recommended for aspectj libraries. -->
-                    <outxml>true</outxml>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>       <!-- use this goal to weave all your main classes -->
-                            <!-- <goal>test-compile</goal>  --> <!-- use this goal to weave all your test classes -->
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.2</version>
+    <configuration>
+        <source>${jdk.version}</source>
+        <target>${jdk.version}</target>
+    </configuration>
+</plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -61,7 +50,7 @@
                 <configuration>
                     <!-- generates class path with all dependencies as well as generated class -->
                     <classpathScope>runtime</classpathScope>
-                    <mainClass>com.stevesouza.aspectj.MessageCommunicator</mainClass>
+                    <mainClass>com.stevesouza.helloworld.helloworld.HelloWorld</mainClass>
                 </configuration>
             </plugin>
     <!-- The Surefire Plugin is used during the test phase of the build lifecycle to execute the unit tests of an application. -->
