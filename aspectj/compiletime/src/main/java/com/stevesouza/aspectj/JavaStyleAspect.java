@@ -46,7 +46,6 @@ public class JavaStyleAspect {
         for (int i=0; i<callDepth;i++) {
             System.out.print(" ");
         }
-
-        System.out.println(prefix+":"+message);
+        System.out.println(prefix+"("+getClass().getSimpleName()+ "):"+message);
     }
 }

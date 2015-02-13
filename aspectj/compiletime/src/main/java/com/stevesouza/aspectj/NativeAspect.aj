@@ -46,6 +46,6 @@ public aspect NativeAspect {
             System.out.print("  ");
         }
 
-        System.out.println(prefix+":"+message);
+        System.out.println(prefix+"("+getClass().getSimpleName()+ "):"+message);
     }
 }
