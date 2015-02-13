@@ -3,16 +3,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.stevesouza</groupId>
-  <artifactId>aspect_jcompiletime</artifactId>
+  <artifactId>aspectj_helloworld_woven</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>aspectj_compiletime</name>
+  <name>aspectj_helloworld_woven</name>
   <url>http://maven.apache.org</url>
 
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <!-- note for aspectj compiling above 1.5 i found some errors if the pointcut let everything be monitored -->
       <jdk.version>1.8</jdk.version>
       <metrics.version>3.0.1</metrics.version>
       <jamonapi.version>2.81-SNAPSHOT</jamonapi.version>
@@ -25,17 +24,12 @@
     <build>
         <plugins>
 
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
                 <version>${mojo.ajc.version}</version>
-                <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <complianceLevel>${jdk.version}</complianceLevel>
-                    <!-- generates META-INF/aop-ajc.xml file and puts it in jar.  Recommended for aspectj libraries. -->
-                    <outxml>true</outxml>
-                </configuration>
+
                 <executions>
                     <execution>
                         <goals>
@@ -44,6 +38,32 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <!-- because this project has no sources it is required that forceAjcCompile is true.
+                    Alternatively having one dummy class works. -->
+                    <forceAjcCompile>true</forceAjcCompile>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <complianceLevel>${jdk.version}</complianceLevel>
+
+                        <aspectLibraries>
+                            <aspectLibrary>
+                                <groupId>com.stevesouza</groupId>
+                                <artifactId>aspectj_compiletime</artifactId>
+                            </aspectLibrary>
+                        </aspectLibraries>
+                    <weaveDependencies>
+
+                        <weaveDependency>
+                            <groupId>com.stevesouza</groupId>
+                            <artifactId>aspectj_helloworld</artifactId>
+                        </weaveDependency>
+                    </weaveDependencies>
+
+                </configuration>
+
+
+
             </plugin>
 
             <plugin>
@@ -61,7 +81,7 @@
                 <configuration>
                     <!-- generates class path with all dependencies as well as generated class -->
                     <classpathScope>runtime</classpathScope>
-                    <mainClass>com.stevesouza.aspectj.MessageCommunicator</mainClass>
+                    <mainClass>com.stevesouza.helloworld.helloworld.HelloWorld</mainClass>
                 </configuration>
             </plugin>
     <!-- The Surefire Plugin is used during the test phase of the build lifecycle to execute the unit tests of an application. -->
@@ -74,6 +94,18 @@
     </build>
 
   <dependencies>
+
+      <dependency>
+          <groupId>com.stevesouza</groupId>
+          <artifactId>aspectj_helloworld</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+          <groupId>com.stevesouza</groupId>
+          <artifactId>aspectj_compiletime</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
 
       <dependency>
           <groupId>org.aspectj</groupId>
