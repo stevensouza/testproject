@@ -6,7 +6,9 @@
   <artifactId>aspectj_helloworld</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
+    <description>This pom simply has an unwoven HelloWorld class.  It jar file is used in aspectj_helloworld_woven
+    to generate a woven version of it in a jar by combining HelloWorld and the aspect created in aspectj_compiletime.
+    </description>
   <name>aspectj_helloworld</name>
   <url>http://maven.apache.org</url>
 

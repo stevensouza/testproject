@@ -8,6 +8,10 @@
   <packaging>jar</packaging>
 
   <name>aspectj_helloworld_woven</name>
+    <description>Weave the library created with aspectj_compiletime with the HelloWorld class generated
+        in aspectj_helloworld_woven.  This approach is what users could do to combine their generated library with
+        the aspect.
+    </description>
   <url>http://maven.apache.org</url>
 
   <properties>

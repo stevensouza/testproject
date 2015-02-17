@@ -8,6 +8,9 @@
   <packaging>jar</packaging>
 
   <name>aspectj_compiletime</name>
+    <description>Generates an aspectj library for use in other projects.  Also generates a woven class to
+        test MessageCommunicator
+    </description>
   <url>http://maven.apache.org</url>
 
   <properties>
