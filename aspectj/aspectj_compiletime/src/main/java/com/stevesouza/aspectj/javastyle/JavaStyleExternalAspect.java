@@ -1,4 +1,4 @@
-package com.stevesouza.aspectj;
+package com.stevesouza.aspectj.javastyle;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -8,21 +8,21 @@ import org.aspectj.lang.annotation.Pointcut;
 
 /**
  * aspectj compile time weaving using ajc
- *  cd /Users/stevesouza/gitrepo/testproject/playground/src/main/java
- *  ajc -source 5 com/stevesouza/aspectj/*.java
- *  java com.stevesouza.aspectj.MessageCommunicator
+ *  cd /Users/stevesouza/gitrepo/testproject/playground/src/main/javastyle
+ *  ajc -source 5 com/stevesouza/aspectj/*.javastyle
+ *  javastyle com.stevesouza.aspectj.MessageCommunicator
  *
  * for nonaspectj version:
- *  javac com/stevesouza/aspectj/*.java
+ *  javac com/stevesouza/aspectj/*.javastyle
  *
  */
 @Aspect
-public class JavaStyleAspect {
+public class JavaStyleExternalAspect {
     private int callDepth;
 
-    // Wildcards - all methods starting with get.
+    // Wildcards - constructor methods starting with get.
     // @Pointcut("!within(JavaStyleAspect) && execution(* *(..))")
-    @Pointcut("within(MessageCommunicator)  && execution(* *(..))")
+    @Pointcut("!within(com.stevesouza..*)")
     public void traced() {
     }
 
