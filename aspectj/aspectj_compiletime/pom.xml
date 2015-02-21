@@ -64,7 +64,7 @@
                 <configuration>
                     <!-- generates class path with constructor dependencies as well as generated class -->
                     <classpathScope>runtime</classpathScope>
-                    <mainClass>com.stevesouza.aspectj.MyClassBase</mainClass>
+                    <mainClass>com.stevesouza.aspectj.javastyle.method.MyClass</mainClass>
                 </configuration>
             </plugin>
     <!-- The Surefire Plugin is used during the test phase of the build lifecycle to execute the unit tests of an application. -->
