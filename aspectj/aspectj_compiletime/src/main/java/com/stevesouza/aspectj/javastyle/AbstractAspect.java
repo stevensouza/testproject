@@ -48,6 +48,20 @@ public abstract class AbstractAspect {
     public void protectedMethod() {
 
     }
+
+    @Pointcut("execution(public void *.set*(*))")
+    public void setter() {
+    }
+
+    @Pointcut("execution(public * *.get*())")
+    public void getter() {
+    }
+
+    @Pointcut("getter() || setter()")
+    public void getterOrSetter() {
+
+    }
+
     /**
      * Note constructor is just like method except it doesn't allow a return type.
      */
