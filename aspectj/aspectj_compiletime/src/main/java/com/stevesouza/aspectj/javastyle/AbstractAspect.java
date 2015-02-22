@@ -1,10 +1,7 @@
 package com.stevesouza.aspectj.javastyle;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 
 /**
  * aspectj compile time weaving using ajc
@@ -100,8 +97,13 @@ public abstract class AbstractAspect {
         callDepth--;
     }
 
+    // Convenient for quickly disabling advice.
+    @AfterReturning("if(false)")
+    public void afterDisabledExample() {
 
-    private void print(String prefix, Object message) {
+    }
+
+    protected void print(String prefix, Object message) {
         for (int i=0; i<callDepth;i++) {
             System.out.print(" ");
         }
