@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 
 /**
  * Aspect that shows various ways to do context.
@@ -15,10 +16,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class MyAspect {
 
-    // Disable.  note if(false) gives an error that it isn't supported in spring but works in aspectj
-
     @AfterReturning(value = "execution(* com.stevesouza.aspectj.javastyle.context.MyClass.myMethod(int, String))")
-    // note use of JoinPoint to get further info here
     public void afterReturning(JoinPoint thisJoinPoint, JoinPoint.StaticPart joinPointStaticPart, JoinPoint.EnclosingStaticPart joinPointEnclosingStaticPart) {
         // Example: thisJoinPoint.toString() : execution(void com.stevesouza.aspectj.javastyle.context.MyClass.myMethod(int, String))
         printMe("thisJoinPoint.toString()", thisJoinPoint.toString());
@@ -29,10 +27,15 @@ public class MyAspect {
         printMe("thisJoinPoint.getKind()", thisJoinPoint.getKind());
 
         System.out.println();
-        System.out.println(" args");
-        Object[] args = thisJoinPoint.getArgs();
-        for (Object arg : args) {
-            printMe("  arg", arg);
+        System.out.println(" Method args");
+        // to have argNames on you have to compile with
+        // I hear in maven it is by default:  using the compiler maven plugin, the debug is on by default
+        MethodSignature signature = ((MethodSignature) thisJoinPoint.getSignature());
+
+        Object[] argValues = thisJoinPoint.getArgs();
+        String[] argNames = signature.getParameterNames();
+        for (int i=0;i<argNames.length;i++) {
+            printMe("  argName, argValue", argNames[i]+", "+argValues[i]);
 
         }
 
@@ -42,6 +45,7 @@ public class MyAspect {
         printMe("thisJoinPoint.getSignature().getDeclaringTypeName()", thisJoinPoint.getSignature().getDeclaringTypeName());
         printMe("thisJoinPoint.getSignature().getModifiers()", thisJoinPoint.getSignature().getModifiers());
         printMe("thisJoinPoint.getSignature().getName()", thisJoinPoint.getSignature().getName());
+
 
         System.out.println();
         printMe("thisJoinPoint.getSourceLocation()", thisJoinPoint.getSourceLocation());
