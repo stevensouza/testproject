@@ -46,6 +46,11 @@ public abstract class AbstractAspect {
 
     }
 
+    @Pointcut("method() && !privateMethod() && !protectedMethod() && !publicMethod()")
+    public void packageMethod() {
+
+    }
+
     @Pointcut("execution(public void *.set*(*))")
     public void setter() {
     }
@@ -81,6 +86,12 @@ public abstract class AbstractAspect {
     public void protectedConstructor() {
 
     }
+
+    @Pointcut("constructor() && !privateConstructor() && !protectedConstructor() && !publicConstructor()")
+    public void packageConstructor() {
+
+    }
+
 
     @Before("traced()")
     // note use of JoinPoint to get further info here
