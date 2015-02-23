@@ -28,7 +28,7 @@ public class MyAspect {
 
         System.out.println();
         System.out.println(" Method args");
-        // to have argNames on you have to compile with
+        // to have argNames on you have to compile with -g
         // I hear in maven it is by default:  using the compiler maven plugin, the debug is on by default
         MethodSignature signature = ((MethodSignature) thisJoinPoint.getSignature());
 
