@@ -1,30 +1,22 @@
 package com.stevesouza.aspectj.javastyle.field;
 
-import com.stevesouza.aspectj.MyClassBase;
 
 /**
  * Created by stevesouza on 2/4/15.
  */
-public class MyClass extends MyClassBase {
+public class MyClass  {
 
     private int age;
     protected String fname;
     public String lname;
     String department;
-    public MyClass() {
 
-    }
     public MyClass(String fname, String lname, int age) {
         this.fname=fname;
         this.lname=lname;
         this.age=age;
         department="software";
     }
-
-//    public String toString() {
-//        return fname+" "+lname+" "+department+" "+age;
-//    }
-
 
     public static void main(String[] args) {
         MyClass m = new MyClass("steve","souza",35);
