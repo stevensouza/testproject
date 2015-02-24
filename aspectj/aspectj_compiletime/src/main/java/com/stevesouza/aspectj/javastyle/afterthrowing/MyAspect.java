@@ -30,7 +30,7 @@ public class MyAspect  {
 
   }
 
-    @Pointcut("all()  && !within(MyAspect+)")
+    @Pointcut("all()  && !within(MyAspect+) && !cflow(adviceexecution())")
     public void myExceptions() {
     }
 
