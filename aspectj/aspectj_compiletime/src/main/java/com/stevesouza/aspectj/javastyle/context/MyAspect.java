@@ -36,7 +36,6 @@ public class MyAspect {
         String[] argNames = signature.getParameterNames();
         for (int i=0;i<argNames.length;i++) {
             printMe("  argName, argValue", argNames[i]+", "+argValues[i]);
-
         }
 
         System.out.println();

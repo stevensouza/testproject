@@ -20,11 +20,10 @@ public abstract class AbstractAspect {
     @Pointcut()
     public abstract void traced();
 
-    @Pointcut()
+    @Pointcut("!preinitialization(*.new(..))")
     public void all() {
 
-    };
-
+    }
 
     @Pointcut("execution(* *(..))")
     public void method() {
