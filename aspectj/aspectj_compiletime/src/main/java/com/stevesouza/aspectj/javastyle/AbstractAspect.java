@@ -25,6 +25,14 @@ public abstract class AbstractAspect {
 
     }
 
+    !
+    @Pointcut("execution(* java.lang.Object.*(..))")
+    public void objectMethod() {
+    }
+
+
+    // change method() to methodExecution()
+    //  publicMethod to publicMethodExecution etc.
     @Pointcut("execution(* *(..))")
     public void method() {
 
