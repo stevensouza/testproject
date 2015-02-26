@@ -20,9 +20,9 @@ public class MetricsImp implements OpenMon<Timer.Context> {
     }
 
     @Override
-    public void stop(Timer.Context mon) {
-        mon.stop();
-        System.out.println("Metrics Timer.Context: "+mon);
+    public void stop(Timer.Context timerContext) {
+        timerContext.stop();
+        System.out.println("Metrics Timer.Context: "+timerContext);
     }
 
     @Override

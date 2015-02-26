@@ -16,10 +16,10 @@ public class SimonImp implements OpenMon<Split> {
     }
 
     @Override
-    public void stop(Split mon) {
-        mon.stop();
-        System.out.println("Simon split: "+mon);
-        System.out.println("Simon snapshot: "+mon.getStopwatch().sample());
+    public void stop(Split split) {
+        split.stop();
+        System.out.println("Simon split: "+split);
+        System.out.println("Simon snapshot: "+split.getStopwatch().sample());
 
     }
 

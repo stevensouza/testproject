@@ -44,5 +44,10 @@ public class MyAspect {
         myAspect.setOpenMon(new MetricsImp());
         myAspect.aroundAdvice();
         myAspect.afterThrowingAdvice();
+
+        System.out.println("\nNull Implementation (noop)");
+        myAspect.setOpenMon(new NullImp());
+        myAspect.aroundAdvice();
+        myAspect.afterThrowingAdvice();
     }
 }
