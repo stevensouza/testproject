@@ -29,4 +29,18 @@ public class SimonImp implements OpenMon<Split> {
         mon.increase();
         System.out.println("Simon counter: "+mon);
     }
+
+    @Override
+    public void enable(boolean enable) {
+        if (enable) {
+            SimonManager.enable();
+        } else {
+            SimonManager.disable();
+        }
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return SimonManager.isEnabled();
+    }
 }

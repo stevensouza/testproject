@@ -16,12 +16,25 @@ public class MyAspect {
         this.openMon = openMon;
     }
 
+    public void enable(boolean enable) {
+        if (openMon==null)
+            return;
 
+        openMon.enable(enable);
+    }
+
+    public boolean isEnabled() {
+        return (openMon==null) ? false : openMon.isEnabled();
+    }
+
+    // && if (isEnabled())
     public void aroundAdvice() throws Exception {
         Object mon = openMon.start("com.stevesouza.myMethod");
         Thread.sleep(100);
         openMon.stop(mon);
     }
+
+    // && if (isEnabled())
 
     public void afterThrowingAdvice() throws Exception {
         openMon.exception("com.stevesouza.myException");
@@ -47,6 +60,12 @@ public class MyAspect {
 
         System.out.println("\nNull Implementation (noop)");
         myAspect.setOpenMon(new NullImp());
+        myAspect.aroundAdvice();
+        myAspect.afterThrowingAdvice();
+
+        System.out.println("\nJamon disabled");
+        myAspect.enable(false);
+        myAspect.setOpenMon(new JamonImp());
         myAspect.aroundAdvice();
         myAspect.afterThrowingAdvice();
     }

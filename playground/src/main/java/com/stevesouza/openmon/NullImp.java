@@ -5,7 +5,7 @@ package com.stevesouza.openmon;
  */
 public final class NullImp implements OpenMon<Object> {
     private static final Object NOOP = new Object();
-    
+
     @Override
     public Object start(String label) {
         return NOOP;
@@ -19,5 +19,15 @@ public final class NullImp implements OpenMon<Object> {
     @Override
     public void exception(String label) {
 
+    }
+
+    @Override
+    public void enable(boolean enable) {
+
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

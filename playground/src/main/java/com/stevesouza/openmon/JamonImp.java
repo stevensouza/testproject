@@ -23,4 +23,18 @@ public class JamonImp implements OpenMon<Monitor>{
         Monitor mon = MonitorFactory.add(label, "Exception", 1);
         System.out.println(mon);
     }
+
+    @Override
+    public void enable(boolean enable) {
+        if (enable) {
+            MonitorFactory.enable();
+        } else {
+            MonitorFactory.disable();
+        }
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return MonitorFactory.isEnabled();
+    }
 }

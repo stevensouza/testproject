@@ -31,4 +31,14 @@ public class MetricsImp implements OpenMon<Timer.Context> {
         mon.inc();
         System.out.println("Metrics counter: "+mon);
     }
+
+    @Override
+    public void enable(boolean enable) {
+
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

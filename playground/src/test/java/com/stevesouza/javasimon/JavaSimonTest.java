@@ -60,4 +60,18 @@ public class JavaSimonTest {
         System.out.println("counter.sample="+counter.sample());
         System.out.println(SimonUtils.simonTreeString(SimonManager.getRootSimon()));
     }
+
+
+    @Test
+    public void testDisable() throws Exception {
+        SimonManager.disable();
+        Counter counter = SimonManager.getCounter("com.stevesouza.mycounter");
+        counter.increase();
+        assertThat(counter.getCounter()).isEqualTo(0);
+        System.out.println("counter=" + counter);
+        System.out.println("counter.sample="+counter.sample());
+        System.out.println(SimonUtils.simonTreeString(SimonManager.getRootSimon()));
+        SimonManager.enable();
+    }
+
 }
