@@ -1,0 +1,10 @@
+package com.stevesouza.openmon;
+
+/**
+ * Created by stevesouza on 2/26/15.
+ */
+public interface OpenMon<T extends Object> {
+    public T start(String label);
+    public void stop(T mon);
+    public void exception(String label);
+}
