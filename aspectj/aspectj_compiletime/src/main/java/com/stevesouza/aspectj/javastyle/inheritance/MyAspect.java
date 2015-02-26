@@ -18,6 +18,8 @@ public class MyAspect  {
         System.out.println("  MyClass "+joinPoint.getKind()+": "+joinPoint);
     }
 
+    // gets rid of static ie. main()
+    //@Before("execution(* MyClass+.*(..)) && this(MyClass)")
     @Before("execution(* MyClass+.*(..))")
     public void myAdvice2(JoinPoint.StaticPart joinPoint) {
         System.out.println("  MyClass+ "+joinPoint.getKind()+": "+joinPoint);
