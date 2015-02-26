@@ -24,8 +24,7 @@ public abstract class AbstractAspect {
     public void all() {
 
     }
-
-    !
+    
     @Pointcut("execution(* java.lang.Object.*(..))")
     public void objectMethod() {
     }
