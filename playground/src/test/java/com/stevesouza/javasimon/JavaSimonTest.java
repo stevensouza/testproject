@@ -29,15 +29,18 @@ public class JavaSimonTest {
         Split split = stopwatch.start();
         Thread.sleep(100);
         split.stop();
-        assertThat(stopwatch.getLast()).isGreaterThanOrEqualTo(100);
         long value = stopwatch.getLast();
+        assertThat(value).isGreaterThanOrEqualTo(100);
+        assertThat(stopwatch.getMax()).isEqualTo(value);
+        assertThat(stopwatch.getMean()).isEqualTo(value);
+        assertThat(stopwatch.getMin()).isEqualTo(value);
+        assertThat(stopwatch.getTotal()).isEqualTo(value);
+
         assertThat(stopwatch.getActive()).isEqualTo(0);
-        assertThat(stopwatch.getCounter()).isGreaterThanOrEqualTo(1);
-        assertThat(stopwatch.getMax()).isGreaterThanOrEqualTo(value);
-        assertThat(stopwatch.getMaxActive()).isGreaterThanOrEqualTo(1);
-        assertThat(stopwatch.getMean()).isGreaterThanOrEqualTo(value);
-        assertThat(stopwatch.getMin()).isGreaterThanOrEqualTo(value);
-        assertThat(stopwatch.getTotal()).isGreaterThanOrEqualTo(value);
+        assertThat(stopwatch.getMaxActive()).isEqualTo(1);
+
+        assertThat(stopwatch.getCounter()).isEqualTo(1);
+
         System.out.println("split="+split);
         System.out.println("stopWatch.sample="+stopwatch.sample());
         System.out.println(SimonUtils.simonTreeString(SimonManager.getRootSimon()));
