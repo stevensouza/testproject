@@ -1,4 +1,4 @@
-package com.stevesouza.aspectj.javastyle.unkinded.various;
+package com.stevesouza.aspectj.javastyle.unkinded;
 
 
 /**
