@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static com.codahale.metrics.MetricRegistry.*;
 
 public class MetricsTest {
-    private static MetricRegistry metrics = new MetricRegistry();
+    private MetricRegistry metrics = new MetricRegistry();
 
     @Before
     public void setUp() throws Exception {
