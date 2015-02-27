@@ -3,6 +3,7 @@ package com.stevesouza.sl4j;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 /**
  *  Note you have to have a binding jar such as slf4j-log4j12-1.7.10.jar in your class path in addition to sl4j and
@@ -22,10 +23,12 @@ import org.slf4j.LoggerFactory;
  *    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
  */
 public class Write {
-    
+
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(Write.class);
+
+        MDC.put("first", "steve"); // not working as config file isn't found, but the concept is correct.
         logger.info("Hello World");
-        logger.info("Hi {} & {}", "mom", "dad");
+        logger.info("Hi {} & {} & %X{first}", "mom", "dad");
     }
 }
