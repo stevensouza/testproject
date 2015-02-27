@@ -34,6 +34,7 @@
       <assertj.version>1.7.0</assertj.version>
       <sigar.version>1.6.4</sigar.version>
       <javasimon.version>4.0.1</javasimon.version>
+      <sl4j.version>1.7.10</sl4j.version>
   </properties>
 
     <build>
@@ -63,6 +64,18 @@
     </build>
 
   <dependencies>
+
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>${sl4j.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+          <version>${sl4j.version}</version>
+      </dependency>
 
       <dependency>
           <groupId>org.javasimon</groupId>
