@@ -9,7 +9,9 @@ public class MiscJavaTests {
 
     @Test
     public void testClassMethods() {
-        assertThat(MiscJavaTests.class.getName()).isEqualTo("hi");
+        assertThat(MiscJavaTests.class.getSimpleName()).isEqualTo("MiscJavaTests");
+        assertThat(MiscJavaTests.class.getName()).isEqualTo("com.stevesouza.misc.MiscJavaTests");
+
     }
 
 
