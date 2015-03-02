@@ -81,6 +81,8 @@ public class MyAspect  {
             lastLoggedException.set(e);
             System.out.println();
             System.out.println("Exception: "+e);
+            System.out.println("Exception: "+e.getClass().getName());
+
             System.out.println(" jp.getKind()=" + joinPoint.getKind());
             System.out.println(" jp.getStaticPart()="+joinPoint.getStaticPart());
             Object[] argValues = joinPoint.getArgs();
