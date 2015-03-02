@@ -65,7 +65,10 @@ public class AssertJFeaturesTest {
     public void testMockitoVerity() {
         MyClass obj = mock(MyClass.class);
         obj.myMethod("hi");
+        // the following 2 are the same
         verify(obj).myMethod(anyString());
+        verify(obj, times(1)).myMethod(anyString());
+
 
         obj.myOtherMethod();
         obj.myOtherMethod();
