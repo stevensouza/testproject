@@ -16,6 +16,11 @@ import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * examples for assertj:
@@ -53,6 +58,27 @@ public class AssertJFeaturesTest {
             assertThat(true).describedAs("My describedAs assertion message with args name='%s', num=%s", myName, myNum).isFalse();
         } catch (AssertionError e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testMockitoVerity() {
+        MyClass obj = mock(MyClass.class);
+        obj.myMethod("hi");
+        verify(obj).myMethod(anyString());
+
+        obj.myOtherMethod();
+        obj.myOtherMethod();
+        verify(obj, times(2)).myOtherMethod();
+    }
+
+    public class MyClass {
+        public void myMethod(String str) {
+
+        }
+
+        public void myOtherMethod() {
+
         }
     }
 
