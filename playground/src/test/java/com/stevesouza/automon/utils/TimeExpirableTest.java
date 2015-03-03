@@ -13,10 +13,10 @@ public class TimeExpirableTest {
     @Test
     public void testHasExpired() throws Exception {
         TimeExpirable expirable = new TimeExpirable(0);
-        assertThat(expirable.hasExpired()).isTrue();
+        assertThat(expirable.isExpired()).isTrue();
 
         expirable = new TimeExpirable(1);
-        assertThat(expirable.hasExpired()).isFalse();
+        assertThat(expirable.isExpired()).isFalse();
     }
 
     @Test
@@ -32,7 +32,7 @@ public class TimeExpirableTest {
         when(now.now()).thenReturn(time);
         TimeExpirable expirable = new TimeExpirable(1, now);
         when(now.now()).thenReturn(time+MIN_IN_MS);
-        assertThat(expirable.hasExpired()).describedAs("Exactly at expiration interval").isTrue();
+        assertThat(expirable.isExpired()).describedAs("Exactly at expiration interval").isTrue();
     }
 
 
@@ -43,7 +43,7 @@ public class TimeExpirableTest {
         when(now.now()).thenReturn(time);
         TimeExpirable expirable = new TimeExpirable(1, now);
         when(now.now()).thenReturn(time+100);
-        assertThat(expirable.hasExpired()).isFalse();
+        assertThat(expirable.isExpired()).isFalse();
     }
 
 

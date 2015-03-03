@@ -23,7 +23,7 @@ public class TimeExpirable implements Expirable {
     }
 
     @Override
-    public boolean hasExpired() {
+    public boolean isExpired() {
         return (now.now()-creationTime)>=expirationIntervalInMs;
     }
 
@@ -39,7 +39,7 @@ public class TimeExpirable implements Expirable {
         }
     }
 
-    // used to fascilitate testing with a mock.
+    // used to facilitate testing with a mock.
     public  interface Now {
         public long now();
     }
