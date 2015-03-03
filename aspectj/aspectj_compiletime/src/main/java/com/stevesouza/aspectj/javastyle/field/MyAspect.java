@@ -27,6 +27,7 @@ public class MyAspect  {
 
     @After("set(* com.stevesouza.aspectj.javastyle.field.MyClass+.*)")
     public void setAdvice(JoinPoint joinPoint) {
+        System.out.println("  After set: joinPoint.getKind()="+joinPoint.getKind());
         System.out.println("  After set: joinPoint.toLongString()="+joinPoint.toLongString());
         System.out.println("  After set: joinPoint.getTarget()="+joinPoint.getTarget());
         System.out.println("  After set: joinPoint.getArgs()[0] (value assigning)="+joinPoint.getArgs()[0]);
@@ -35,6 +36,7 @@ public class MyAspect  {
 
     @After("get(* com.stevesouza.aspectj.javastyle.field.MyClass+.*)")
     public void getAdvice(JoinPoint joinPoint) {
+        System.out.println("  After get: joinPoint.getKind()="+joinPoint.getKind());
         System.out.println("  After get: joinPoint.toLongString()="+joinPoint.toLongString());
         System.out.println("  After get: joinPoint.getTarget()="+joinPoint.getTarget());
     }
