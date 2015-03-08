@@ -1,0 +1,35 @@
+<!--
+org.automon=org.automon.implementations.Jamon
+myothervar=hi steve
+-->
+
+<aspectj>
+    <aspects>
+        <!-- Assume ajia.monitoring.Monitoring is an abstract aspect with
+             an abstract monitored() pointcut -->
+        <concrete-aspect name="com.myorganization.MyMonitoringAspect" extends="org.automon.aspects.SpringBase">
+            <pointcut name="user_monitor"       expression="profile()"/>
+            <pointcut name="user_exceptions"    expression="profile()"/>
+            <pointcut name="profile" expression="execution(public * com.stevesouza.helloworld.HelloWorld.*(..))"/>
+        </concrete-aspect>
+    </aspects>
+</aspectj>
+
+
+        <!--
+        Any calls to getFirstName in any class:
+          <pointcut name="profile" expression="execution(* *.getFirstName(..))"/>
+
+        Any method in any class that has the format get*Name:
+          <pointcut name="profile" expression="execution(* *.get*Name(..))"/>
+
+        path must be absolute:
+          <pointcut name="profile" expression="execution(* com.stevesouza.helloworld.HelloWorld.*(..))"/>
+
+        all methods in the following package structure (recursively).  This includes static methods:
+          <pointcut name="profile" expression="execution(* com.stevesouza..*(..))"/>
+
+        public methods only:
+          <pointcut name="profile" expression="execution(public * com.stevesouza.helloworld.HelloWorld.*(..))"/>
+
+        -->

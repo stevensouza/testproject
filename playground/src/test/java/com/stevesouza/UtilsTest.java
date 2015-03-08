@@ -42,4 +42,22 @@ public class UtilsTest {
 
         System.out.println(System.getProperty("commandLineProp"));
     }
+
+    @Test
+    public void testLoadPropertiesPropsTest() throws Exception {
+        Properties properties = Utils.propertyLoader("test.props");
+
+        System.out.println(properties.get("org.automon"));
+        System.out.println(properties);
+    }
+
+    @Test
+    public void testLoadPropertiesPropsTestXml() throws Exception {
+        Properties properties = Utils.propertyLoader("test.props.xml");
+
+        System.out.println("org.automon="+properties.get("org.automon"));
+        System.out.println("myothervar="+properties.get("myothervar"));
+
+        System.out.println(properties);
+    }
 }
