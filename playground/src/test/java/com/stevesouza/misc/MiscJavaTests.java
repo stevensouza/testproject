@@ -15,4 +15,19 @@ public class MiscJavaTests {
     }
 
 
+    @Test
+    public void testVarArgs() {
+        assertThat(varArgsMethod("Steve ", "Souza")).isEqualTo("Steve Souza");
+    }
+
+    private static String varArgsMethod(String... args) {
+        String retValue = "";
+        for (String str : args) {
+            retValue+=str;
+        }
+
+        return retValue;
+    }
+
+
 }
