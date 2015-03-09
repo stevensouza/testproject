@@ -4,8 +4,10 @@ package com.stevesouza.jmx;
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
 
-import java.util.*;
-import java.util.concurrent.atomic.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class SynchronizedLong implements Runnable {
 

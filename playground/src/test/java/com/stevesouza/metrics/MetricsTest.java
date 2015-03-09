@@ -1,13 +1,16 @@
 package com.stevesouza.metrics;
 
 
-import com.codahale.metrics.*;
+import com.codahale.metrics.Counter;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Snapshot;
+import com.codahale.metrics.Timer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.codahale.metrics.MetricRegistry.name;
 import static org.assertj.core.api.Assertions.assertThat;
-import static com.codahale.metrics.MetricRegistry.*;
 
 public class MetricsTest {
     private MetricRegistry metrics = new MetricRegistry();

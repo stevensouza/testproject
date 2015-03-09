@@ -1,7 +1,5 @@
 package com.stevesouza.spring.aop;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-
 /**
  * Created by stevesouza on 6/8/14.
  *

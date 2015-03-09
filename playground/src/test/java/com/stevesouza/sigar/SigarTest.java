@@ -1,6 +1,5 @@
 package com.stevesouza.sigar;
 
-import com.stevesouza.jmx.NumberDelta;
 import org.hyperic.sigar.*;
 import org.junit.After;
 import org.junit.Before;

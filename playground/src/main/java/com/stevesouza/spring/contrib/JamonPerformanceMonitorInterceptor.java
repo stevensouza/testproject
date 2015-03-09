@@ -1,5 +1,11 @@
 package com.stevesouza.spring.contrib;
 
+import com.jamonapi.MonKeyImp;
+import com.jamonapi.Monitor;
+import com.jamonapi.MonitorFactory;
+import com.jamonapi.utils.Misc;
+import org.aopalliance.intercept.MethodInvocation;
+import org.apache.commons.logging.Log;
 import org.springframework.aop.interceptor.AbstractMonitoringInterceptor;
 
 /*
@@ -17,16 +23,7 @@ import org.springframework.aop.interceptor.AbstractMonitoringInterceptor;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 //package org.springframework.aop.interceptor;
-
-
-import com.jamonapi.MonKeyImp;
-import com.jamonapi.utils.Misc;
-import com.jamonapi.Monitor;
-import com.jamonapi.MonitorFactory;
-import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.logging.Log;
 
 /**
  * Performance monitor interceptor that uses <b>JAMon</b> library

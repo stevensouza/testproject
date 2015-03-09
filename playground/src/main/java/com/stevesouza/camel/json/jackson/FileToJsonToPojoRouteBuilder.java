@@ -1,14 +1,9 @@
 package com.stevesouza.camel.json.jackson;
 
-import com.google.common.io.Files;
 import com.stevesouza.camel.BaseRouteBuilder;
 import com.stevesouza.camel.PersonsName;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
 
 /**
  * Created by stevesouza on 5/19/14.

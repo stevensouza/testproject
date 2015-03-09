@@ -7,7 +7,6 @@ import org.junit.Test;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryPoolMXBean;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;

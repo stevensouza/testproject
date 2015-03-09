@@ -1,11 +1,10 @@
 package com.stevesouza.jmx;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 import javax.management.AttributeChangeNotification;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 /** Must extend NotificationBroadcasterSupport, or implement NotificationEmitter if it supports notifications.

@@ -1,7 +1,5 @@
 package com.stevesouza.openmon;
 
-import com.jamonapi.Monitor;
-
 /**
  * Created by stevesouza on 2/26/15.
  */

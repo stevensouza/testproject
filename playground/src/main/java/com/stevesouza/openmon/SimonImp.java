@@ -1,7 +1,5 @@
 package com.stevesouza.openmon;
 
-import com.jamonapi.Monitor;
-import com.jamonapi.MonitorFactory;
 import org.javasimon.Counter;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;

@@ -1,8 +1,6 @@
 package com.stevesouza.jmx.javamonitor;
 
 import com.jamonapi.JAMonListener;
-import com.jamonapi.JAMonListenerFactory;
-import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
 
 /**

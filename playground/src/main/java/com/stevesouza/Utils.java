@@ -1,17 +1,12 @@
 package com.stevesouza;
 
-import com.google.common.io.Files;
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
-import com.stevesouza.camel.json.jackson.FileToJsonToPojoRouteBuilder;
 import org.apache.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.Properties;
-import java.util.Set;
 
 /**
  * Created by stevesouza on 5/26/14.

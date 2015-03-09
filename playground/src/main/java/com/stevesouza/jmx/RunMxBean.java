@@ -1,17 +1,17 @@
 package com.stevesouza.jmx;
 
 
-import com.jamonapi.MonitorFactory;
 import com.jamonapi.proxy.MonProxyFactory;
 import com.stevesouza.jmx.javamonitor.ExceptionMXBeanImp;
 import com.stevesouza.jmx.javamonitor.Log4jMXBean;
 import com.stevesouza.jmx.javamonitor.Log4jMXBeanImp;
 
+import javax.management.JMX;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.management.*;
 
 
 public class RunMxBean {

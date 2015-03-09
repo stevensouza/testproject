@@ -1,7 +1,6 @@
 package com.stevesouza.spring.aop;
 
 import com.jamonapi.utils.Misc;
-import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 

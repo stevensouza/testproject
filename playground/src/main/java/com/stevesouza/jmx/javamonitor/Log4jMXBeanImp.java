@@ -1,8 +1,5 @@
 package com.stevesouza.jmx.javamonitor;
 
-import com.jamonapi.Monitor;
-import com.jamonapi.MonitorFactory;
-
 /**
  * Created by stevesouza on 11/19/14.
  */
