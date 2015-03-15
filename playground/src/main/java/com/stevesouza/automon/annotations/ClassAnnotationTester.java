@@ -1,11 +1,13 @@
 package com.stevesouza.automon.annotations;
 
 import com.jamonapi.aop.spring.MonitorAnnotation;
+import org.automon.annotations.Monitor;
 
 /**
  * Created by stevesouza on 3/12/15.
  */
 @MonitorAnnotation
+@Monitor
 public class ClassAnnotationTester {
 
     public void classAnnotated1() {
