@@ -5,8 +5,6 @@ import com.datastax.driver.core.*;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 import org.apache.cassandra.exceptions.ConfigurationException;
-import org.apache.cassandra.service.CassandraDaemon;
-import org.apache.cassandra.service.EmbeddedCassandraService;
 import org.apache.thrift.transport.TTransportException;
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper;
 
@@ -25,17 +23,26 @@ import java.util.UUID;
  *
  * http://bigchunk.me/2013/01/12/fix-cassandra-missing-snappy-java-class-at-osx-10-8/
  *
+ * Note this code only works with the embedded cassandra and so cassandra need not be explicitly started.  However, the following
+ * steps are useful to know to start up an external instance.
+ *
  * start cassandra:
- *   cd dsc-cassandra-1.2.2/bin
+ *   cd /Applications/myapps/dsc-cassandra-2.0.7/bin
  *   sudo ./cassandra
  *
  * Created by stevesouza on 4/29/14.
  */
 public class SimpleClient implements Closeable {
 
-    private static EmbeddedCassandraService cassandra;
     private Cluster cluster;
     private Session session;
+
+    public SimpleClient() throws ConfigurationException, IOException, TTransportException {
+        // can do cassandra properties like this or in cassandra.yaml (i think)
+        // System.setProperty("cassandra.start_native_transport", "true");
+        EmbeddedCassandraServerHelper.startEmbeddedCassandra("cassandra.yaml");
+
+    }
 
     public void connect(String node) {
         cluster = Cluster.builder()
@@ -52,7 +59,8 @@ public class SimpleClient implements Closeable {
 
     public void close() {
         System.out.println("shutting down cassandra client");
-        cluster.close();
+        stopCassandra();
+        //  cluster.close();
     }
 
     public void createSchema() {
@@ -158,30 +166,12 @@ public class SimpleClient implements Closeable {
         System.out.println();
     }
 
-    public static class CassandraDaemonCloseable extends CassandraDaemon implements Closeable {
 
-        @Override
-        public void close()  {
-            System.out.println("shutting down casandra");
-            deactivate();
-        }
-    }
-
-
-
-    public static void main(String[] args) throws IOException, InterruptedException, ConfigurationException, TTransportException, MBeanException, InstanceNotFoundException, ReflectionException, MalformedObjectNameException {
-        // can do cassandra properties like this or in cassandra.yaml (i think)
-        // System.setProperty("cassandra.start_native_transport", "true");
-
-        EmbeddedCassandraServerHelper.startEmbeddedCassandra("cassandra.yaml");
-
+    public static void main(String[] args) throws Exception {
         // try-with-resources - closes resources automatically.
         try (
-               // CassandraDaemonCloseable cassandraDaemon = new CassandraDaemonCloseable();
                 SimpleClient client = new SimpleClient();
         ) {
-           // cassandraDaemon.init(null);
-           // cassandraDaemon.start();
             client.connect("127.0.0.1");
             client.createSchema();
             client.loadData();
@@ -189,14 +179,18 @@ public class SimpleClient implements Closeable {
             client.querySchema();
         }
 
+    }
 
-
-
-        EmbeddedCassandraServerHelper.cleanEmbeddedCassandra();
-        ObjectName mxbeanName = new ObjectName("org.apache.cassandra.db:type=StorageService");
-        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-        mbs.invoke(mxbeanName, "stopDaemon", null, null);
-
-
+    private static void stopCassandra() {
+        // Note this looks ugly, but was the way I found that worked for stopping the embedded server instance.  Calling
+        // this deprecated method didn't work:  EmbeddedCassandraServerHelper.stopEmbeddedCassandra();
+        try {
+            EmbeddedCassandraServerHelper.cleanEmbeddedCassandra();
+            ObjectName mxbeanName = new ObjectName("org.apache.cassandra.db:type=StorageService");
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            mbs.invoke(mxbeanName, "stopDaemon", null, null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
