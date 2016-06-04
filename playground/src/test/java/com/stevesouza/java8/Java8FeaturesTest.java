@@ -86,9 +86,12 @@ public class Java8FeaturesTest {
 
     @Test
     public void testForEach() {
-        // Note for forEach is defined in Iterable interface.  It is also part of the Stream interface.  I don't believe
-        // forEachOrdered is part of Iterable however.  
-        // Takes Consumer<T> - T->void
+        // Note for forEach is defined in Iterable interface and also in the Stream interface.  
+        // forEachOrdered is only defined in the Stream interfaces.
+        
+        // Takes Consumer<T> - T->void (T represents the type of the arg and '->void' means the Consumer returns 
+        // nothing, so the function would look like this 'void method(T)' i.e. 'void (T)' is same as T->void.
+        
         // non-deterministic order - parallel ready so better to use over forEachOrdered if you can
         stringList.forEach(n -> System.out.println(n));
         // simplified form of above.
