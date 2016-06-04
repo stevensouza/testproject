@@ -189,7 +189,7 @@ public class Java8FeaturesTest {
         Stream<String> stream1 = stringList.stream();
         assertThat(stream1.distinct().count()).isEqualTo(4);
 
-        // note in sorting, uppercase comes before upper case.
+        // note in sorting, uppercase comes before lower case.
         // You must provide the Comparator for any type T.  This is not true of the primitive streams where you can just
         //  call max(), min(), average(), sum() etc.
         stream1 = Stream.of("x", "a", "X");
@@ -224,7 +224,7 @@ public class Java8FeaturesTest {
         stream1 = Stream.of("a", "hi", "mom", "X");
         assertThat(stream1.min((s1, s2) -> s1.compareToIgnoreCase(s2)).get()).isEqualTo("a");
 
-        // orElse is like get, but a default is provided.  get will throw and exception if the element isn't there
+        // orElse is like get, but a default is provided.  'get' throws and exception if the element isn't there
         stream1 = Stream.of("a", "hi", "mom", "X");
         assertThat(stream1.
                 min((s1, s2) -> s1.compareToIgnoreCase(s2)).
