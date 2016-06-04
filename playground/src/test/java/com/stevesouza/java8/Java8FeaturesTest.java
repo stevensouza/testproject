@@ -86,6 +86,8 @@ public class Java8FeaturesTest {
 
     @Test
     public void testForEach() {
+        // Note for forEach is defined in Iterable interface.  It is also part of the Stream interface.  I don't believe
+        // forEachOrdered is part of Iterable however.  
         // Takes Consumer<T> - T->void
         // non-deterministic order - parallel ready so better to use over forEachOrdered if you can
         stringList.forEach(n -> System.out.println(n));
