@@ -36,6 +36,7 @@
       <javasimon.version>4.0.1</javasimon.version>
       <sl4j.version>1.7.10</sl4j.version>
       <automon.version>1.0</automon.version>
+      <statsd.version>3.1.0</statsd.version>
   </properties>
 
     <build>
@@ -99,6 +100,12 @@
           <groupId>oro</groupId>
           <artifactId>oro</artifactId>
           <version>2.0.8</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.timgroup</groupId>
+        <artifactId>java-statsd-client</artifactId>
+        <version>${statsd.version}</version>
       </dependency>
 
       <dependency>
