@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import org.automon.implementations.TimerContext;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,9 +29,10 @@ public class AutomonPlayTest {
         JoinPoint jp = mock(JoinPoint.class);
         JoinPoint.StaticPart sp = mock(JoinPoint.StaticPart.class);
         SysOut so = new SysOut();
+        TimerContext context = new TimerContext(sp);
         so.exception(jp, new RuntimeException("my exception"));
         so.start(sp);
-        so.stop(null);
-        so.stop(null, new RuntimeException("my exception"));
+        so.stop(context);
+        so.stop(context, new RuntimeException("my exception"));
     }
 }

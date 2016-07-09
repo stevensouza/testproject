@@ -35,7 +35,7 @@
       <sigar.version>1.6.4</sigar.version>
       <javasimon.version>4.0.1</javasimon.version>
       <sl4j.version>1.7.10</sl4j.version>
-      <automon.version>1.0</automon.version>
+      <automon.version>1.0.1</automon.version>
       <statsd.version>3.1.0</statsd.version>
   </properties>
 
