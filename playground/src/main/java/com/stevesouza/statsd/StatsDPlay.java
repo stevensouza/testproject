@@ -15,6 +15,7 @@ import com.timgroup.statsd.NonBlockingStatsDClient;
 * @author stevesouza
  */
 public class StatsDPlay {
+  // note the program runs whether or not statsd is running.
   private static final StatsDClient statsdClient = new NonBlockingStatsDClient("stevesouza.playground", "localhost", 8125);
 
   public static final void main(String[] args) throws InterruptedException {
@@ -35,6 +36,7 @@ public class StatsDPlay {
         statsdClient.recordSetEvent("myset", "value1");
         statsdClient.recordSetEvent("myset", "value2");
         statsdClient.recordSetEvent("myset", "value3");
+        System.out.println(i+" loop of StatsD complete");
         Thread.sleep(250);
     }
   }
