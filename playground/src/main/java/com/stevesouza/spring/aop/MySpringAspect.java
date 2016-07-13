@@ -85,7 +85,7 @@ public class MySpringAspect {
         LOG.info("myAfterThrowingException2() and exception="+exception);
     }
 
-    // note this is also used to advise another method defined in applicationContext.xml
+    // note this is also used to advise another method defined in camelSpringApplicationContext.xml
     @Around("execution(* com.stevesouza.spring.MyAutowiredClass.getSlowMethod(..))")
     public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
         Monitor mon = MonitorFactory.start(pjp.getSignature().toString());
