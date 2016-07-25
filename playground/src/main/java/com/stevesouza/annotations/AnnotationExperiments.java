@@ -16,8 +16,13 @@ public class AnnotationExperiments {
         
     }
     
+    /* interface MyInterface {
+  void myMetod(@ParamName("foo") Object foo, @ParamName("bar") Object bar);
+}
+    or compile with  javac  -g argument. 
+    */
     @ExpressionLanguageAnnotation("mymethod.annotation2")
-    public void myAnnotatedMethod2(String fname, String lname) {
+    public void myAnnotatedMethod2(@ParamName("fname") String fname, String lname) {
         
     }
 }
