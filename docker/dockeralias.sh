@@ -1,5 +1,9 @@
 #!/bin/bash
 
-alias rmc='. rmc.sh '
-alias rb='. rb.sh '
+alias rmcontainer='. rmcontainer.sh '
+alias rmc='. rmcontainer.sh '
+
+alias runbash='. runbash.sh '
+alias rb='. runbash.sh '
+
 alias psa=' docker ps -a'
