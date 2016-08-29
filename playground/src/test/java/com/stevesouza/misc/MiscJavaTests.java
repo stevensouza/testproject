@@ -3,6 +3,7 @@ package com.stevesouza.misc;
 import org.junit.Test;
 
 import java.net.URI;
+import java.text.MessageFormat;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,6 +15,12 @@ public class MiscJavaTests {
         assertThat(MiscJavaTests.class.getSimpleName()).isEqualTo("MiscJavaTests");
         assertThat(MiscJavaTests.class.getName()).isEqualTo("com.stevesouza.misc.MiscJavaTests");
 
+    }
+    
+    @Test
+    public void testMessageFormat() {
+        String message = MessageFormat.format("hello world this is {0} {1}", "steve", "souza");
+        assertThat(message).isEqualTo("hello world this is steve souza");
     }
 
 
