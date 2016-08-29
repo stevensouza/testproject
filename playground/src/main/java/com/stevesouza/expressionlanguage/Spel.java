@@ -12,6 +12,15 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 /**
  *
  * @author stevesouza
+ * todo:
+ *  - use @Value annotation
+ * -  put code in test
+ * - custom annotations for automon
+ * 
+ * 
+ *  SpELExpressionParser - The parseExpression( ) method on the SpELExpressionParser returns a SpELExpression object.  
+ *  SpELExpression - This object can then be used to evaluate the expression with a call to getValue( ).
+ *  EvaluationContext - An EvaluationContext allows objects, variables, functions, etc. to be used in the evaluation of the expression
  */
 public class Spel {
     public static void main(String[] args) {
