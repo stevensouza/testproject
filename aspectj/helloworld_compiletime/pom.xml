@@ -85,7 +85,7 @@
                 <configuration>
                     <!-- generates class path with all dependencies as well as generated class -->
                     <classpathScope>runtime</classpathScope>
-                    <mainClass>com.stevesouza.helloworld.helloworld.HelloWorld</mainClass>
+                    <mainClass>com.stevesouza.helloworld.HelloWorld</mainClass>
                 </configuration>
             </plugin>
     <!-- The Surefire Plugin is used during the test phase of the build lifecycle to execute the unit tests of an application. -->
