@@ -9,8 +9,11 @@ java -classpath $CLASSPATH:./aspectj_compiletime/target/aspectj_compiletime-1.0-
 echo '******* constructor'
 java -classpath $CLASSPATH:./aspectj_compiletime/target/aspectj_compiletime-1.0-SNAPSHOT.jar  com.stevesouza.aspectj.javastyle.constructor.MyClass
 
-echo '******* afterthrowing'
+echo '******* context'
 java -classpath $CLASSPATH:./aspectj_compiletime/target/aspectj_compiletime-1.0-SNAPSHOT.jar  com.stevesouza.aspectj.javastyle.context.MyClass
+
+echo '******* annotations'
+java -classpath $CLASSPATH:./aspectj_compiletime/target/aspectj_compiletime-1.0-SNAPSHOT.jar  com.stevesouza.aspectj.javastyle.annotations.MyClass
 
 echo '******* field'
 java -classpath $CLASSPATH:./aspectj_compiletime/target/aspectj_compiletime-1.0-SNAPSHOT.jar  com.stevesouza.aspectj.javastyle.field.MyClass

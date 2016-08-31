@@ -11,8 +11,11 @@ mvn  exec:java -Dexec.mainClass="com.stevesouza.aspectj.javastyle.aspectconstant
 echo '******* constructor'
 mvn  exec:java -Dexec.mainClass="com.stevesouza.aspectj.javastyle.constructor.MyClass" -Dexec.classpathScope=runtime -X
 
-echo '******* afterthrowing'
+echo '******* context'
 mvn  exec:java -Dexec.mainClass="com.stevesouza.aspectj.javastyle.context.MyClass" -Dexec.classpathScope=runtime -X
+
+echo '******* annotations'
+mvn  exec:java -Dexec.mainClass="com.stevesouza.aspectj.javastyle.annotations.MyClass" -Dexec.classpathScope=runtime -X
 
 echo '******* field'
 mvn  exec:java -Dexec.mainClass="com.stevesouza.aspectj.javastyle.field.MyClass" -Dexec.classpathScope=runtime -X
