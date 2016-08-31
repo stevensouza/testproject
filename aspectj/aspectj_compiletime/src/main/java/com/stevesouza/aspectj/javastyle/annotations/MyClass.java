@@ -22,7 +22,7 @@ public class MyClass {
         System.out.println(message);
     }
 
-    @ExpressionLanguageAnnotation("deliver2.annotation")
+    @ExpressionLanguageAnnotation(value="deliver2.annotation", label="[person={0}, message={1}]")
     public void deliver2(@ParamName("person") String person, String message) {
         System.out.println(person+", "+message);
     }

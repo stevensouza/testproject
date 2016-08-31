@@ -20,4 +20,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface ExpressionLanguageAnnotation {
     String  value() default "method";
+    String  label() default "[arg0={0}]";  
 }
