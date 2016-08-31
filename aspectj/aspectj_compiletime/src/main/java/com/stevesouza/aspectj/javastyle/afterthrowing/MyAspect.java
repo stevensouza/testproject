@@ -53,7 +53,7 @@ public class MyAspect  {
             // Note would have to look at all the special cases here.
             if (signature instanceof MethodSignature) {
                 MethodSignature methodSignature =  (MethodSignature) signature;
-                String[]argNames = methodSignature.getParameterNames();
+                String[] argNames = methodSignature.getParameterNames();
                 for (int i = 0; i < argNames.length; i++) {
                     printMe("  argName, argValue", argNames[i] + ", " + argValues[i]);
                 }
