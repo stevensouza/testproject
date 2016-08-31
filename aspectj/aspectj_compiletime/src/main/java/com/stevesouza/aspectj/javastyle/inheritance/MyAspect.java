@@ -13,7 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class MyAspect  {
 
-     @Before("execution(* MyClass.*(..))")
+    @Before("execution(* MyClass.*(..))")
     public void myAdvice1(JoinPoint.StaticPart joinPoint) {
         System.out.println("  MyClass "+joinPoint.getKind()+": "+joinPoint);
     }
