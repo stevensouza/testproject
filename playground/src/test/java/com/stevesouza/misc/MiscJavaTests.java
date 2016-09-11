@@ -20,8 +20,8 @@ public class MiscJavaTests {
     
     @Test
     public void testMessageFormatBasic() {
-        String message = MessageFormat.format("hello world this is {0} {1}", "steve", "souza");
-        assertThat(message).isEqualTo("hello world this is steve souza");
+        String message = MessageFormat.format("hello world '{1}' this is {0} {1}", "steve", "souza");
+        assertThat(message).isEqualTo("hello world {1} this is steve souza");
     }
     
     @Test
