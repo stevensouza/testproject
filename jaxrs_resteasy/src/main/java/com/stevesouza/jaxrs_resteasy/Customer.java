@@ -10,13 +10,22 @@ package com.stevesouza.jaxrs_resteasy;
  * @author stevesouza
  */
 public class Customer {
-
+    
+    
+    private int id;
     private String fName;
     private String lName;
     
-    public Customer(String fName, String lName) {
+    
+    public Customer(int id, String fName, String lName) {
+        this.id = id;
         this.fName = fName;
         this.lName = lName;
+    }
+    
+    
+    public int getId() {
+        return id;
     }
     
     public String getfName() {

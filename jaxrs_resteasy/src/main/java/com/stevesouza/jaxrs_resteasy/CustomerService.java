@@ -7,6 +7,7 @@ package com.stevesouza.jaxrs_resteasy;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,15 +20,22 @@ import javax.ws.rs.Produces;
 public class CustomerService {
     
     private Set<Customer>  customers = new HashSet<>();
+    private static AtomicInteger id = new AtomicInteger();
     
     public CustomerService() {
-        customers.add(new Customer("steve","souza"));
-        customers.add(new Customer("jeff","beck"));
-    }
+        customers.add(new Customer(getNextId(), "steve","souza"));
+        customers.add(new Customer(getNextId(), "jeff","beck"));
+        customers.add(new Customer(getNextId(), "william","reid"));
+        customers.add(new Customer(getNextId(), "keith","richards"));
+   }
     
     @GET
     @Produces("application/json")
     public Set getCustomerList() {
         return customers;
+    }
+    
+    private static int getNextId() {
+        return id.incrementAndGet();
     }
 }
