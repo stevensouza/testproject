@@ -44,6 +44,13 @@
    </dependency>
 
    <!-- optional modules -->
+   
+   <!-- used for automatica converstion to/from json -->
+   <dependency>
+    <groupId>org.jboss.resteasy</groupId>
+    <artifactId>resteasy-jackson2-provider</artifactId>
+    <version>${resteasy.version}</version>
+   </dependency>
 
     <!-- used when deploying to a servlet container but not a jee server.  i.e. jetty or tomcat -->
     <dependency>
