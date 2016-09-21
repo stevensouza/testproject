@@ -1,0 +1,9 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="3.0">
+    
+    <display-name>JAX-RS RESTEast test app</display-name>
+    <description>Application used as a playground to learn JAX-RS</description>
+
+</web-app> 
