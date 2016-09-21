@@ -45,7 +45,7 @@
 
    <!-- optional modules -->
    
-   <!-- used for automatica converstion to/from json -->
+   <!-- used for automatic conversion to/from json -->
    <dependency>
     <groupId>org.jboss.resteasy</groupId>
     <artifactId>resteasy-jackson2-provider</artifactId>
