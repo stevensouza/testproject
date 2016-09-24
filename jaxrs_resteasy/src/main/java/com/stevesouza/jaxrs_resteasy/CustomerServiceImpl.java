@@ -8,8 +8,9 @@ package com.stevesouza.jaxrs_resteasy;
 import java.util.Map;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 
 /**
  * Note this class is instantiated per request by default.  See CustomerApp comments for 
@@ -24,7 +25,7 @@ import javax.ws.rs.Produces;
 @Path("/customers")
 // you can override @Produces per method
 // "application/xml", 
-@Produces({"application/json", "text/plain"})
+@Produces({"application/json", "text/plain", "application/xml"})
 public class CustomerServiceImpl implements CustomerService {
     
     private static CustomerDb  customers = new CustomerDb();
@@ -43,6 +44,22 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomer(int id) {
         return customers.getCustomer(id);
+    }
+    
+    /** 
+     * The @Context annotation allows you to inject instances of 
+     * javax.ws.rs.core.HttpHeaders, javax.ws.rs.core.UriInfo, javax.ws.rs.core.Request, 
+     * javax.servlet.HttpServletRequest, javax.servlet.HttpServletResponse, 
+     * javax.servlet.ServletConfig, javax.servlet.ServletContext, and 
+     * javax.ws.rs.core.SecurityContext objects.
+     * ,
+     * @param context
+     * @return 
+     */
+    @GET
+    @Path("headers")
+    public HttpHeaders getHeaders(@Context HttpHeaders headers) {
+        return headers;     
     }
     
 }

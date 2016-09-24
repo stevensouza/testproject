@@ -8,8 +8,7 @@ package com.stevesouza.jaxrs_resteasy;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
+
 
 /**
  *
@@ -19,7 +18,8 @@ public class CustomerDb {
     private Map<Integer, Customer>  customers = new HashMap<>();
     private AtomicInteger id = new AtomicInteger();
     
-    public CustomerDb() {
+    public CustomerDb() {       
+        // load with initial data
         addCustomer(new Customer("steve","souza"));
         addCustomer(new Customer("jeff","beck"));
         addCustomer(new Customer("william","reid"));
@@ -30,12 +30,15 @@ public class CustomerDb {
         customers.put(getNextId(), customer);
     }
     
+    public void deleteCustomer(int id) {
+        customers.remove(id);
+    }
+    
+    
     public Customer getCustomer(int id) {
         return customers.get(id);
     }
     
-    @GET
-    @Produces("application/json")
     public Map<Integer, Customer>  getCustomerList() {
         return customers;
     }
