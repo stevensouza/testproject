@@ -12,28 +12,26 @@ package com.stevesouza.jaxrs_resteasy;
 public class Customer {
     
     
-    private int id;
     private String fName;
     private String lName;
     
     
-    public Customer(int id, String fName, String lName) {
-        this.id = id;
+    public Customer(String fName, String lName) {
         this.fName = fName;
         this.lName = lName;
     }
     
-    
-    public int getId() {
-        return id;
-    }
-    
+
     public String getfName() {
         return fName;
     }
 
     public String getlName() {
         return lName;
+    }
+    
+    public String toString() {
+        return "fName="+fName+", lName="+lName;
     }
     
 }

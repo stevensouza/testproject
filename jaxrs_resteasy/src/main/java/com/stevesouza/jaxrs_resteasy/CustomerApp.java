@@ -9,10 +9,14 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 /**
- *
+ * note when methods for getSingletons and getClasses are not implemented
+ *   component scanning will be used.  However, it appears at least in RestEasy that
+ *   you can't define a singleton service this way (I tried @Singleton) annotation on the class.
+ *   I think if you want a singleton you must override these methods.
+ * 
  * @author stevesouza
  */
 @ApplicationPath("/services")
 public class CustomerApp extends Application {
-    
+
 }

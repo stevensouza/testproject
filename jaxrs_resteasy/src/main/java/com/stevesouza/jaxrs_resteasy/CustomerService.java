@@ -5,37 +5,43 @@
  */
 package com.stevesouza.jaxrs_resteasy;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Map;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
- *
+ * Note this class is instantiated per request by default.  See CustomerApp comments for 
+ * further info.
+ * 
+ * curl -H 'Accept:application/json' http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers
+ * curl -H 'Accept:text/plain' http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers
  * @author stevesouza
  */
 @Path("/customers")
+// you can override this per method
+// "application/xml", 
+@Produces({"application/json", "text/plain"})
 public class CustomerService {
     
-    private Set<Customer>  customers = new HashSet<>();
-    private static AtomicInteger id = new AtomicInteger();
+    private static CustomerDb  customers = new CustomerDb();
     
-    public CustomerService() {
-        customers.add(new Customer(getNextId(), "steve","souza"));
-        customers.add(new Customer(getNextId(), "jeff","beck"));
-        customers.add(new Customer(getNextId(), "william","reid"));
-        customers.add(new Customer(getNextId(), "keith","richards"));
-   }
-    
+    /* sample call:
+    http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers/1
+    */
     @GET
-    @Produces("application/json")
-    public Set getCustomerList() {
-        return customers;
+    public Map<Integer, Customer> getCustomerList() {
+        return customers.getCustomerList();
     }
     
-    private static int getNextId() {
-        return id.incrementAndGet();
+    /* sample call (takes customer id)
+    http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers/1
+    */
+    @GET
+    @Path("{id}")
+    public Customer getCustomer(@PathParam("id") int id) {
+        return customers.getCustomer(id);
     }
+    
 }
