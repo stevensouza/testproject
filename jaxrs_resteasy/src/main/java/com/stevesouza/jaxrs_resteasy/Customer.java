@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 // i.e. fields, get* methods, public members etc. Note it will create xmlElements
 // not attributes.  I believe you still have to annotate the field or property with 
 // the XmlAnnotation and XmlElement to have it work.
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Customer {
     
    //  @XmlAttribute would make it a property of the root element i.e. <customer fName="steve">
