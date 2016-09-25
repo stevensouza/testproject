@@ -6,6 +6,7 @@
 package com.stevesouza.jaxrs_resteasy;
 
 import java.util.Map;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,6 +29,7 @@ import javax.ws.rs.core.Response.Status;
 // you can override @Produces per method
 // "application/xml", 
 @Produces({"application/json", "text/plain", "application/xml"})
+@Consumes({"application/json","application/xml"})
 public class CustomerServiceImpl implements CustomerService {
     
     private static CustomerDb  customers = new CustomerDb();
@@ -54,9 +56,23 @@ public class CustomerServiceImpl implements CustomerService {
          customers.deleteCustomer(id);   
          return Response.status(Status.NO_CONTENT).build();
       } else {
-          return Response.status(Status.NOT_FOUND).build();
+          return Response.noContent().build();
       }
     }
+    
+    
+    /** because this method consumes xml and json it can automatically convert them
+     *   to Customer (for xml jaxb tags are required in Customer class).  xml support is part of 
+     * jaxrs whereas you must include jackson for json to work.
+     */
+    @Override
+    public Response createCustomer(Customer customer) {
+        customers.addCustomer(customer);
+        // need to fix this to proper response.
+        // note customer is automatically converted to xml or json based on the http header 'Accept:'
+        return Response.ok().entity(customer).build();
+    }
+
     
     /** 
      * The @Context annotation allows you to inject instances of 
@@ -73,6 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
     public HttpHeaders getHeaders(@Context HttpHeaders headers) {
         return headers;     
     }
+
 
 
     
