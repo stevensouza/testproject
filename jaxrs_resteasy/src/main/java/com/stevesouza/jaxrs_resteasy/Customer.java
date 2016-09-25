@@ -27,14 +27,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Customer {
     
    //  @XmlAttribute would make it a property of the root element i.e. <customer fName="steve">
-    //@XmlElement
+    @XmlElement
     //@XmlAttribute
     private String fName;
     
-    //@XmlElement
+    @XmlElement
     //@XmlAttribute
     private String lName;
     
+    // needed for jaxb i believe.
     public Customer() {
         
     }
@@ -49,14 +50,12 @@ public class Customer {
     // XmlAccessType.PROPERTIES means get* methods
     //@XmlElement
     //@XmlAttribute
-    @XmlElement
     public String getfName() {
         return fName;
     }
 
     //@XmlElement
     //@XmlAttribute
-    @XmlElement    
     public String getlName() {
         return lName;
     }
