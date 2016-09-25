@@ -11,6 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 /**
  * Note this class is instantiated per request by default.  See CustomerApp comments for 
@@ -46,6 +48,16 @@ public class CustomerServiceImpl implements CustomerService {
         return customers.getCustomer(id);
     }
     
+    @Override
+    public Response deleteCustomer(int id) {
+      if (customers.contains(id)) {
+         customers.deleteCustomer(id);   
+         return Response.status(Status.NO_CONTENT).build();
+      } else {
+          return Response.status(Status.NOT_FOUND).build();
+      }
+    }
+    
     /** 
      * The @Context annotation allows you to inject instances of 
      * javax.ws.rs.core.HttpHeaders, javax.ws.rs.core.UriInfo, javax.ws.rs.core.Request, 
@@ -61,5 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
     public HttpHeaders getHeaders(@Context HttpHeaders headers) {
         return headers;     
     }
+
+
     
 }

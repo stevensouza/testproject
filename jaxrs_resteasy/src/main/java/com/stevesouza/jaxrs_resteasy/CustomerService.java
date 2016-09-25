@@ -6,9 +6,11 @@
 package com.stevesouza.jaxrs_resteasy;
 
 import java.util.Map;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -21,12 +23,17 @@ public interface CustomerService {
      */
     @GET
     @Path(value = "{id}")
-    Customer getCustomer(@PathParam(value = "id") int id);
+    public Customer getCustomer(@PathParam(value = "id") int id);
 
     /* sample call:
     http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers/1
      */
     @GET
-    Map<Integer, Customer> getCustomerList();
+    public Map<Integer, Customer> getCustomerList();
+    
+    @DELETE
+    @Path(value = "{id}")
+    public Response deleteCustomer(@PathParam(value = "id") int id);
+
     
 }

@@ -43,6 +43,10 @@ public class CustomerDb {
         return customers;
     }
     
+    public boolean contains(int id) {
+        return customers.containsKey(id);
+    }
+    
     private int getNextId() {
         return id.incrementAndGet();
     }
