@@ -5,5 +5,15 @@
     
     <display-name>JAX-RS RESTEasy test app</display-name>
     <description>Application used as a playground to learn JAX-RS</description>
-
+    <!-- allows you to specify what type of content to return by putting an extension on 
+    the url.  Example:  mysite/mypage.json, mysite/mypage.xml -->
+    <context-param>
+        <param-name>resteasy.media.type.mappings</param-name>
+        <param-value>
+            html : text/plain,
+            txt : text/plain,
+            xml : application/xml,
+            json : application/json
+        </param-value>
+    </context-param>
 </web-app> 
