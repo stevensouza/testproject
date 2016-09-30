@@ -21,8 +21,12 @@ import javax.ws.rs.core.Response.Status;
  * Note this class is instantiated per request by default.  See CustomerApp comments for 
  * further info.
  * 
- * curl -H 'Accept:application/json' http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers
- * curl -H 'Accept:text/plain' http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers
+ * curl -H 'Accept:application/json' http://localhost:8081/jaxrs/services/customers
+ * curl -H 'Accept:text/plain' http://localhost:8081/jaxrs/services/customers
+ * 
+ * can also do 
+ * curl  http://localhost:8081/jaxrs/services/customers.json
+ *    
  * @author stevesouza
  */
 
@@ -37,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
     private static CustomerDb  customers = new CustomerDb();
     
     /* sample call:
-    http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers/1
+    http://localhost:8081/jaxrs/services/customers/1
     */
     @Override
     public Map<Integer, Customer> getCustomerList() {
@@ -45,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
     /* sample call (takes customer id)
-    http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers/1
+    http://localhost:8081/jaxrs/services/customers/1
     */
     @Override
     public Customer getCustomer(int id) {

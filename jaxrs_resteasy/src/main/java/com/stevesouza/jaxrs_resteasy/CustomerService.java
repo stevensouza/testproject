@@ -21,14 +21,14 @@ import javax.ws.rs.core.Response;
 public interface CustomerService {
 
     /* sample call (takes customer id)
-    http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers/1
+    http://localhost:8081/jaxrs/services/customers/1
      */
     @GET
     @Path(value = "{id}")
     public Customer getCustomer(@PathParam(value = "id") int id);
 
     /* sample call:
-    http://localhost:8081/jaxrs_resteasy-1.0.1-SNAPSHOT/services/customers/1
+        http://localhost:8081/jaxrs/services/customers/1
      */
     @GET
     public Map<Integer, Customer> getCustomerList();
