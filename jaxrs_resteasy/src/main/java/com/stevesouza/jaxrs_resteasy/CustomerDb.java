@@ -34,6 +34,16 @@ public class CustomerDb {
         customers.remove(id);
     }
     
+    public boolean updateCustomer(int id, Customer updateFrom) {
+        if (contains(id)) {
+            Customer customer = getCustomer(id);
+            customer.update(updateFrom);
+            return true;
+        }
+
+        return false;
+    }
+    
     
     public Customer getCustomer(int id) {
         return customers.get(id);

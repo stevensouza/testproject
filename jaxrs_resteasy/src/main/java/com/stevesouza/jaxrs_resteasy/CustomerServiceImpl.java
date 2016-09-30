@@ -5,9 +5,11 @@
  */
 package com.stevesouza.jaxrs_resteasy;
 
+import java.text.MessageFormat;
 import java.util.Map;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -70,7 +72,24 @@ public class CustomerServiceImpl implements CustomerService {
         customers.addCustomer(customer);
         // need to fix this to proper response.
         // note customer is automatically converted to xml or json based on the http header 'Accept:'
+        // proper response is 200 when content and 204 when not.  
         return Response.ok().entity(customer).build();
+    }
+    
+    /** update the customer with the given id with any non-empty information from within the passed in
+     * Customer.
+     * 
+     * @param id customer to update
+     * @param customer update with this customer info
+     * @return 
+     */
+    @Override
+    public Customer updateCustomer(int id, Customer customer) {
+        if (customers.updateCustomer(id, customer)) {
+          Customer updatedCustomer = customers.getCustomer(id);
+          return updatedCustomer;
+        }
+        throw new NotFoundException(MessageFormat.format("The customer with id={0} does not exist.", id)); 
     }
 
     
@@ -89,6 +108,8 @@ public class CustomerServiceImpl implements CustomerService {
     public HttpHeaders getHeaders(@Context HttpHeaders headers) {
         return headers;     
     }
+
+
 
 
 

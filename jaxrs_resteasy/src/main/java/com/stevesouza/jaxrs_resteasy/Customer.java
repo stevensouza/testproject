@@ -60,6 +60,17 @@ public class Customer {
         return lName;
     }
     
+    void update(Customer newValues) {
+        if (!Utils.isEmpty(newValues.getfName())) {
+            fName = newValues.getfName();
+        }
+        
+        if (!Utils.isEmpty(newValues.getlName())) {
+            lName = newValues.getlName();
+        }
+    }
+    
+    
     @Override
     public String toString() {
         return "fName="+fName+", lName="+lName;
