@@ -131,7 +131,9 @@
                 <version>2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>jaxrs</warName>
                 </configuration>
+                
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
