@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stevesouza.jaxrs_resteasy;
+package com.stevesouza.jaxrs_resteasy.customer;
 
 import java.text.MessageFormat;
 import java.util.Map;
@@ -95,27 +95,6 @@ public class CustomerServiceImpl implements CustomerService {
         }
         throw new NotFoundException(MessageFormat.format("The customer with id={0} does not exist.", id)); 
     }
-
-    
-    /** 
-     * The @Context annotation allows you to inject instances of 
-     * javax.ws.rs.core.HttpHeaders, javax.ws.rs.core.UriInfo, javax.ws.rs.core.Request, 
-     * javax.servlet.HttpServletRequest, javax.servlet.HttpServletResponse, 
-     * javax.servlet.ServletConfig, javax.servlet.ServletContext, and 
-     * javax.ws.rs.core.SecurityContext objects.
-     * ,
-     * @param context
-     * @return 
-     */
-    @GET
-    @Path("headers")
-    public HttpHeaders getHeaders(@Context HttpHeaders headers) {
-        return headers;     
-    }
-
-
-
-
 
     
 }

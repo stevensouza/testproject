@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stevesouza.jaxrs_resteasy;
+package com.stevesouza.jaxrs_resteasy.customer;
 
 import java.util.Map;
 import javax.ws.rs.DELETE;
@@ -17,6 +17,10 @@ import javax.ws.rs.core.Response;
 /**
  *
  * @author stevesouza
+ * 
+ * Note it is more flexible to annotate the interface for jaxrs.  For example then you
+ * can use the same interface for the client in resteasy and code will automatically
+ * be created.
  */
 public interface CustomerService {
 

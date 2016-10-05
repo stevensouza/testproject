@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stevesouza.jaxrs_resteasy;
+package com.stevesouza.jaxrs_resteasy.customer;
 
 import java.util.HashMap;
 import java.util.Map;
