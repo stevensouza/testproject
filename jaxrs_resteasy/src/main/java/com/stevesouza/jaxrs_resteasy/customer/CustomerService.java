@@ -6,6 +6,7 @@
 package com.stevesouza.jaxrs_resteasy.customer;
 
 import java.util.Map;
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -43,8 +44,9 @@ public interface CustomerService {
     
     
     @POST
-    public Response createCustomer(Customer customer);
+    public Response createCustomer(@BeanParam Customer customer);
 
+    
     @PUT
     @Path(value = "{id}")
     public Customer updateCustomer(@PathParam(value = "id") int id, Customer customer);

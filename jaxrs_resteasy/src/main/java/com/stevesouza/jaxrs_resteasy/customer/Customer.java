@@ -6,6 +6,7 @@
  */
 package com.stevesouza.jaxrs_resteasy.customer;
 
+import javax.ws.rs.FormParam;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,10 +28,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Customer {
     
    //  @XmlAttribute would make it a property of the root element i.e. <customer fName="steve">
+    @FormParam("fName")
     @XmlElement
     //@XmlAttribute
     private String fName;
     
+    @FormParam("lName")
     @XmlElement
     //@XmlAttribute
     private String lName;
