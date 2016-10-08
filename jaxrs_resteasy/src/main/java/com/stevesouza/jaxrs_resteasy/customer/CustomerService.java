@@ -7,6 +7,7 @@ package com.stevesouza.jaxrs_resteasy.customer;
 
 import java.util.Map;
 import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,6 +24,7 @@ import javax.ws.rs.core.Response;
  * can use the same interface for the client in resteasy and code will automatically
  * be created.
  */
+
 public interface CustomerService {
 
     /* sample call (takes customer id)
@@ -44,7 +46,18 @@ public interface CustomerService {
     
     
     @POST
-    public Response createCustomer(@BeanParam Customer customer);
+    public Response createCustomer(Customer customer);
+ 
+    /** note i only created a separate method as I couldn't get the form @Consumes annotation
+     * to work with the other createCustomer method for some reason. to submit form you can use DHC
+     * or the customers.html form.
+     * @param customer
+     * @return 
+     */
+    @POST
+    @Path("/form")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response createCustomerWithForm(@BeanParam Customer customer);
 
     
     @PUT

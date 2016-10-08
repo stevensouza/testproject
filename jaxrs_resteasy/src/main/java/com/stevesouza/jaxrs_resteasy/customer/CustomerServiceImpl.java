@@ -77,6 +77,11 @@ public class CustomerServiceImpl implements CustomerService {
         return Response.ok().entity(customer).build();
     }
     
+    
+    @Override
+    public Response createCustomerWithForm(Customer customer) {
+      return createCustomer(customer);
+    }
     /** update the customer with the given id with any non-empty information from within the passed in
      * Customer.
      * 
@@ -92,6 +97,9 @@ public class CustomerServiceImpl implements CustomerService {
         }
         throw new NotFoundException(MessageFormat.format("The customer with id={0} does not exist.", id)); 
     }
+
+
+
 
     
 }
