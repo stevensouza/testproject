@@ -8,7 +8,9 @@ package com.stevesouza.jaxrs_resteasy.customer;
 import java.util.Map;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -63,4 +65,15 @@ public interface CustomerService {
     @PUT
     @Path(value = "{id}")
     public Customer updateCustomer(@PathParam(value = "id") int id, Customer customer);
+    
+    /**
+     *  Note instead of using String name you could also do the following to get the full Cookie
+     * @CookieParam("name") Cookie cookie
+
+     * @param name
+     * @return 
+     */
+    @GET
+    @Path("cookie")
+    public Response cookie(@CookieParam("name") @DefaultValue("beck") String name);
 }

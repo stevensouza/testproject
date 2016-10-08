@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -96,6 +97,17 @@ public class CustomerServiceImpl implements CustomerService {
           return updatedCustomer;
         }
         throw new NotFoundException(MessageFormat.format("The customer with id={0} does not exist.", id)); 
+    }
+
+    /**
+     * This sends a cookie back and forth.  each time it appends a 1 to the end of the string.
+     * @param name
+     * @return 
+     */
+    @Override
+    public Response cookie(String name) {
+        NewCookie cookie = new NewCookie("name", name+"1");
+        return Response.ok(cookie).cookie(cookie).build();
     }
 
 
