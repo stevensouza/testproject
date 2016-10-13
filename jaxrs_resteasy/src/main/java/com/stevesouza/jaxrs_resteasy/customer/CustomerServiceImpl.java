@@ -68,6 +68,8 @@ public class CustomerServiceImpl implements CustomerService {
     /** because this method consumes xml and json it can automatically convert them
      *   to Customer (for xml jaxb tags are required in Customer class).  xml support is part of 
      * jaxrs whereas you must include jackson for json to work.
+     * @param customer
+     * @return 
      */
     @Override
     public Response createCustomer(Customer customer) {
@@ -96,6 +98,7 @@ public class CustomerServiceImpl implements CustomerService {
           Customer updatedCustomer = customers.getCustomer(id);
           return updatedCustomer;
         }
+        // can also map your custom exceptions (ExceptionMapper) or use the various WebApplicationException contructors.
         throw new NotFoundException(MessageFormat.format("The customer with id={0} does not exist.", id)); 
     }
 
@@ -110,8 +113,14 @@ public class CustomerServiceImpl implements CustomerService {
         return Response.ok(cookie).cookie(cookie).build();
     }
 
+    @Override
+    public void testException() {
+        throw new MyNotFoundException("Testing exception mapping"); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    @Override
+    public int getCustomerCount() {
+        return customers.getCustomerCount();
+    }
 
-
-    
 }

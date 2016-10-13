@@ -76,4 +76,17 @@ public interface CustomerService {
     @GET
     @Path("cookie")
     public Response cookie(@CookieParam("name") @DefaultValue("beck") String name);
+    
+    /**
+     * simply throws an exception to test MyExceptionMapper
+     */
+    @GET
+    @Path("exception")
+    public void testException();
+    
+    @GET
+    @Path("count")
+    public int getCustomerCount();
+
+
 }

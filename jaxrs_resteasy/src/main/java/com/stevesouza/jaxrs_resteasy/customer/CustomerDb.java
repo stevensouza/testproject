@@ -53,6 +53,10 @@ public class CustomerDb {
         return customers;
     }
     
+    public int getCustomerCount() {
+        return customers.size();
+    }
+    
     public boolean contains(int id) {
         return customers.containsKey(id);
     }
