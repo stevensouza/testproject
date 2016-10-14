@@ -37,7 +37,7 @@ public interface CustomerService {
     public Customer getCustomer(@PathParam(value = "id") int id);
 
     /* sample call:
-        http://localhost:8081/jaxrs/services/customers/1
+        http://localhost:8081/jaxrs/services/customers
      */
     @GET
     public Map<Integer, Customer> getCustomerList();

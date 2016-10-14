@@ -6,10 +6,14 @@
 package com.stevesouza.jaxrs_resteasy.client;
 
 import com.stevesouza.jaxrs_resteasy.customer.Customer;
+import java.util.List;
+import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -18,36 +22,50 @@ import javax.ws.rs.core.Response;
  */
 public class MyClient {
     
+    private  Client client = ClientBuilder.newClient();
+
+    
     public Customer getCustomer(int id) {
-        Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8081/jaxrs/services/customers/"+id);
         
+        // note you can also be explicit: target.accept("application/json").get(Customer.class);
         Customer customer = target.request().get(Customer.class);
-        client.close();
 
         return customer;
 
     }
     
-    public void createCustomer() {
-        Client client = ClientBuilder.newClient();
+    // gives you more control over the response as opposed to just converting to a customer object 
+    // like the above does.
+     public Response getCustomerResponse(int id) {
+        WebTarget target = client.target("http://localhost:8081/jaxrs/services/customers/"+id);       
+        return target.request(MediaType.APPLICATION_JSON).get();
+    }
+    
+    public Map<Integer, Customer> getCustomers() {
         WebTarget target = client.target("http://localhost:8081/jaxrs/services/customers");
+        return target.request(MediaType.APPLICATION_JSON).get(new GenericType<Map<Integer, Customer>>(){});
+    }
+    
+    public void createCustomer() {
+        WebTarget target = client.target("http://localhost:8081/jaxrs/services/customers");
+        // note there are other Entity methods like Entity.xml(...) and Entity.form(...)
         Response response = target.request().post(Entity.json(new Customer("cici","souza")));
         System.out.println("create status="+response.getStatus());
 
-        response.close();
-        client.close();
-        
+        response.close();        
     }
     
     public int getCustomerCount() {
-        Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8081/jaxrs/services/customers/count");
         
         int customerCount = target.request().get(Integer.class);
-        client.close();
 
         return customerCount;
+    }
+    
+    public void close() {
+        client.close();
     }
     
     public static void main(String[] args) {
@@ -62,13 +80,22 @@ public class MyClient {
             System.out.println(client.getCustomer(i));
         }
         System.out.println();
+        System.out.println("customers: "+client.getCustomers());
+
         
         client.createCustomer();
         customerCount = client.getCustomerCount();
         System.out.println("customer count after creation="+customerCount);
         System.out.println();
-
+        
+        // response allows more full info about the request: status, language, headers etc, and you can still convert the body into Customer
+        Response response = client.getCustomerResponse(1);
+        
+        System.out.println("customer response oject: "+response);
+        response.close();
+        
         System.out.println("The following customer was created"+client.getCustomer(customerCount));
+        client.close();
 
     }
     
