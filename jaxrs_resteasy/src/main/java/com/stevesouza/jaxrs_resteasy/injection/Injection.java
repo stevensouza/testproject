@@ -48,6 +48,8 @@ import javax.ws.rs.core.MultivaluedMap;
 @Path("/inject")
 // you can override @Produces per method
 // "application/xml", 
+// note any return value from a method can be coverted to json.  not true for xml.
+// for example HttpHeaders says a messagebody writer couldn't be found if xml is requested.
 @Produces({"application/json", "text/plain", "application/xml"})
 @Consumes({"application/json","application/xml"})
 public class Injection {
