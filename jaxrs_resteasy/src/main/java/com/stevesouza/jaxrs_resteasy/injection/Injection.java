@@ -59,6 +59,13 @@ public class Injection {
      * javax.servlet.HttpServletRequest, javax.servlet.HttpServletResponse, 
      * javax.servlet.ServletConfig, javax.servlet.ServletContext, and 
      * javax.ws.rs.core.SecurityContext objects.
+     * 
+     * Note this method will prompt and require a DIGEST login.  No role is required.  See
+     * web.xml for how this was defined.  Note the user must be in the app server as a 
+     * legitimate user.  For example in tomcat it should be in conf/tomcat-users.xml.
+     * It returns headers and one of those is the encoded username password. Note for digest
+     * to be secure the app should use https which you can define in web.xml, but the app server 
+     * must also be setup for it.
      * ,
      * @param context
      * @return 

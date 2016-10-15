@@ -16,4 +16,37 @@
             json : application/json
         </param-value>
     </context-param>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secure best customer</web-resource-name>
+            <url-pattern>/services/inject/headers</url-pattern>
+            <http-method>GET</http-method>  
+         </web-resource-collection>
+         <!-- could specify a role here such as role1.  * means anyone that is authenticated (any role) may access the resource.-->
+         <auth-constraint>
+             <role-name>*</role-name> 
+         </auth-constraint>
+                    
+
+	<!-- transport-guarantee can be CONFIDENTIAL (https), INTEGRAL, or NONE -->
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+        
+    </security-constraint>
+    <!-- authentication is done at the server level (ie. tomcat) and web application piggy backs off
+     app servers users and roles. for tomcat see conf/tomcat-users.xml -->
+    <login-config>
+        <!-- DIGEST, CLIENT_CERT. make sure if DIGEST is used that https transport-guarantee is used.
+         for digest the encoded username and password must be sent for each request.  The browser
+        appears to do this automatically.        -->
+        <auth-method>BASIC</auth-method>
+    </login-config>
+    <!-- any role names in app server this app uses.  see conf/tomcat-users.xml. * means
+    all roles, but you can also have one security-role entry for each role (for example one for
+    role1, and one for admin roles)-->
+    <security-role>
+        <role-name>*</role-name>
+    </security-role>
+    
 </web-app> 
