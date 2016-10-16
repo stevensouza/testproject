@@ -6,7 +6,6 @@
 package com.stevesouza.jaxrs_resteasy.client;
 
 import com.stevesouza.jaxrs_resteasy.customer.Customer;
-import java.util.List;
 import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
