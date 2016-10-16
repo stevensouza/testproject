@@ -16,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 /**
@@ -26,7 +27,8 @@ import javax.ws.rs.core.Response;
  * can use the same interface for the client in resteasy and code will automatically
  * be created.
  */
-
+@Produces({"application/json", "text/plain", "application/xml"})
+@Consumes({"application/json","application/xml"})
 public interface CustomerService {
 
     /* sample call (takes customer id)

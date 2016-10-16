@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
+ *  See ResteasyClientProxy for an even better way to do this...
  * @author stevesouza
  */
 public class MyClient {
