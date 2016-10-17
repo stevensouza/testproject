@@ -20,9 +20,14 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
  * @author stevesouza
  */
 public class ResteasyClientProxy {
+    private String serviceBaseUrl;
+    
+    public ResteasyClientProxy(String serviceBaseUrl) {
+        this.serviceBaseUrl = serviceBaseUrl;      
+    }
        
 
-      public  static CustomerService getCustomerService() {
+      public  CustomerService getCustomerService() {
         
         ResteasyClient client = new ResteasyClientBuilder().build();  
         // note the above only has a pool of 1 connection and so if you don't close any Response's returned 
@@ -30,7 +35,7 @@ public class ResteasyClientProxy {
         // it is a resource leak. Still good to know these methods.
         //    ResteasyClient client = new ResteasyClientBuilder().connectionPoolSize(10).connectionCheckoutTimeout(10, TimeUnit.SECONDS).build();  
   
-        ResteasyWebTarget target = client.target("http://localhost:8081/jaxrs/services/customers");
+        ResteasyWebTarget target = client.target(serviceBaseUrl);
         // alternatively could do: return target.proxy(CustomerService.class);
         return target.proxyBuilder(CustomerService.class).build();
 
@@ -41,7 +46,8 @@ public class ResteasyClientProxy {
         // have to start up jaxrs applicaiton first before this code works.
         //  i.e. war in tomcat
  
-        CustomerService customer = getCustomerService();
+        ResteasyClientProxy client = new ResteasyClientProxy("http://localhost:8081/jaxrs/services/customers");
+        CustomerService customer = client.getCustomerService();
         System.out.println("customer count before creation="+customer.getCustomerCount());
         
         System.out.println();

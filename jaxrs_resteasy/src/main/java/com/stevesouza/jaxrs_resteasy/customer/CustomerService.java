@@ -33,9 +33,10 @@ public interface CustomerService {
 
     /* sample call (takes customer id)
     http://localhost:8081/jaxrs/services/customers/1
+    regular expression to only allow numbers.  note it would collide with /count otherwise.
      */
     @GET
-    @Path(value = "{id}")
+    @Path(value = "{id : \\d+}")
     public Customer getCustomer(@PathParam(value = "id") int id);
 
     /* sample call:
@@ -45,7 +46,7 @@ public interface CustomerService {
     public Map<Integer, Customer> getCustomerList();
     
     @DELETE
-    @Path(value = "{id}")
+    @Path(value = "{id : \\d+}")
     public Response deleteCustomer(@PathParam(value = "id") int id);
     
     
@@ -65,7 +66,7 @@ public interface CustomerService {
 
     
     @PUT
-    @Path(value = "{id}")
+    @Path(value = "{id : \\d+}")
     public Customer updateCustomer(@PathParam(value = "id") int id, Customer customer);
     
     /**
