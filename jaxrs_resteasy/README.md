@@ -1,1 +1,1 @@
-Code created to learn RESTEasy implementation of jaxrs. The test class is the best place to look. The test class uses a proxy to execute the rest web services from an embedded jaxrs web server.
+Code created to learn RESTEasy implementation of jaxrs. The [test class](https://github.com/stevensouza/testproject/blob/master/jaxrs_resteasy/src/test/java/com/stevesouza/jaxrs_resteasy/client/ResteasyClientProxyTest.java) is the best place to look. The test class uses a proxy to execute the rest web services from an embedded jaxrs web server.  See 
