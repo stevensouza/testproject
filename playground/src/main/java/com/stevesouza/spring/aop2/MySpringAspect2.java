@@ -17,8 +17,8 @@ import org.aspectj.lang.annotation.*;
 // Spring automatically finds
 // By default each aspect is a singleton within the applicationContext
 @Aspect
-public class MySpringAspect {
-    private static final Logger LOG = Logger.getLogger(MySpringAspect.class);
+public class MySpringAspect2 {
+    private static final Logger LOG = Logger.getLogger(MySpringAspect2.class);
 
 
 
