@@ -24,7 +24,7 @@
       <jackson-2-version>2.2.2</jackson-2-version>
       <metrics.version>3.1.0</metrics.version>
       <joda.version>2.3</joda.version>
-      <camel.version>2.14.0</camel.version>
+      <camel.version>2.16.0</camel.version>
       <jamonapi.version>2.81-SNAPSHOT</jamonapi.version>
       <hazelcast.version>3.3.1</hazelcast.version>
       <fdsapi.version>1.2</fdsapi.version>
@@ -319,7 +319,7 @@
       <dependency>
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
-          <version>17.0</version>
+          <version>19.0</version>
       </dependency>
 
       <dependency>
