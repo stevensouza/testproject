@@ -11,7 +11,7 @@ import org.apache.camel.impl.DefaultMessage;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
 
-public class FilterTest extends CamelTestSupport {
+public class EIP_FilterTest extends CamelTestSupport {
     @EndpointInject(uri = "mock:result")
     protected MockEndpoint resultEndpoint;
 
@@ -26,6 +26,13 @@ public class FilterTest extends CamelTestSupport {
         resultEndpoint.expectedHeaderReceived("foo", "bar");
         template.sendBodyAndHeader(expectedBody, "foo", "bar");
 
+        resultEndpoint.assertIsSatisfied();
+    }
+    
+    @Test
+    public void testSendNotMatchingMessage() throws Exception {
+        resultEndpoint.expectedMessageCount(0);
+        template.sendBodyAndHeader("<notMatched/>", "foo", "notMatchedHeaderValue");
         resultEndpoint.assertIsSatisfied();
     }
 
@@ -45,12 +52,7 @@ public class FilterTest extends CamelTestSupport {
         resultEndpoint.assertIsSatisfied();
     }
 
-    @Test
-    public void testSendNotMatchingMessage() throws Exception {
-        resultEndpoint.expectedMessageCount(0);
-        template.sendBodyAndHeader("<notMatched/>", "foo", "notMatchedHeaderValue");
-        resultEndpoint.assertIsSatisfied();
-    }
+
 
     @Override
     protected RouteBuilder createRouteBuilder() {
