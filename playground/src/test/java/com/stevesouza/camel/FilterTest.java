@@ -11,7 +11,7 @@ import org.apache.camel.impl.DefaultMessage;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
 
-public class CamelTest extends CamelTestSupport {
+public class FilterTest extends CamelTestSupport {
     @EndpointInject(uri = "mock:result")
     protected MockEndpoint resultEndpoint;
 
