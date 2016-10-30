@@ -27,7 +27,7 @@ public class SedaTest extends CamelTestSupport {
 
 
     @Test
-    public void testSysOut()  throws Exception {
+    public void testSeda()  throws Exception {
         resultEndpoint.allMessages().body().contains("my seda message");
         resultEndpoint.expectedMessageCount(10);
         for (int i=0;i<10;i++) {

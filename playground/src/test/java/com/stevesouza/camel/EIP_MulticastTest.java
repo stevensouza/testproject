@@ -32,7 +32,7 @@ public class EIP_MulticastTest extends CamelTestSupport {
 
 
     @Test
-    public void testSysOut()  throws Exception {
+    public void testMulticast()  throws Exception {
         String MESSAGE = "my message";
         resultEndpoint1.message(0).body().contains(MESSAGE);
         resultEndpoint2.message(0).body().contains(MESSAGE);

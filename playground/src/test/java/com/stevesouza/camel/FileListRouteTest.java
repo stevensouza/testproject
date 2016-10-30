@@ -20,10 +20,10 @@ import org.springframework.stereotype.Component;
 
    
     @Test
-    public void testSysOut()  {
+    public void testRun()   {
     }
 
-    private String dir = "file:"+Utils.getInputDir();
+    private String dir = Utils.getInputDir();
     
     @Override
     protected RouteBuilder createRouteBuilder() {
