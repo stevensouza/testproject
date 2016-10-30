@@ -6,7 +6,13 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by stevesouza on 5/26/14.
@@ -25,7 +31,11 @@ public class Utils {
     }
 
     public static String getInput2Dir() {
-        return "file:"+Utils.class.getResource("/data/in2").getFile();
+        return "file:"+getIntput2DirPlain();
+    }
+    
+    public static String getIntput2DirPlain() {
+        return Utils.class.getResource("/data/in2").getFile();
     }
 
     public static String getOutputDir() {
@@ -38,6 +48,12 @@ public class Utils {
         Properties jamonProps = new Properties(defaults);
         jamonProps.putAll(userProvided);
         return jamonProps;
+    }
+    
+    public static String readFile(String fileName) throws IOException {
+        Path path = Paths.get(fileName);
+        Stream<String> lines = Files.lines(path);
+        return lines.collect(Collectors.joining()); // converts to a string
     }
 
     public static Properties propertyLoader(String fileName) throws IOException {

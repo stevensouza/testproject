@@ -59,4 +59,11 @@ public class UtilsTest {
 
         System.out.println(properties);
     }
+    
+    @Test
+    public void testReadFile() throws Exception {
+        String fileName=Utils.getIntput2DirPlain()+"/personsnamexstream.json";
+        String contents = Utils.readFile(fileName);
+        assertThat(contents).contains("joel","souza");
+    }
 }
