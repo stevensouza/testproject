@@ -23,6 +23,7 @@ public class CamelDriver {
         ProducerTemplate template = camel.createProducerTemplate();
         LOG.info("");
         LOG.info("***** Start actual app *****");
+        
 
         // if camel wasn't started in the spring config xml file with autoStartup="true" then we would do the following:
         //  camel.start();
@@ -69,6 +70,6 @@ public class CamelDriver {
 
         return camel;
     }
-
+    
 
 }
