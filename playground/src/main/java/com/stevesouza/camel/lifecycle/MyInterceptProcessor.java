@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class MyInterceptProcessor implements Processor {
     private static final Logger LOG = Logger.getLogger(MyInterceptProcessor.class);
 
+    private int counter=0;
     private String message="";
     public MyInterceptProcessor() {
     }
@@ -21,9 +22,13 @@ public class MyInterceptProcessor implements Processor {
     }
     @Override
     public void process(Exchange exchange) throws Exception {
-        LOG.info(message + " id=" + exchange.getExchangeId());
+        LOG.info("* " + message +" counter="+(counter++) + ", exchangeId=" + exchange.getExchangeId());
         MonitorFactory.add("camel."+message + ": " + getClass().getCanonicalName(), "count", 1);
-        //exchange.getProperties();
-        //exchange.getIn()
+        // List<MessageHistory> history = exchange.getProperty(Exchange.MESSAGE_HISTORY, List.class);
+        // LOG.info("* "+history);
+        
+        // useful methods
+        //  exchange.getProperties(); 
+        //  exchange.getIn() - message
     }
 }
