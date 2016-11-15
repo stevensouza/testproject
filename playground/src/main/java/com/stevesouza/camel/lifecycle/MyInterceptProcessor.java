@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by stevesouza on 5/19/14.
+ * 
+ * interceptors can be registered on routes to be called in between each step.
  */
 @Component
 public class MyInterceptProcessor implements Processor {

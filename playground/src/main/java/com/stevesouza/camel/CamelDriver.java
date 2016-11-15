@@ -30,13 +30,17 @@ public class CamelDriver {
 
         // Send to a specific queue
         LOG.info("1 ***********");
+        // writes message contents to a file
         template.sendBodyAndHeader("direct:messagetofile", "<hello>world!</hello>", "filename", "helloworld.txt");
         LOG.info("2 ***********");
         template.sendBodyAndHeader("direct:messagetofile", "<hello>steve!</hello>", "filename", "hellosteve.txt");
         LOG.info("3 ***********");
+        // write PersonsName object to a file using Jackson json.
         template.sendBody("direct:personsname", new PersonsName("steve","souza"));
         LOG.info("4 ***********");
+        // write PersonsName object to a file using xstream (comes with camel)
         template.sendBody("direct:personsname_xstream", new PersonsName("joel","souza"));
+        // bean method alters message and this alteration is written to a file
         LOG.info("5 ***********");
         template.sendBodyAndHeader("direct:messageusingbean", "<hello>world!</hello>", "filename", "messageusingbean.txt");
 

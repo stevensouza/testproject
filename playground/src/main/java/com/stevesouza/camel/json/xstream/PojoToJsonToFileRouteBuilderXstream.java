@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by stevesouza on 5/19/14.
+ * 
+ * convert pojo to json using xstream and write it to a file
  */
 @Component
 public class PojoToJsonToFileRouteBuilderXstream extends BaseRouteBuilder {

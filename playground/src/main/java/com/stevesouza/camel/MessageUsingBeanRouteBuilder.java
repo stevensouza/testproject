@@ -14,7 +14,7 @@ public class MessageUsingBeanRouteBuilder extends BaseRouteBuilder {
     public void configure() throws Exception {
         from("direct:messageusingbean").
                 routeId(getClass().getSimpleName()). // Note if you don't do this the route would be called route1 etc.
-                beanRef("messagePeekerBean").
+                beanRef("messagePeekerBean"). // changes content of message and returns it as a string to be written to a file
         to(getOutputDir()+"?fileName=${headers.filename}");
     }
 }

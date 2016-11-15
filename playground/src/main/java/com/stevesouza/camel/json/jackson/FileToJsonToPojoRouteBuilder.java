@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by stevesouza on 5/19/14.
+ * 
+ * convert json file to pojo
  */
 @Component
 public class FileToJsonToPojoRouteBuilder extends BaseRouteBuilder {
