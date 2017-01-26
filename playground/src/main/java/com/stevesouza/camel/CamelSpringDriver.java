@@ -13,8 +13,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Program that launches various camel tests.
  */
-public class CamelDriver {
-    private static final Logger LOG = Logger.getLogger(CamelDriver.class);
+public class CamelSpringDriver {
+    private static final Logger LOG = Logger.getLogger(CamelSpringDriver.class);
 
 
     public static void main(String[] ags) throws Exception {
