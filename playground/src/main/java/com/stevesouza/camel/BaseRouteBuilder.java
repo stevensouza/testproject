@@ -37,8 +37,9 @@ public abstract class BaseRouteBuilder extends SpringRouteBuilder {
 
     protected void useInterceptors() {
         // not clear how this relates to all the other forms of intercepting that can occur via Spring and camel.
-        intercept().process(new MyInterceptProcessor("intercept"));
-        interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
+        // comment out to keep log less messy - 1/22/17
+     //   intercept().process(new MyInterceptProcessor("intercept"));
+     //   interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
     }
 
 
