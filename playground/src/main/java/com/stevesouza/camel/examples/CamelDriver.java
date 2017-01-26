@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stevesouza.camel;
+package com.stevesouza.camel.examples;
 
+import com.stevesouza.camel.examples.SimpleRouteBuilder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
 /**
- *
+ * Class that uses plain camel (no spring) to play around and learn simple routes. 
+ * 
  * @author stevesouza
  */
 public class CamelDriver {
