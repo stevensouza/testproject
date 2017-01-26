@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stevesouza.camel;
+package com.stevesouza.camel.examples;
+
+import com.stevesouza.camel.BaseRouteBuilder;
 
 /**
  *
