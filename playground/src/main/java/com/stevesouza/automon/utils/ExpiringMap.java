@@ -7,11 +7,11 @@ import java.util.Map;
 /**
  * This {@link java.util.Map} implementation removes any map entries older than the time interval
  * specified in the constructor upon a new element being 'put' in the map.
- *
+ * <p>
  * Note: This map is not thread safe and must be wrapped in a synchronized map to make it work
  * in a multi-threaded environment.
  */
-public class ExpiringMap<K, V extends Expirable> extends  LinkedHashMap<K, V> {
+public class ExpiringMap<K, V extends Expirable> extends LinkedHashMap<K, V> {
 
     public ExpiringMap() {
         super(16, 0.75f, true);
@@ -19,7 +19,7 @@ public class ExpiringMap<K, V extends Expirable> extends  LinkedHashMap<K, V> {
 
     // Note the jdk calls this from the 'put' method (after a new item has been put in)
     @Override
-    protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
         // if we know the LRU entry has expired then loop to remove it and any other old entries that may exist.
         if (eldest.getValue().isExpired()) {
             removeOldEntries();
@@ -28,7 +28,8 @@ public class ExpiringMap<K, V extends Expirable> extends  LinkedHashMap<K, V> {
         return false; // indicate nothing else needs to be done
     }
 
-    /** iterate the collection removing any entries older than the specified expiration interval.  This is not thread-safe
+    /**
+     * iterate the collection removing any entries older than the specified expiration interval.  This is not thread-safe
      * unless the collection is synchronized.
      */
     void removeOldEntries() {

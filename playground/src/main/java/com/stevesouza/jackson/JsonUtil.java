@@ -20,7 +20,7 @@ public class JsonUtil {
         try {
             json = mapper.writeValueAsString(pojo);
         } catch (IOException e) {
-            throw new RuntimeException("Unable to convert the following object to json: "+pojo, e);
+            throw new RuntimeException("Unable to convert the following object to json: " + pojo, e);
         }
         return json;
     }
@@ -32,7 +32,7 @@ public class JsonUtil {
     }
     // convert SandboxReport to a map excluding any fields that have null values.
     //private Map<String, Object> toMap(SandboxReport behavior)  {
-       // Map<String,Object> map = null;
+    // Map<String,Object> map = null;
     //        try {
 //    String json = mapper.writeValueAsString(behavior);
 //    map = mapper.readValue(json,  new TypeReference<HashMap<String,String>>(){});
@@ -40,7 +40,6 @@ public class JsonUtil {
 //        throw new RuntimeException("Unable to convert the following object to json: "+behavior, e);
 //        }
 //        return map;
-
 
 
 }

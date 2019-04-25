@@ -34,6 +34,6 @@ public class MyAutowiredClass {
     }
 
     public void getPassArgs(String myString, HelloSpringBean helloSpringBean, String notUsed) {
-        System.out.println("in getPassArgs: "+"myString="+myString+", helloSpringBean="+helloSpringBean+", notUsed="+notUsed);
+        System.out.println("in getPassArgs: " + "myString=" + myString + ", helloSpringBean=" + helloSpringBean + ", notUsed=" + notUsed);
     }
 }

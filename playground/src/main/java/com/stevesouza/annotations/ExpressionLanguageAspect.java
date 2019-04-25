@@ -1,12 +1,15 @@
 package com.stevesouza.annotations;
 
 import com.fdsapi.Utils;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Parameter;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Parameter;
 
 
 @Aspect
@@ -22,7 +25,7 @@ public class ExpressionLanguageAspect {
     // note this is also used to advise another method defined in camelSpringApplicationContext.xml
     @Around("execution(* com.stevesouza.spring.MyAutowiredClass.getSlowMethod(..))")
     public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
-        
+
         MethodSignature ms = (MethodSignature) pjp.getSignature();
         Annotation[] annotations = ms.getMethod().getAnnotations();
         ExpressionLanguageAnnotation expressionAnnotation = ms.getMethod().getAnnotation(ExpressionLanguageAnnotation.class);
@@ -44,17 +47,17 @@ note to get actual parameter names (fname, lname instead of arg0, arg1) you have
 2016-07-25 21:42:41 INFO  ExpressionLanguageAspect:56 -     @com.stevesouza.annotations.ParamName(value=fname)
 2016-07-25 21:42:41 INFO  ExpressionLanguageAspect:56 -     null   
          */
-                    
+
         LOG.info("**************");
-        LOG.info("  annotations="+Utils.delimit(",",annotations));
-        LOG.info("  getMethod().getAnnotation(...)="+expressionAnnotation);
-        LOG.info("  getMethod().getAnnotation(...).value()="+expressionAnnotation.value());
-        LOG.info("  method parameters="+Utils.delimit(",",parameters));
-        LOG.info("  pjp.getArgs()="+Utils.delimit(",",pjp.getArgs()));
-        
+        LOG.info("  annotations=" + Utils.delimit(",", annotations));
+        LOG.info("  getMethod().getAnnotation(...)=" + expressionAnnotation);
+        LOG.info("  getMethod().getAnnotation(...).value()=" + expressionAnnotation.value());
+        LOG.info("  method parameters=" + Utils.delimit(",", parameters));
+        LOG.info("  pjp.getArgs()=" + Utils.delimit(",", pjp.getArgs()));
+
         LOG.info("  param annotations:");
         for (Parameter param : parameters) {
-            LOG.info("    "+param.getAnnotation(ParamName.class));
+            LOG.info("    " + param.getAnnotation(ParamName.class));
         }
 
         Object retVal = pjp.proceed();

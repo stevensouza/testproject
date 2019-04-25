@@ -9,14 +9,14 @@ import java.util.Set;
 /**
  * Class that allows for iterating a collection that contains multiple instances of MonitorComposites and iterates
  * through them as if they were one MonitorComposite.  A sort of composite/collection of MonitorComposites.
- *
+ * <p>
  * Created by stevesouza on 8/16/14.
  */
-    public class MonitorCompositeIterator implements Iterator<Monitor> {
+public class MonitorCompositeIterator implements Iterator<Monitor> {
     private Iterator<MonitorComposite> iter;
 
     private MonitorComposite currentMonitorComposite;
-    private int index=-1;
+    private int index = -1;
 
     public MonitorCompositeIterator(Set<MonitorComposite> monitorComposites) {
         iter = monitorComposites.iterator();
@@ -25,22 +25,22 @@ import java.util.Set;
 
     @Override
     public boolean hasNext() {
-      boolean hasMore;
-      if (index < currentMonitorComposite.getNumRows() - 1) {
-        hasMore = true;
-      } else {
-        hasMore = setNextMonitorComposite();
-      }
+        boolean hasMore;
+        if (index < currentMonitorComposite.getNumRows() - 1) {
+            hasMore = true;
+        } else {
+            hasMore = setNextMonitorComposite();
+        }
 
-      index++;
-      return hasMore;
+        index++;
+        return hasMore;
     }
 
     private boolean setNextMonitorComposite() {
         index = -1;
         if (iter.hasNext()) {
-          currentMonitorComposite = iter.next();
-          return currentMonitorComposite.getNumRows() > 0;
+            currentMonitorComposite = iter.next();
+            return currentMonitorComposite.getNumRows() > 0;
         }
 
         return false;
@@ -48,7 +48,7 @@ import java.util.Set;
 
     @Override
     public Monitor next() {
-       return currentMonitorComposite.getMonitors()[index];
+        return currentMonitorComposite.getMonitors()[index];
     }
 
     @Override

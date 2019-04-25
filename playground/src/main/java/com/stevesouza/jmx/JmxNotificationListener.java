@@ -12,11 +12,11 @@ import javax.management.openmbean.CompositeData;
  * send my own notification.  See MyMXBean.setAttrib1(...)
  */
 public class JmxNotificationListener implements NotificationListener {
-    private String message="";
+    private String message = "";
 
     public void handleNotification(Notification notification, Object handback) {
-        System.out.println("jmx Notification: "+notification);
-        System.out.println("jmx Notification handback: "+handback);
+        System.out.println("jmx Notification: " + notification);
+        System.out.println("jmx Notification handback: " + handback);
         String notifyType = notification.getType();
         if (notifyType.equals(GarbageCollectionNotificationInfo.GARBAGE_COLLECTION_NOTIFICATION)) {
             // retrieve the garbage collection notification information
@@ -24,7 +24,7 @@ public class JmxNotificationListener implements NotificationListener {
             GarbageCollectionNotificationInfo gcNotifyInfo = GarbageCollectionNotificationInfo.from(cd);
             print(gcNotifyInfo);
         }
-        message="Message is: "+notification;
+        message = "Message is: " + notification;
 
 
     }
@@ -32,22 +32,22 @@ public class JmxNotificationListener implements NotificationListener {
     private void print(GarbageCollectionNotificationInfo gcNotifyInfo) {
         GcInfo gcInfo = gcNotifyInfo.getGcInfo();
         System.out.println("GarbageCollectionNotificationInfo:");
-        System.out.println("  getGcAction:"+gcNotifyInfo.getGcAction());
-        System.out.println("  getGcCause:"+gcNotifyInfo.getGcCause());
-        System.out.println("  getGcName:"+gcNotifyInfo.getGcName());
+        System.out.println("  getGcAction:" + gcNotifyInfo.getGcAction());
+        System.out.println("  getGcCause:" + gcNotifyInfo.getGcCause());
+        System.out.println("  getGcName:" + gcNotifyInfo.getGcName());
         System.out.println("  gcInfo:");
 
         // http://docs.oracle.com/javase/7/docs/jre/api/management/extension/com/sun/management/GcInfo.html
         // count times fired for each type, duration for each type, and delta between firings for each type.
-        System.out.println("    gcInfo.getStartTime:"+gcInfo.getStartTime()); // ms since server started
-        System.out.println("    gcInfo.getEndTime:"+gcInfo.getEndTime());  // ms since server started
-        System.out.println("    gcInfo.getDuration (ms):"+gcInfo.getDuration()); // simple math of above
-        System.out.println("    gcInfo.getId:"+gcInfo.getId()); // number of times this collector has fired since startup
+        System.out.println("    gcInfo.getStartTime:" + gcInfo.getStartTime()); // ms since server started
+        System.out.println("    gcInfo.getEndTime:" + gcInfo.getEndTime());  // ms since server started
+        System.out.println("    gcInfo.getDuration (ms):" + gcInfo.getDuration()); // simple math of above
+        System.out.println("    gcInfo.getId:" + gcInfo.getId()); // number of times this collector has fired since startup
         // probably for jamon use the following for each of the following maps.  not sure what yet, but used looks good and maybe deltas
         // http://docs.oracle.com/javase/7/docs/api/java/lang/management/MemoryUsage.html
-        System.out.println("    gcInfo.getMemoryUsageBeforeGc:"+gcInfo.getMemoryUsageBeforeGc()); // Map<String,MemoryUsage>
-        System.out.println("    gcInfo.getMemoryUsageAfterGc:"+gcInfo.getMemoryUsageAfterGc()); // Map<String,MemoryUsage>
-        System.out.println("    gcInfo.values:"+gcInfo.values());
+        System.out.println("    gcInfo.getMemoryUsageBeforeGc:" + gcInfo.getMemoryUsageBeforeGc()); // Map<String,MemoryUsage>
+        System.out.println("    gcInfo.getMemoryUsageAfterGc:" + gcInfo.getMemoryUsageAfterGc()); // Map<String,MemoryUsage>
+        System.out.println("    gcInfo.values:" + gcInfo.values());
 
     }
 
@@ -56,7 +56,7 @@ public class JmxNotificationListener implements NotificationListener {
     }
 
     public void resetMessage() {
-        message="";
+        message = "";
     }
 
 }

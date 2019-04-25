@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * Class used to log and inspect a message.
  */
 @Component
-public class MessagePeeker  implements Processor {
+public class MessagePeeker implements Processor {
 
     private final Logger LOG = Logger.getLogger(getClass());
 

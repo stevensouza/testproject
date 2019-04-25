@@ -1,8 +1,6 @@
 package com.stevesouza.micrometer;
 
 import com.jamonapi.BasicTimingMonitor;
-import com.jamonapi.Monitor;
-import com.jamonapi.MonitorFactory;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -15,7 +13,7 @@ public class MicrometerPlay {
     public static void main(String[] args) {
         System.out.println("playing with micrometer");
         MeterRegistry registry = new SimpleMeterRegistry();
-        Timer timer =Timer.builder("app.timer")
+        Timer timer = Timer.builder("app.timer")
                 .description("my description")
                 .tag("type", "method")
                 .register(registry);
@@ -25,8 +23,8 @@ public class MicrometerPlay {
         sleep(300);
         timer.record(m.stop(), TimeUnit.MILLISECONDS);
 
-        System.out.println("timer count="+timer.count());
-        System.out.println("timer.totaltime="+timer.totalTime(TimeUnit.MILLISECONDS));
+        System.out.println("timer count=" + timer.count());
+        System.out.println("timer.totaltime=" + timer.totalTime(TimeUnit.MILLISECONDS));
 
 
         Counter counter = Counter.builder("exceptions")
@@ -36,7 +34,7 @@ public class MicrometerPlay {
         counter.increment();
         counter.increment();
 
-        System.out.println("count="+counter.count());
+        System.out.println("count=" + counter.count());
 
 
     }

@@ -8,7 +8,9 @@ import com.hazelcast.core.Member;
 
 import java.io.Serializable;
 
-/** code taken from hazelcast.org */
+/**
+ * code taken from hazelcast.org
+ */
 
 public class DistributedExecutorService {
     public static void main(String[] args) {

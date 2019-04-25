@@ -15,15 +15,13 @@ import java.util.Map;
 
 /**
  * Hello world!
- *
  */
-public class App 
-{
+public class App {
 
     private static final Logger LOG = Logger.getLogger(App.class);
     private static final String urlStr = "https://www.virustotal.com/intelligence/hunting/notifications-feed/?key=9e799068d917ea16744988d059cb156d60e2a09d879954d1a8865e865965b7d4";
 
-    public static void main( String[] args ) throws IOException {
+    public static void main(String[] args) throws IOException {
         urlWithOpenStream();
         urlWithConnection();
         javaProps();
@@ -59,13 +57,13 @@ public class App
     }
 
     private static void jamon() {
-        Monitor mon=MonitorFactory.add("key", "units", 100);
+        Monitor mon = MonitorFactory.add("key", "units", 100);
         LOG.info("mon=" + mon);
     }
 
     private static void urlWithConnection() throws IOException {
         URL url = new URL("http://example.com");
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.connect();
         System.out.println(connection.getContent());
@@ -75,7 +73,7 @@ public class App
     }
 
     private static void javaProps() {
-        for (Map.Entry<Object, Object> obj: System.getProperties().entrySet()) {
+        for (Map.Entry<Object, Object> obj : System.getProperties().entrySet()) {
             LOG.info(obj);
         }
     }

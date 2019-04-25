@@ -11,27 +11,27 @@ import org.aspectj.lang.annotation.*;
 /**
  * Created by stevesouza on 5/24/14.
  * Samples of aspectj pointcuts...
- *
+ * <p>
  * Other examples
- *  execution(* com.aspects.pointcut.DemoClass.*(..)) :
- *      This advice will be applied to all the methods of DemoClass.
- *  execution(* DemoClass.*(..)):
- *      You can omit the package if the DemoClass and the advice is in the same package.
- *  execution(public * DemoClass.*(..)):
- *      This advice will be applied to the public methods of DemoClass.
- *  execution(public int DemoClass.*(..)):
- *      This advice will be applied to the public methods of DemoClass and returning an int.
- *  execution(public int DemoClass.*(int, ..)):
- *      This advice will be applied to the public methods of DemoClass and returning an int and having first parameter as int.
- *  execution(public int DemoClass.*(int, int)):
- *      This advice will be applied to the public methods of DemoClass and returning an int and having both parameters as int.
+ * execution(* com.aspects.pointcut.DemoClass.*(..)) :
+ * This advice will be applied to all the methods of DemoClass.
+ * execution(* DemoClass.*(..)):
+ * You can omit the package if the DemoClass and the advice is in the same package.
+ * execution(public * DemoClass.*(..)):
+ * This advice will be applied to the public methods of DemoClass.
+ * execution(public int DemoClass.*(..)):
+ * This advice will be applied to the public methods of DemoClass and returning an int.
+ * execution(public int DemoClass.*(int, ..)):
+ * This advice will be applied to the public methods of DemoClass and returning an int and having first parameter as int.
+ * execution(public int DemoClass.*(int, int)):
+ * This advice will be applied to the public methods of DemoClass and returning an int and having both parameters as int.
  * dataAccessOperation was defined as a method with args .. and so the following would also require Account to be the first
- *    arg and it would be passed to the validateAccount method.
- *   @Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation() && args(account,..)")
- *   public void accountDataAccessOperation(Account account) {    ...
+ * arg and it would be passed to the validateAccount method.
+ *
+ * @Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation() && args(account,..)")
+ * public void accountDataAccessOperation(Account account) {    ...
  * Cool, can later reuse like this...
- *   @Before("accountDataAccessOperation(account)")
- *   public void validateAccount(Account account) {...
+ * @Before("accountDataAccessOperation(account)") public void validateAccount(Account account) {...
  */
 // Spring automatically finds
 // By default each aspect is a singleton within the applicationContext
@@ -52,17 +52,17 @@ public class MySpringAspect {
     public void advisedMethod() {
     }
 
-     @Before("advisedMethod()")
-     // note use of JoinPoint to get further info here
-     public void myFirstBeforeMethod(JoinPoint pjp) {
-        LOG.info("myFirstBeforeMethod() (@Before). Target method ivoked: "+pjp.toLongString());
-      }
+    @Before("advisedMethod()")
+    // note use of JoinPoint to get further info here
+    public void myFirstBeforeMethod(JoinPoint pjp) {
+        LOG.info("myFirstBeforeMethod() (@Before). Target method ivoked: " + pjp.toLongString());
+    }
 
     // JoinPoint is not required.  Can have access to other args too.
     @Before("advisedMethod()")
-      public void mySecondBeforeMethod() {
+    public void mySecondBeforeMethod() {
         LOG.info("mySecondBeforeMethod() (@Before)");
-      }
+    }
 
     // other options
     // @After()  - always runs.  after finally
@@ -71,7 +71,7 @@ public class MySpringAspect {
     // retVal has the return value of the invoked method
     @AfterReturning(pointcut = "advisedMethod()", returning = "retVal")
     public void myAfterReturning(String retVal) {
-        LOG.info("myAfterReturning() (@AfterReturning): "+retVal);
+        LOG.info("myAfterReturning() (@AfterReturning): " + retVal);
     }
 
     @AfterThrowing("advisedMethod()")
@@ -80,22 +80,22 @@ public class MySpringAspect {
     }
 
     @AfterThrowing(pointcut = "advisedMethod()",
-            throwing="exception")
+            throwing = "exception")
     public void myAfterThrowingException2(Throwable exception) {
-        LOG.info("myAfterThrowingException2() and exception="+exception);
+        LOG.info("myAfterThrowingException2() and exception=" + exception);
     }
 
     // note this is also used to advise another method defined in camelSpringApplicationContext.xml
     @Around("execution(* com.stevesouza.spring.MyAutowiredClass.getSlowMethod(..))")
     public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
         Monitor mon = MonitorFactory.start(pjp.getSignature().toString());
-        LOG.info("toString="+pjp.getSignature());
-        LOG.info(" toShortString="+pjp.toShortString());
-        LOG.info(" toLongString="+pjp.toLongString());
-        LOG.info(" target="+pjp.getTarget()); // the advised object
+        LOG.info("toString=" + pjp.getSignature());
+        LOG.info(" toShortString=" + pjp.toShortString());
+        LOG.info(" toLongString=" + pjp.toLongString());
+        LOG.info(" target=" + pjp.getTarget()); // the advised object
         Object retVal = pjp.proceed();
         mon.stop();
-        LOG.info(" "+mon);
+        LOG.info(" " + mon);
         return retVal;
     }
 
@@ -109,20 +109,21 @@ public class MySpringAspect {
         }
     }
 
-    /** use '..' in the args expression if you have zero or more parameters at that point
+    /**
+     * use '..' in the args expression if you have zero or more parameters at that point
      * The values in args don't have to match the the advised methods argument names however they must match
      * the ones defined in doProfilingWithArgs.  Intellij catches the error if they don't match.
      * This is an easy way to get access to argments being passed into the original
      * method.  you can also call getArgs().
-     *
+     * <p>
      * Note because this method also starts with 'get*' it is also matched by the @Before annotation above.  Cool!
      */
     @Around("execution(* com.stevesouza.spring.MyAutowiredClass.getPassArgs(..)) && args(myString, helloSpringBean, ..)")
     public Object doProfilingWithArgs(ProceedingJoinPoint proceedingJoinPoint, String myString, HelloSpringBean helloSpringBean) throws Throwable {
-        System.out.println("myString="+myString);
-        System.out.println("helloSpringBean="+helloSpringBean);
+        System.out.println("myString=" + myString);
+        System.out.println("helloSpringBean=" + helloSpringBean);
         for (Object arg : proceedingJoinPoint.getArgs()) {
-            LOG.info("arg="+arg);
+            LOG.info("arg=" + arg);
         }
 
         // can also call  proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());

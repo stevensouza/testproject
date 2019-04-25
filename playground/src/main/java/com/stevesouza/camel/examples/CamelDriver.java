@@ -5,35 +5,33 @@
  */
 package com.stevesouza.camel.examples;
 
-import com.stevesouza.camel.examples.SimpleRouteBuilder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
 /**
- * Class that uses plain camel (no spring) to play around and learn simple routes. 
- * 
+ * Class that uses plain camel (no spring) to play around and learn simple routes.
+ *
  * @author stevesouza
  */
 public class CamelDriver {
-    
+
     private final CamelContext camelContext;
     private final ProducerTemplate template;
-    
 
-    
+
     public CamelDriver() throws Exception {
         camelContext = new DefaultCamelContext();
         template = camelContext.createProducerTemplate();
     }
-    
+
     public CamelDriver(RouteBuilder rb) throws Exception {
         this();
         camelContext.addRoutes(rb);
     }
-    
-    
+
+
     public CamelContext getCamelContext() {
         return camelContext;
     }
@@ -41,23 +39,21 @@ public class CamelDriver {
     public ProducerTemplate getTemplate() {
         return template;
     }
-    
+
     public void start() throws Exception {
-      camelContext.start();
+        camelContext.start();
     }
-    
+
     public void stop() throws Exception {
         camelContext.stop();
     }
-    
-    
 
-    
+
     public static void main(String[] args) throws Exception {
         CamelDriver camelDriver = new CamelDriver(new SimpleRouteBuilder());
         camelDriver.start();
         camelDriver.getTemplate().sendBody("direct:simpleroute", "hello world message!");
         camelDriver.stop();
     }
-    
+
 }

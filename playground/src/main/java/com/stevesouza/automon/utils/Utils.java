@@ -88,9 +88,8 @@ LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)
 //    }
 
 
-
     private void printMe(String type, Object message) {
-        System.out.println(" "+type + " : " + message);
+        System.out.println(" " + type + " : " + message);
     }
 
 }

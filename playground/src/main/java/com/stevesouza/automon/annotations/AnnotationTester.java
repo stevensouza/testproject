@@ -2,8 +2,6 @@ package com.stevesouza.automon.annotations;
 
 /**
  * Used to test annotations pointcut in automon.
- *
- *
  */
 public class AnnotationTester {
     public static void main(String[] args) {

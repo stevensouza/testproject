@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
  */
 public class HelloSpringBean {
 
-    @Value ("Hi #{systemProperties['user.name']}, and Hi Spring!")
+    @Value("Hi #{systemProperties['user.name']}, and Hi Spring!")
     private String message;
 
     public String helloSpring() {

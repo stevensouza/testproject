@@ -8,7 +8,8 @@ import org.apache.cassandra.exceptions.ConfigurationException;
 import org.apache.thrift.transport.TTransportException;
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper;
 
-import javax.management.*;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -20,16 +21,16 @@ import java.util.UUID;
 /**
  * note on mac and jdk7 i had to add this to the this files jvm run options:
  * -Dorg.xerial.snappy.lib.path=/Applications/myapps/dsc-cassandra-2.0.7 -Dorg.xerial.snappy.lib.name=libsnappyjava.jnilib -Dorg.xerial.snappy.tempdir=/tmp
- *
+ * <p>
  * http://bigchunk.me/2013/01/12/fix-cassandra-missing-snappy-java-class-at-osx-10-8/
- *
+ * <p>
  * Note this code only works with the embedded cassandra and so cassandra need not be explicitly started.  However, the following
  * steps are useful to know to start up an external instance.
- *
+ * <p>
  * start cassandra:
- *   cd /Applications/myapps/dsc-cassandra-2.0.7/bin
- *   sudo ./cassandra
- *
+ * cd /Applications/myapps/dsc-cassandra-2.0.7/bin
+ * sudo ./cassandra
+ * <p>
  * Created by stevesouza on 4/29/14.
  */
 public class SimpleClient implements Closeable {
@@ -51,7 +52,7 @@ public class SimpleClient implements Closeable {
         session = cluster.connect();
         System.out.printf("Connected to cluster: %s\n",
                 metadata.getClusterName());
-        for ( Host host : metadata.getAllHosts() ) {
+        for (Host host : metadata.getAllHosts()) {
             System.out.printf("Datatacenter: %s; Host: %s; Rack: %s\n",
                     host.getDatacenter(), host.getAddress(), host.getRack());
         }
@@ -141,17 +142,16 @@ public class SimpleClient implements Closeable {
     }
 
 
-
     public void querySchema() {
         ResultSet results = session.execute("SELECT * FROM simplex.playlists " +
                 "WHERE id = 2cc9ccb7-6221-4ccb-8387-f22b6a1b354d;");
         iterate(results);
 
-        Select select=QueryBuilder.select().all().from("simplex", "playlists");
+        Select select = QueryBuilder.select().all().from("simplex", "playlists");
         results = session.execute(select);
         iterate(results);
 
-        select=QueryBuilder.select().column("title").column("album").column("artist").from("simplex", "playlists");
+        select = QueryBuilder.select().column("title").column("album").column("artist").from("simplex", "playlists");
         results = session.execute(select);
         iterate(results);
     }
@@ -161,7 +161,7 @@ public class SimpleClient implements Closeable {
                 "-------------------------------+-----------------------+--------------------"));
         for (Row row : results) {
             System.out.println(String.format("%-30s\t%-20s\t%-20s", row.getString("title"),
-                    row.getString("album"),  row.getString("artist")));
+                    row.getString("album"), row.getString("artist")));
         }
         System.out.println();
     }

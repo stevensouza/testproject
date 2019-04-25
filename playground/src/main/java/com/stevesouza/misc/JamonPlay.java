@@ -1,16 +1,16 @@
 package com.stevesouza.misc;
 
-import com.jamonapi.*;
+import com.jamonapi.Monitor;
+import com.jamonapi.MonitorFactory;
 import com.jamonapi.proxy.MonProxyFactory;
 
 /**
  * Created by stevesouza on 9/2/15.
  */
 public class JamonPlay {
-    public  JamonPlay() throws Exception {
+    public JamonPlay() throws Exception {
         setup();
     }
-
 
 
     private IHelloWorld helloworld;
@@ -113,12 +113,11 @@ public class JamonPlay {
     }
 
 
-
     public static void main(String[] args) throws Exception {
-        int loops = (args==null || args.length==0) ? 1 : Integer.valueOf(args[0]);
+        int loops = (args == null || args.length == 0) ? 1 : Integer.valueOf(args[0]);
         JamonPlay play = new JamonPlay();
-        int ITERATIONS=1000;
-        for (int i=0;i<loops;i++) {
+        int ITERATIONS = 1000;
+        for (int i = 0; i < loops; i++) {
             play.getDirectResponse(ITERATIONS);
             play.getDirectResponseWithAspectJ(ITERATIONS);
             play.getProxyResponse(ITERATIONS);

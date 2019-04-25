@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by stevesouza on 5/19/14.
- * 
+ * <p>
  * convert pojo to json using xstream and write it to a file
  */
 @Component
@@ -22,14 +22,14 @@ public class PojoToJsonToFileRouteBuilderXstream extends BaseRouteBuilder {
          marshal().json().
         */
         from("direct:personsname_xstream")
-          .routeId(getClass().getSimpleName())
-          // marshal().json(). // to use xstream default json.
-          // Can also use JsonLibrary.gSon
-          // 1) calls intercept
-          .marshal().json()
-          // 2) calls intercept
-          .log("from pojo to json: messageid=${id}, Person name as json=${body}")
-          // 3) calls intercept
-          .to(getOutputDir()+"?fileName=personsnamexstream_pojotojson.json");
+                .routeId(getClass().getSimpleName())
+                // marshal().json(). // to use xstream default json.
+                // Can also use JsonLibrary.gSon
+                // 1) calls intercept
+                .marshal().json()
+                // 2) calls intercept
+                .log("from pojo to json: messageid=${id}, Person name as json=${body}")
+                // 3) calls intercept
+                .to(getOutputDir() + "?fileName=personsnamexstream_pojotojson.json");
     }
 }

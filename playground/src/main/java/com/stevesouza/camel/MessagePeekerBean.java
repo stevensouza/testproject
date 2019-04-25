@@ -14,23 +14,24 @@ import org.springframework.stereotype.Component;
 public class MessagePeekerBean {
     private final Logger LOG = Logger.getLogger(getClass());
 
-    /** Note because this class has one method @Handler is not required.  Also @Body is not required
+    /**
+     * Note because this class has one method @Handler is not required.  Also @Body is not required
      * as it will see the message is a String and if the class has only 1 method where the message matches
      * the body it would be picked.
      *
      * @param fileName
      * @param simpleStr
-     * @Header("filename") == @Simple("${header.filename}")
-     *
-     *  Nice examples of Camel SEL (simple expression language) - http://camel.apache.org/simple.html
      * @param message
      * @return
+     * @Header("filename") == @Simple("${header.filename}")
+     * <p>
+     * Nice examples of Camel SEL (simple expression language) - http://camel.apache.org/simple.html
      */
     @Handler
     public String peek(@Body String message,
                        @Header("filename") String fileName,
                        @Simple("[header[filename]=${header[filename]}, routeId=${routeId}, id=${id}, camelId=${camelId}]") String simpleStr) {
-        String fileContents=getClass()+", using simpleExpressionLanguage="+simpleStr+", fileName="+fileName+", changed message: "+message;
+        String fileContents = getClass() + ", using simpleExpressionLanguage=" + simpleStr + ", fileName=" + fileName + ", changed message: " + message;
         LOG.info(fileContents);
         return fileContents;  // new body
     }

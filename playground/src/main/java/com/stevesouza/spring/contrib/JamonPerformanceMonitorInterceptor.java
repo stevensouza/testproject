@@ -37,9 +37,9 @@ import org.springframework.aop.interceptor.AbstractMonitoringInterceptor;
  * @author Dmitriy Kopylenko
  * @author Juergen Hoeller
  * @author Rob Harrop
- * @since 1.1.3
  * @see com.jamonapi.MonitorFactory
  * @see org.springframework.aop.interceptor.PerformanceMonitorInterceptor
+ * @since 1.1.3
  */
 @SuppressWarnings("serial")
 public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterceptor {
@@ -56,6 +56,7 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
     /**
      * Create a new JamonPerformanceMonitorInterceptor with a dynamic or static logger,
      * according to the given flag.
+     *
      * @param useDynamicLogger whether to use a dynamic logger or a static logger
      * @see #setUseDynamicLogger(boolean)
      */
@@ -66,9 +67,10 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
     /**
      * Create a new JamonPerformanceMonitorInterceptor with a dynamic or static logger,
      * according to the given flag.
-     * @param useDynamicLogger whether to use a dynamic logger or a static logger
+     *
+     * @param useDynamicLogger    whether to use a dynamic logger or a static logger
      * @param trackAllInvocations whether to track all invocations that go through
-     * this interceptor, or just invocations with trace logging enabled
+     *                            this interceptor, or just invocations with trace logging enabled
      * @see #setUseDynamicLogger(boolean)
      * @see #setTrackAllInvocations(boolean)
      */
@@ -79,10 +81,11 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
     /**
      * Create a new JamonPerformanceMonitorInterceptor with a dynamic or static logger,
      * according to the given flags.
-     * @param useDynamicLogger whether to use a dynamic logger or a static logger
+     *
+     * @param useDynamicLogger    whether to use a dynamic logger or a static logger
      * @param trackAllInvocations whether to track all invocations that go through
-     * this interceptor, or just invocations with trace logging enabled
-     * @param trackExceptions whether to track/count exceptions that are thrown
+     *                            this interceptor, or just invocations with trace logging enabled
+     * @param trackExceptions     whether to track/count exceptions that are thrown
      * @see #setUseDynamicLogger(boolean)
      * @see #setTrackAllInvocations(boolean)
      * @see #setTrackExceptions(boolean)
@@ -110,7 +113,8 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
      * In addition stack traces will be able available to be viewed with the JAMon web application.
      * <p>For backwards compatibility the default is "false", however it is recommended that
      * it is enabled.</p>
-     * @since  4.1
+     *
+     * @since 4.1
      */
     public void setTrackExceptions(boolean trackExceptions) {
         this.trackExceptions = trackExceptions;
@@ -120,6 +124,7 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
     /**
      * Always applies the interceptor if the "trackAllInvocations" flag has been set;
      * else just kicks in if the log is enabled.
+     *
      * @see #setTrackAllInvocations
      * @see #isLogEnabled
      */
@@ -131,6 +136,7 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
     /**
      * Wraps the invocation with a JAMon Monitor and writes the current
      * performance statistics to the log (if enabled).
+     *
      * @see com.jamonapi.MonitorFactory#start
      * @see com.jamonapi.Monitor#stop
      */
@@ -158,6 +164,7 @@ public class JamonPerformanceMonitorInterceptor extends AbstractMonitoringInterc
     /**
      * Count the thrown exception and also put the stack trace in the details portion of the key.
      * This will allow the stack trace to be viewed in the JAMon web application.
+     *
      * @since 4.1
      */
     private void trackException(MonKeyImp key, Throwable exception) {

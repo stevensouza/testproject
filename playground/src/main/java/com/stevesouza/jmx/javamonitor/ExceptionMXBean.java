@@ -7,5 +7,6 @@ public interface ExceptionMXBean {
     public static final String NAME = "sandbox.jamonapi:name=Log4j";
 
     public String getMostRecentStackTrace();
+
     public long getExceptions();
 }

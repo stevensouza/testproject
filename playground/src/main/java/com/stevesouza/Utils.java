@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,19 +26,19 @@ public class Utils {
     }
 
     public static String getInputDir() {
-        return "file:"+Utils.class.getResource("/data/in").getFile();
+        return "file:" + Utils.class.getResource("/data/in").getFile();
     }
 
     public static String getInput2Dir() {
-        return "file:"+getIntput2DirPlain();
+        return "file:" + getIntput2DirPlain();
     }
-    
+
     public static String getIntput2DirPlain() {
         return Utils.class.getResource("/data/in2").getFile();
     }
 
     public static String getOutputDir() {
-        return "file:"+Utils.class.getResource("/data/out").getFile();
+        return "file:" + Utils.class.getResource("/data/out").getFile();
     }
 
     public static Properties getJamonProperties() throws IOException {
@@ -49,7 +48,7 @@ public class Utils {
         jamonProps.putAll(userProvided);
         return jamonProps;
     }
-    
+
     public static String readFile(String fileName) throws IOException {
         Path path = Paths.get(fileName);
         Stream<String> lines = Files.lines(path);
@@ -61,13 +60,13 @@ public class Utils {
         InputStream input = null;
         try {
             input = Utils.class.getClassLoader().getResourceAsStream(fileName);
-            if (input!=null) {
+            if (input != null) {
                 properties.load(input);
             }
 
             properties = replaceWithCommandLineProps(properties);
-        } finally{
-            if (input!=null) {
+        } finally {
+            if (input != null) {
                 input.close();
             }
         }

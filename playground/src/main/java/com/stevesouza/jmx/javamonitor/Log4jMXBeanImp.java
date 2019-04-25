@@ -37,6 +37,6 @@ public class Log4jMXBeanImp implements Log4jMXBean {
     }
 
     private long getCount(String label) {
-       return Utils.getCount(label, UNITS);
+        return Utils.getCount(label, UNITS);
     }
 }

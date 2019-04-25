@@ -23,7 +23,7 @@ public class CamelSpringDriver {
         ProducerTemplate template = camel.createProducerTemplate();
         LOG.info("");
         LOG.info("***** Start actual app *****");
-        
+
 
         // if camel wasn't started in the spring config xml file with autoStartup="true" then we would do the following:
         //  camel.start();
@@ -36,10 +36,10 @@ public class CamelSpringDriver {
         template.sendBodyAndHeader("direct:messagetofile", "<hello>steve!</hello>", "filename", "hellosteve.txt");
         LOG.info("3 ***********");
         // write PersonsName object to a file using Jackson json.
-        template.sendBody("direct:personsname", new PersonsName("steve","souza"));
+        template.sendBody("direct:personsname", new PersonsName("steve", "souza"));
         LOG.info("4 ***********");
         // write PersonsName object to a file using xstream (comes with camel)
-        template.sendBody("direct:personsname_xstream", new PersonsName("joel","souza"));
+        template.sendBody("direct:personsname_xstream", new PersonsName("joel", "souza"));
         // bean method alters message and this alteration is written to a file
         LOG.info("5 ***********");
         template.sendBodyAndHeader("direct:messageusingbean", "<hello>world!</hello>", "filename", "messageusingbean.txt");
@@ -70,10 +70,10 @@ public class CamelSpringDriver {
             public void onCamelContextStarted(CamelContext context, boolean alreadyStarted) throws Exception {
                 LOG.info("Seeing when startup strategy is called.  CamelContext=" + context);
             }
-         });
+        });
 
         return camel;
     }
-    
+
 
 }

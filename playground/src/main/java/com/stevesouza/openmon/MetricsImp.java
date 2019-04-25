@@ -21,14 +21,14 @@ public class MetricsImp implements OpenMon<Timer.Context> {
     @Override
     public void stop(Timer.Context timerContext) {
         timerContext.stop();
-        System.out.println("Metrics Timer.Context: "+timerContext);
+        System.out.println("Metrics Timer.Context: " + timerContext);
     }
 
     @Override
     public void exception(String label) {
         Counter mon = metrics.counter(label);
         mon.inc();
-        System.out.println("Metrics counter: "+mon);
+        System.out.println("Metrics counter: " + mon);
     }
 
     @Override

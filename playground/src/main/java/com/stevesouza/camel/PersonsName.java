@@ -10,6 +10,7 @@ public class PersonsName {
     public PersonsName() {
 
     }
+
     public PersonsName(String fname, String lname) {
         this.fname = fname;
         this.lname = lname;
@@ -36,7 +37,7 @@ public class PersonsName {
     }
 
     public String toString() {
-        return "PersonsName (fname="+fname+", lname="+lname+")";
+        return "PersonsName (fname=" + fname + ", lname=" + lname + ")";
     }
 
 }

@@ -15,10 +15,10 @@ public class SpringMain {
     public static void main(String[] args) throws Exception {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         HelloSpringBean hi = (HelloSpringBean) context.getBean("hiSpringBean");
-        LOG.info("SpringBeanSays: "+hi.helloSpring());
+        LOG.info("SpringBeanSays: " + hi.helloSpring());
 
         MyAutowiredClass myAutowiredClass = (MyAutowiredClass) context.getBean("myComponent");
-        LOG.info("MyAutowiredClass says: "+myAutowiredClass.getString());
+        LOG.info("MyAutowiredClass says: " + myAutowiredClass.getString());
         try {
             LOG.info("MyAutowiredClass says: " + myAutowiredClass.getThrowException());
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class SpringMain {
         MonitorMe4 monitorMe4 = context.getBean("monitorMe4", MonitorMe4.class);
 
 
-        for (int i=0;i<10;i++) {
+        for (int i = 0; i < 10; i++) {
             monitorMe1.myMethod();
             monitorMe2.myMethod();
             monitorMe3.myMethod();
@@ -53,7 +53,7 @@ public class SpringMain {
         }
 
         myAutowiredClass.getPassArgs("myStringValue", new HelloSpringBean(), "notUsedValue");
-        LOG.info("Has value FIFOBuffer listener: "+MonitorFactory.getMonitor(MonitorFactory.EXCEPTIONS_LABEL, "Exception").hasListener("value", "FIFOBuffer"));
+        LOG.info("Has value FIFOBuffer listener: " + MonitorFactory.getMonitor(MonitorFactory.EXCEPTIONS_LABEL, "Exception").hasListener("value", "FIFOBuffer"));
         Utils.displayJamon();
 
     }

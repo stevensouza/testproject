@@ -6,14 +6,12 @@
 package com.stevesouza.spring.aop2;
 
 /**
- *
  * @author stevesouza
- * 
+ * <p>
  * from command line: mvn exec:java -Dexec.mainClass="com.stevesouza.spring.aop2.SpringDriver" -Dexec.classpathScope=runtime -X
- * 
  */
 public class MySpringBean {
-     public void myMethod() throws Exception {
+    public void myMethod() throws Exception {
         Thread.sleep(250);
     }
 
@@ -24,5 +22,5 @@ public class MySpringBean {
 
     public void methodThrowingException() throws Exception {
         throw new Exception("file io exception simulation");
-    }   
+    }
 }

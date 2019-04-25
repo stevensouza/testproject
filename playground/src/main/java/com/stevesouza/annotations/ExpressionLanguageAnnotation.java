@@ -5,19 +5,14 @@
  */
 package com.stevesouza.annotations;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
- *
  * @author stevesouza
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
 public @interface ExpressionLanguageAnnotation {
-    String   value() default "method";
+    String value() default "method";
 }

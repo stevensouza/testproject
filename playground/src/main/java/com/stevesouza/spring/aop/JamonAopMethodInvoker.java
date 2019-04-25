@@ -33,7 +33,9 @@ public abstract class JamonAopMethodInvoker<T> {
         return retVal;
     }
 
-    /** The normal proceed method.  This would have a different implementation for say a MethodInvocation or JoinPoint */
+    /**
+     * The normal proceed method.  This would have a different implementation for say a MethodInvocation or JoinPoint
+     */
     abstract protected Object proceed(T invoker) throws Throwable;
 
     // add monitors for the thrown exception and also put the stack trace in the details portion of the key

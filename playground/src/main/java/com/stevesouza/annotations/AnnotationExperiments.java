@@ -6,16 +6,15 @@
 package com.stevesouza.annotations;
 
 /**
- *
  * @author stevesouza
  */
 @ExpressionLanguageAnnotation("myclass.method")
 public class AnnotationExperiments {
     @ExpressionLanguageAnnotation("mymethod.annotation")
     public void myAnnotatedMethod() {
-        
+
     }
-    
+
     /* interface MyInterface {
   void myMetod(@ParamName("foo") Object foo, @ParamName("bar") Object bar);
 }
@@ -23,6 +22,6 @@ public class AnnotationExperiments {
     */
     @ExpressionLanguageAnnotation("mymethod.annotation2")
     public void myAnnotatedMethod2(@ParamName("fname") String fname, String lname) {
-        
+
     }
 }

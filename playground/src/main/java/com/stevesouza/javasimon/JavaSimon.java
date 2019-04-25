@@ -6,5 +6,4 @@ package com.stevesouza.javasimon;
 public class JavaSimon {
 
 
-
 }

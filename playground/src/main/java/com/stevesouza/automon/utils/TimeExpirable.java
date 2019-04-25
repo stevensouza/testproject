@@ -5,8 +5,8 @@ package com.stevesouza.automon.utils;
  */
 public class TimeExpirable implements Expirable {
 
-    private static long SECS_PER_MINUTE=60;
-    private static long MS_PER_SEC=1000;
+    private static long SECS_PER_MINUTE = 60;
+    private static long MS_PER_SEC = 1000;
 
     private long creationTime;
     private long expirationIntervalInMs;
@@ -24,11 +24,11 @@ public class TimeExpirable implements Expirable {
 
     @Override
     public boolean isExpired() {
-        return (now.now()-creationTime)>=expirationIntervalInMs;
+        return (now.now() - creationTime) >= expirationIntervalInMs;
     }
 
     static long convertToMs(int expirationInternalInMinutes) {
-        return expirationInternalInMinutes*SECS_PER_MINUTE*MS_PER_SEC;
+        return expirationInternalInMinutes * SECS_PER_MINUTE * MS_PER_SEC;
     }
 
 
@@ -40,7 +40,7 @@ public class TimeExpirable implements Expirable {
     }
 
     // used to facilitate testing with a mock.
-    public  interface Now {
+    public interface Now {
         public long now();
     }
 }

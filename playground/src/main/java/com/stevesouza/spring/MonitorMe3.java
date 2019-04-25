@@ -16,6 +16,7 @@ public class MonitorMe3 {
     public void myMethod() throws Exception {
         Thread.sleep(250);
     }
+
     public void myMethod2(String str) throws Exception {
         Thread.sleep(10);
     }

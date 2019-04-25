@@ -1,13 +1,12 @@
 package com.stevesouza.camel;
 
 import com.stevesouza.Utils;
-import com.stevesouza.camel.lifecycle.MyInterceptProcessor;
 import org.apache.camel.spring.SpringRouteBuilder;
 
 /**
  * Note if you don't call this in the routeL: routeId(getClass().getSimpleName())
  * the route would be called route1, route2 etc.
-
+ * <p>
  * Created by stevesouza on 5/29/14.
  */
 public abstract class BaseRouteBuilder extends SpringRouteBuilder {
@@ -38,8 +37,8 @@ public abstract class BaseRouteBuilder extends SpringRouteBuilder {
     protected void useInterceptors() {
         // not clear how this relates to all the other forms of intercepting that can occur via Spring and camel.
         // comment out to keep log less messy - 1/22/17
-     //   intercept().process(new MyInterceptProcessor("intercept"));
-     //   interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
+        //   intercept().process(new MyInterceptProcessor("intercept"));
+        //   interceptFrom().process(new MyInterceptProcessor("interceptFrom"));
     }
 
 

@@ -7,11 +7,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 
-/** Must extend NotificationBroadcasterSupport, or implement NotificationEmitter if it supports notifications.
- * Notifications are messages sent to any class that listens for the notifications */
-public class MyMXBean  extends NotificationBroadcasterSupport implements IMyMXBean {
+/**
+ * Must extend NotificationBroadcasterSupport, or implement NotificationEmitter if it supports notifications.
+ * Notifications are messages sent to any class that listens for the notifications
+ */
+public class MyMXBean extends NotificationBroadcasterSupport implements IMyMXBean {
 
-    private String attrib1="";
+    private String attrib1 = "";
     private int attrib2;
     private long notificationSequenceNumber;
 
@@ -19,9 +21,11 @@ public class MyMXBean  extends NotificationBroadcasterSupport implements IMyMXBe
         return attrib1;
     }
 
-    /** Note this sends a notification when called */
+    /**
+     * Note this sends a notification when called
+     */
     public void setAttrib1(String attrib1) {
-        String message = "Changing from:"  + this.attrib1 + ", to:" +  attrib1;
+        String message = "Changing from:" + this.attrib1 + ", to:" + attrib1;
         System.out.println(message);
         // http://docs.oracle.com/javase/1.5.0/docs/api/javax/management/AttributeChangeNotification.html#AttributeChangeNotification(java.lang.Object, long, long, java.lang.String, java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
         Notification notification = new AttributeChangeNotification(
@@ -46,7 +50,7 @@ public class MyMXBean  extends NotificationBroadcasterSupport implements IMyMXBe
     }
 
     public void setAttrib2(int attrib2) {
-        System.out.println(this.attrib2 + " - " +  attrib2);
+        System.out.println(this.attrib2 + " - " + attrib2);
         this.attrib2 = attrib2;
     }
 
@@ -65,7 +69,6 @@ public class MyMXBean  extends NotificationBroadcasterSupport implements IMyMXBe
     }
 
 
-
     // private long freeMem, maxMem, totalMem;
 
 
@@ -75,7 +78,7 @@ public class MyMXBean  extends NotificationBroadcasterSupport implements IMyMXBe
     }
 
     public String printName(String fname, String lname) {
-        String str = "My name is: "+fname+" "+lname;
+        String str = "My name is: " + fname + " " + lname;
         System.out.println(str);
         return str;
 

@@ -18,7 +18,7 @@ public class ExceptionMXBeanImp implements ExceptionMXBean {
 
     @Override
     public String getMostRecentStackTrace() {
-        if (MonitorFactory.exists(LABEL, UNITS) && MonitorFactory.getMonitor(LABEL, UNITS).hasListener("value","FIFOBuffer")) {
+        if (MonitorFactory.exists(LABEL, UNITS) && MonitorFactory.getMonitor(LABEL, UNITS).hasListener("value", "FIFOBuffer")) {
             JAMonListener listener = MonitorFactory.getMonitor(LABEL, UNITS).getListenerType("value").getListener("FIFOBuffer");
             return "my stack trace (has listener)!!!!";
         }

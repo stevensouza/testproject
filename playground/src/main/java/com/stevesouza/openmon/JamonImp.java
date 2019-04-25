@@ -6,7 +6,7 @@ import com.jamonapi.MonitorFactory;
 /**
  * Created by stevesouza on 2/26/15.
  */
-public class JamonImp implements OpenMon<Monitor>{
+public class JamonImp implements OpenMon<Monitor> {
     @Override
     public Monitor start(String label) {
         return MonitorFactory.start(label);

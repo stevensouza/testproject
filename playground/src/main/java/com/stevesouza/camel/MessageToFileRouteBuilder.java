@@ -12,17 +12,17 @@ import javax.inject.Named;
 @Component
 public class MessageToFileRouteBuilder extends BaseRouteBuilder {
     // (Processor)getApplicationContext().getBean("messagePeeker")
-   @Inject
-   @Named("messagePeeker")
-   private Processor messagePeeker;
+    @Inject
+    @Named("messagePeeker")
+    private Processor messagePeeker;
 
     @Override
     public void configure() throws Exception {
-       // messagePeeker = (Processor)getApplicationContext().getBean("messagePeeker");
+        // messagePeeker = (Processor)getApplicationContext().getBean("messagePeeker");
         from("direct:messagetofile").
-         routeId(getClass().getSimpleName()). // note this gives the route a name in the jmx console.
-         log("messageid=${id}, myheader=${headers.myheader}, allheaders=${headers}").
-         process(messagePeeker).
-         to(getOutputDir()+"?fileName=${headers.filename}");
+                routeId(getClass().getSimpleName()). // note this gives the route a name in the jmx console.
+                log("messageid=${id}, myheader=${headers.myheader}, allheaders=${headers}").
+                process(messagePeeker).
+                to(getOutputDir() + "?fileName=${headers.filename}");
     }
 }

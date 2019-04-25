@@ -61,17 +61,17 @@ public class JamonAopKeyHelper implements JamonAopKeyHelperInt<ProceedingJoinPoi
     }
 
     private void appendArgs(StringBuilder sb, Object[] args) {
-        if (args==null) {
+        if (args == null) {
             return;
         }
 
-        int lastElement = args.length-1;
-        for (int i=0; i<=lastElement; i++) {
-            if (i==0) {
+        int lastElement = args.length - 1;
+        for (int i = 0; i <= lastElement; i++) {
+            if (i == 0) {
                 sb.append("\narguments(").append(args.length).append("):\n");
             }
             sb.append(args[i]);
-            if (lastElement!=0 && i!=lastElement) {
+            if (lastElement != 0 && i != lastElement) {
                 sb.append(",\n");
             }
         }

@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Created by stevesouza on 5/24/14.
- * 
+ * <p>
  * To run from maven: mvn  exec:java -Dexec.mainClass="com.stevesouza.annotations.SpringMain" -Dexec.classpathScope=runtime -X
  */
 public class SpringMain {

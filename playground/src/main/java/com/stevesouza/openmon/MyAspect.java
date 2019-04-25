@@ -15,14 +15,14 @@ public class MyAspect {
     }
 
     public void enable(boolean enable) {
-        if (openMon==null)
+        if (openMon == null)
             return;
 
         openMon.enable(enable);
     }
 
     public boolean isEnabled() {
-        return (openMon==null) ? false : openMon.isEnabled();
+        return (openMon == null) ? false : openMon.isEnabled();
     }
 
     // && if (isEnabled())
@@ -39,7 +39,7 @@ public class MyAspect {
     }
 
     public static void main(String[] args) throws Exception {
-        MyAspect myAspect=new MyAspect();
+        MyAspect myAspect = new MyAspect();
 
         System.out.println("\nJamon");
         myAspect.setOpenMon(new JamonImp());

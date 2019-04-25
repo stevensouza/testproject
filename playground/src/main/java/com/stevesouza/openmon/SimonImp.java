@@ -16,8 +16,8 @@ public class SimonImp implements OpenMon<Split> {
     @Override
     public void stop(Split split) {
         split.stop();
-        System.out.println("Simon split: "+split);
-        System.out.println("Simon snapshot: "+split.getStopwatch().sample());
+        System.out.println("Simon split: " + split);
+        System.out.println("Simon snapshot: " + split.getStopwatch().sample());
 
     }
 
@@ -25,7 +25,7 @@ public class SimonImp implements OpenMon<Split> {
     public void exception(String label) {
         Counter mon = SimonManager.getCounter(label);
         mon.increase();
-        System.out.println("Simon counter: "+mon);
+        System.out.println("Simon counter: " + mon);
     }
 
     @Override

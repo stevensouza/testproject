@@ -8,16 +8,15 @@ package com.stevesouza.camel.examples;
 import com.stevesouza.camel.BaseRouteBuilder;
 
 /**
- *
  * @author stevesouza
  */
 public class SimpleRouteBuilder extends BaseRouteBuilder {
-    
+
     @Override
     public void configure() throws Exception {
-         from("direct:simpleroute").
-         routeId("myrouteid:"+getClass().getSimpleName()). // note this gives the route a name in the jmx console.
-         to("log:com.stevesouza.camel.SimpleRouteBuilder");
+        from("direct:simpleroute").
+                routeId("myrouteid:" + getClass().getSimpleName()). // note this gives the route a name in the jmx console.
+                to("log:com.stevesouza.camel.SimpleRouteBuilder");
     }
-    
+
 }

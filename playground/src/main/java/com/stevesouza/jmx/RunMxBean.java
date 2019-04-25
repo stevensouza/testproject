@@ -15,10 +15,10 @@ import java.util.Set;
 
 
 public class RunMxBean {
-     static final String MXBEAN1="sandbox:type=MyTest,name=steve";
-     static final String MXBEAN2="sandbox:type=MyMXBean";
-     static final String MXBEAN3="sandbox:type=MyTest,name=souza";
-     static final String MYCLASS_MXBEAN="sandbox:type=MyClass,name=myName";
+    static final String MXBEAN1 = "sandbox:type=MyTest,name=steve";
+    static final String MXBEAN2 = "sandbox:type=MyMXBean";
+    static final String MXBEAN3 = "sandbox:type=MyTest,name=souza";
+    static final String MYCLASS_MXBEAN = "sandbox:type=MyClass,name=myName";
 
     // use this when you are getting mbeans in the same jvm the server executes. Alternatively you can get a remote
     // connection.
@@ -35,14 +35,16 @@ public class RunMxBean {
         mBeanServer.unregisterMBean(mxbeanName);
     }
 
-    /** Test invocation of method with parameters and arguments */
-    public Object invokePrintName() throws  Exception{
-        Object  params[] = {
+    /**
+     * Test invocation of method with parameters and arguments
+     */
+    public Object invokePrintName() throws Exception {
+        Object params[] = {
                 "Steve",
                 "Souza",
         };
 
-        String  signature[] = { String.class.getName(), String.class.getName()};
+        String signature[] = {String.class.getName(), String.class.getName()};
 
         return mBeanServer.invoke(new ObjectName(MXBEAN1), "printName", params, signature);
     }
@@ -59,19 +61,24 @@ public class RunMxBean {
         return gcMbeans;
     }
 
-    /** Test invocation with method with no arguments */
-    public Object invokeSetMemAttr() throws  Exception{
+    /**
+     * Test invocation with method with no arguments
+     */
+    public Object invokeSetMemAttr() throws Exception {
         return mBeanServer.invoke(new ObjectName(MXBEAN1), "setMemAttr", null, null);
     }
 
-    /** Alternative and better way of invoking a method of the class is available at runtime.  Simply get the proxy */
+    /**
+     * Alternative and better way of invoking a method of the class is available at runtime.  Simply get the proxy
+     */
     public IMyMXBean getMxBean2() throws Exception {
         // note it returns the interface and not the actual class
-        IMyMXBean mxbeanProxy = JMX.newMXBeanProxy(mBeanServer, new ObjectName(MXBEAN2),  IMyMXBean.class);
+        IMyMXBean mxbeanProxy = JMX.newMXBeanProxy(mBeanServer, new ObjectName(MXBEAN2), IMyMXBean.class);
         return mxbeanProxy;
     }
 
-    /** The following code plays with jmx.  See inline comments for actions it takes
+    /**
+     * The following code plays with jmx.  See inline comments for actions it takes
      *
      * @param args
      * @throws Exception
@@ -80,7 +87,7 @@ public class RunMxBean {
         // 1) create mxBeans
         RunMxBean runMxBean = new RunMxBean();
         runMxBean.registerMxBean(RunMxBean.MXBEAN1, new MyMXBean());
-        runMxBean.registerMxBean(RunMxBean.MXBEAN2,  new MyMXBean());
+        runMxBean.registerMxBean(RunMxBean.MXBEAN2, new MyMXBean());
         runMxBean.registerMxBean(RunMxBean.MXBEAN3, new MyMXBean());
         runMxBean.registerMxBean(RunMxBean.MYCLASS_MXBEAN, new MyClass());
         runMxBean.registerMxBean(Log4jMXBean.NAME, new Log4jMXBeanImp());
@@ -108,7 +115,7 @@ public class RunMxBean {
         mxbeanProxy.setAttrib1("hi mom");
 
         ExceptionInterface exceptionInterface = (ExceptionInterface) MonProxyFactory.monitor(new ExceptionImp());
-        for (int i=0;i<5;i++) {
+        for (int i = 0; i < 5; i++) {
             try {
                 // count exception that was thrown
                 exceptionInterface.throwException();
