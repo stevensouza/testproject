@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
  * 
  * interceptors can be registered on routes to be called in between each step.
  */
-@Component
+// 1/22/17 disabled component so spring wouldn't automatically register for now so log wouldn't be so messy
+// @Component
 public class MyInterceptProcessor implements Processor {
     private static final Logger LOG = Logger.getLogger(MyInterceptProcessor.class);
 

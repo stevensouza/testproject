@@ -54,8 +54,11 @@ Body:[Body is file based: GenericFile[/Users/stevesouza/gitrepo/testproject/play
   <constructor-arg value="steves_camel_driver"/>
 </bean>
 -->
+
+<!-- disabled 1/22/17 as these interceptors muddied the log 
 <bean id="camelJamonInterceptStrategy" class="com.stevesouza.camel.lifecycle.CamelJamonInterceptStrategy" />
 <bean id="camelJamonEventNotifier" class="com.stevesouza.camel.lifecycle.CamelJamonEventNotifier"/>
+-->
 <!-- could also add this attribute to the camelContext: trace="true" -->
 <camelContext id="myCamelContext" xmlns="http://camel.apache.org/schema/spring" autoStartup="true" typeConverterStatisticsEnabled="true">
     <!-- autoStartup -->
