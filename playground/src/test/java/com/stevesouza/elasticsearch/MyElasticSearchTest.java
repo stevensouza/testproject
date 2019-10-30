@@ -8,9 +8,7 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.Node;
@@ -47,7 +45,7 @@ public class MyElasticSearchTest {
 
     @Before
     public void setUp() throws Exception {
-        Settings settings = ImmutableSettings.settingsBuilder()
+        Settings settings = Settings.builder()
                 .put("node.http.enabled", true)
                 .put("path.logs","target/elasticsearch/logs")
                 .put("path.data","target/elasticsearch/data")
@@ -183,10 +181,10 @@ public class MyElasticSearchTest {
         // constantScoreQueries also convert a query to a filter.  i.e. because no scoring is done that part doesn't need to be run.
         // Note you can add a constant boost(int) for all documents.  That doesn't help below,
         // but might if you did it as part of a union.  Note you can also pass it a query so it is more flexible than the above approach.
-        QueryBuilder qb  = QueryBuilders.constantScoreQuery(FilterBuilders.matchAllFilter());
+        QueryBuilder qb  = QueryBuilders.constantScoreQuery(QueryBuilders.matchAllQuery());
         // The following is the match_all query
         SearchResponse searchResponse =  client.prepareSearch().setQuery(qb).execute().actionGet();
-        FilterBuilders.matchAllFilter();
+        QueryBuilders.matchAllQuery();
         displaySearchResponse(searchResponse);
         assertThat(searchResponse.getHits().totalHits()).isEqualTo(1);
         // Note some filters can have caching disabled.  For example when you don't run them often enough to benefit.
