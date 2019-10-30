@@ -24,7 +24,7 @@
       <jackson-2-version>2.10.0</jackson-2-version>
       <metrics.version>3.1.0</metrics.version>
       <joda.version>2.3</joda.version>
-      <camel.version>2.16.0</camel.version>
+      <camel.version>2.24.2</camel.version>
       <jamonapi.version>2.81</jamonapi.version>
       <hazelcast.version>3.3.1</hazelcast.version>
       <fdsapi.version>1.2</fdsapi.version>
