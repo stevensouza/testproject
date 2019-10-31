@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
+import com.networknt.schema.SchemaValidatorsConfig;
 import com.networknt.schema.ValidationMessage;
 import com.stevesouza.jackson.JsonUtil;
 import org.junit.Test;
@@ -45,13 +46,12 @@ public class JsonSchemaValidatorTest {
         JsonNode node = getJsonNodeFromClasspath(JSON_FILE_ERRORS);
         Set<ValidationMessage> errors = schema.validate(node);
         System.err.println(JsonUtil.toJsonString(errors));
-        assertThat(errors).hasSize(5);
+        assertThat(errors).hasSize(6);
     }
 
     protected JsonNode getJsonNodeFromClasspath(String name) throws Exception {
         InputStream is1 = Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream(name);
-
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(is1);
         return node;
@@ -73,7 +73,9 @@ public class JsonSchemaValidatorTest {
         JsonSchemaFactory factory = JsonSchemaFactory.getInstance();
         InputStream is = Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream(name);
-        JsonSchema schema = factory.getSchema(is);
+        SchemaValidatorsConfig config = new SchemaValidatorsConfig();
+        config.setTypeLoose(false);
+        JsonSchema schema = factory.getSchema(is, config);
         return schema;
     }
 

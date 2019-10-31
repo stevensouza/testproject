@@ -1,6 +1,6 @@
 {
   "host": 120,
-  "port": "x3030",
+  "port": "3030",
   "public": "../public/",
   "paginate": {
     "default": "10",
