@@ -18,7 +18,7 @@ public class JsonUtil {
         mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
         String json = null;
         try {
-            json = mapper.writeValueAsString(pojo);
+            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pojo);
         } catch (IOException e) {
             throw new RuntimeException("Unable to convert the following object to json: " + pojo, e);
         }

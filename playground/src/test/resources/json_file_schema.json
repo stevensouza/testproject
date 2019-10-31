@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "host": {
+      "type": "string"
+    },
+    "port": {
+      "type": "integer"
+    },
+    "public": {
+      "type": "string"
+    },
+    "paginate": {
+      "type": "object",
+      "properties": {
+        "default": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "default",
+        "max"
+      ]
+    },
+    "mongodb": {
+      "type": "string"
+    },
+    "isEnabled": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "host",
+    "port",
+    "public",
+    "paginate",
+    "mongodb",
+    "isEnabled"
+  ]
+}

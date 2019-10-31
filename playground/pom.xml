@@ -38,6 +38,7 @@
       <automon.version>1.0.1</automon.version>
       <statsd.version>3.1.0</statsd.version>
       <micrometer.version>1.1.4</micrometer.version>
+      <justify.version>1.1.0</justify.version>
   </properties>
 
     <build>
@@ -182,6 +183,27 @@
          <version>4.11</version>
          <scope>test</scope>
        </dependency>
+
+      <dependency>
+          <groupId>org.leadpony.justify</groupId>
+          <artifactId>justify</artifactId>
+          <version>${justify.version}</version>
+          <scope>test</scope>
+      </dependency>
+
+<!--      johnzon is used for jschema testing with justify -->
+      <dependency>
+          <groupId>org.apache.johnzon</groupId>
+          <artifactId>johnzon-core</artifactId>
+          <version>1.1.12</version>
+          <scope>runtime</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>com.networknt</groupId>
+          <artifactId>json-schema-validator</artifactId>
+          <version>1.0.23</version>
+      </dependency>
 
       <dependency>
           <groupId>log4j</groupId>

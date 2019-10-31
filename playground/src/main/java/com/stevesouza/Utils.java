@@ -74,6 +74,10 @@ public class Utils {
         return properties;
     }
 
+    public static InputStream resourceInputStream(String fileName) {
+      return Utils.class.getClassLoader().getResourceAsStream(fileName);
+    }
+
     private static Properties replaceWithCommandLineProps(Properties properties) {
         for (Object key : properties.keySet()) {
             String value = System.getProperty(key.toString());
@@ -91,6 +95,8 @@ public class Utils {
         defaults.put("jamonDataPersister", "com.jamonapi.distributed.DistributedJamonHazelcastPersister");
         return defaults;
     }
+
+
 
 
 }
