@@ -81,7 +81,12 @@ public class XmlToJson {
                 "</ns2:INVResponseMessage>";
 
         JSONObject jsonObject = XML.toJSONObject(xml);
+
         System.out.println(jsonObject.toString(3));
+        System.out.println(jsonObject.getJSONObject("ns2:INVResponseMessage").getJSONObject("ns2:SFSResponse").getString("IfmisResponseCode"));
+        System.out.println(jsonObject.getJSONObject("ns2:INVResponseMessage").getJSONObject("ns2:SFSResponse").getJSONObject("ResponseElements"));
+        System.out.println(jsonObject.getJSONObject("ns2:INVResponseMessage").getJSONObject("ns2:SFSResponse").getJSONObject("ResponseElements").get("SupportRqstId"));
+        System.out.println(jsonObject.getJSONObject("ns2:INVResponseMessage").getJSONObject("ns2:SFSResponse").getJSONObject("ResponseElements").get("SupportRqstId").getClass());
 
     }
 }
