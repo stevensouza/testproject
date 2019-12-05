@@ -16,6 +16,11 @@
             <name>In Project Repo</name>
              <url>file://${project.basedir}/libs</url>
          </repository>
+            <repository>
+                <id>jitpack.io</id>
+                <url>https://jitpack.io</url>
+            </repository>
+
     </repositories>
 
   <properties>
@@ -39,6 +44,7 @@
       <statsd.version>3.1.0</statsd.version>
       <micrometer.version>1.1.4</micrometer.version>
       <justify.version>1.1.0</justify.version>
+      <orgjson.version>20190722</orgjson.version>
   </properties>
 
     <build>
@@ -184,6 +190,25 @@
          <scope>test</scope>
        </dependency>
 
+
+<!--   BEGIN   diffrent jsonschema validators -->
+      <!--      jackson based but no longer being released. used at fema-->
+      <dependency>
+          <groupId>com.github.java-json-tools</groupId>
+          <artifactId>json-schema-validator</artifactId>
+          <version>2.2.11</version>
+      </dependency>
+
+
+      <!--      this one worked well and is jackson based -->
+      <dependency>
+          <groupId>com.networknt</groupId>
+          <artifactId>json-schema-validator</artifactId>
+          <version>1.0.23</version>
+      </dependency>
+
+      <!-- the following are not jackson based so may want to hide the implementation -->
+
       <dependency>
           <groupId>org.leadpony.justify</groupId>
           <artifactId>justify</artifactId>
@@ -191,7 +216,7 @@
           <scope>test</scope>
       </dependency>
 
-<!--      johnzon is used for jschema testing with justify -->
+      <!--      johnzon is used for jschema testing with justify -->
       <dependency>
           <groupId>org.apache.johnzon</groupId>
           <artifactId>johnzon-core</artifactId>
@@ -199,11 +224,15 @@
           <scope>runtime</scope>
       </dependency>
 
+
       <dependency>
-          <groupId>com.networknt</groupId>
-          <artifactId>json-schema-validator</artifactId>
-          <version>1.0.23</version>
+          <groupId>com.github.everit-org.json-schema</groupId>
+          <artifactId>org.everit.json.schema</artifactId>
+          <version>1.12.0</version>
       </dependency>
+
+      <!--   END   diffrent jsonschema validators -->
+
 
       <dependency>
           <groupId>log4j</groupId>
@@ -345,6 +374,11 @@
           <version>2.0.2.2</version>
       </dependency>
 
+      <dependency>
+          <groupId>org.json</groupId>
+          <artifactId>json</artifactId>
+          <version>${orgjson.version}</version>
+      </dependency>
 
       <dependency>
           <groupId>javax</groupId>
@@ -426,6 +460,7 @@
           <artifactId>spring-jms</artifactId>
           <version>${spring.version}</version>
       </dependency>
-
   </dependencies>
+
+
 </project>

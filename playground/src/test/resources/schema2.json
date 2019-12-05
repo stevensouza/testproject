@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "psiProjectId": {
+      "type": "integer"
+    },
+    "subapplicationId": {
+      "type": "string"
+    },    "projectSiteInventoryId": {
+      "type": "integer"
+    },
+    "versionNr": {
+      "type": "integer"
+    },
+    "residenceType": {
+      "type": ["string", "null"]
+    },
+    "ownerType": {
+      "type": "string"
+    },
+    "ownerSameAddressAsProperty": {
+      "type": "boolean"
+    },
+    "ownerHasCoowner": {
+      "type": "boolean"
+    },
+    "coownerSameAddressAsOwner": {
+      "type": "boolean"
+    },
+    "coownerSameAddressAsProperty": {
+      "type": "boolean"
+    },
+    "additionalComments": {
+      "type": "string"
+    }
+  },
+
+  "required": [
+    "subapplicationId",
+    "residenceType"
+  ]
+}

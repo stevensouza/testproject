@@ -1,0 +1,521 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "psiProjectId": {
+      "type": "integer"
+    },
+    "subapplicationId": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "insurance": {
+          "type": "object",
+          "properties": {
+            "propertyInsured": {
+              "type": "boolean"
+            },
+            "nfipInsured": {
+              "type": "boolean"
+            },
+            "nfipPolicyNumber": {
+              "type": "string"
+            },
+            "naicCompanyName": {
+              "type": "string"
+            },
+            "otherPolicyNumber": {
+              "type": "string"
+            },
+            "otherCompanyName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "propertyInsured",
+            "nfipInsured",
+            "nfipPolicyNumber",
+            "naicCompanyName",
+            "otherPolicyNumber",
+            "otherCompanyName"
+          ]
+        },
+        "repetitiveLoss": {
+          "type": "object",
+          "properties": {
+            "structure": {
+              "type": "boolean"
+            },
+            "severe": {
+              "type": "boolean"
+            },
+            "propertyLocatorNumber": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "structure",
+            "severe",
+            "propertyLocatorNumber"
+          ]
+        },
+        "substantiallyDamaged": {
+          "type": "boolean"
+        },
+        "estimatedPurchaseAmount": {
+          "type": "number"
+        },
+        "costEffectiveness": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string"
+            },
+            "other": {
+              "type": "string"
+            },
+            "benefitCostRatio": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "method",
+            "other",
+            "benefitCostRatio"
+          ]
+        },
+        "currentlyRented": {
+          "type": "boolean"
+        },
+        "critcalFacility": {
+          "type": "boolean"
+        },
+        "alternateStructure": {
+          "type": "boolean"
+        },
+        "floodZone": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "floodZoneId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "floodZoneId"
+              ]
+            }
+          ]
+        },
+        "hazardSources": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "hazardSourceId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "hazardSourceId"
+              ]
+            }
+          ]
+        },
+        "propertyActions": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "propertyAction": {
+                  "type": "string"
+                },
+                "primaryAction": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "propertyAction",
+                "primaryAction"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "propertyAction": {
+                  "type": "string"
+                },
+                "primaryAction": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "propertyAction",
+                "primaryAction"
+              ]
+            }
+          ]
+        },
+        "attachmentIds": {
+          "type": "array",
+          "items": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        }
+      },
+      "required": [
+        "insurance",
+        "repetitiveLoss",
+        "substantiallyDamaged",
+        "estimatedPurchaseAmount",
+        "costEffectiveness",
+        "currentlyRented",
+        "critcalFacility",
+        "alternateStructure",
+        "floodZone",
+        "hazardSources",
+        "propertyActions",
+        "attachmentIds"
+      ]
+    },
+    "projectSiteInventoryId": {
+      "type": "integer"
+    },
+    "versionNr": {
+      "type": "integer"
+    },
+    "residenceType": {
+      "type": "string"
+    },
+    "ownerType": {
+      "type": "string"
+    },
+    "ownerSameAddressAsProperty": {
+      "type": "boolean"
+    },
+    "ownerHasCoowner": {
+      "type": "boolean"
+    },
+    "coownerSameAddressAsOwner": {
+      "type": "boolean"
+    },
+    "coownerSameAddressAsProperty": {
+      "type": "boolean"
+    },
+    "additionalComments": {
+      "type": "string"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "projectSiteId": {
+          "type": "integer"
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "addressId": {
+          "type": "integer"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string"
+        },
+        "zip4": {
+          "type": "string"
+        },
+        "county": {
+          "type": "string"
+        },
+        "addr1": {
+          "type": "string"
+        },
+        "addr2": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectSiteId",
+        "latitude",
+        "longitude",
+        "addressId",
+        "city",
+        "state",
+        "zip",
+        "zip4",
+        "county",
+        "addr1",
+        "addr2"
+      ]
+    },
+    "owner": {
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "integer"
+        },
+        "suffix": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "primaryPhone": {
+          "type": "string"
+        },
+        "primaryPhoneExt": {
+          "type": "string"
+        },
+        "secondaryPhone": {
+          "type": "string"
+        },
+        "secondaryPhoneExt": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "middleName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "addressId": {
+              "type": "integer"
+            },
+            "city": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "zip": {
+              "type": "string"
+            },
+            "zip4": {
+              "type": "string"
+            },
+            "county": {
+              "type": "string"
+            },
+            "addr1": {
+              "type": "string"
+            },
+            "addr2": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "addressId",
+            "city",
+            "state",
+            "zip",
+            "zip4",
+            "county",
+            "addr1",
+            "addr2"
+          ]
+        },
+        "coowner": {
+          "type": "object",
+          "properties": {
+            "ownerId": {
+              "type": "integer"
+            },
+            "suffix": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "primaryPhone": {
+              "type": "string"
+            },
+            "primaryPhoneExt": {
+              "type": "string"
+            },
+            "secondaryPhone": {
+              "type": "string"
+            },
+            "secondaryPhoneExt": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "middleName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "companyName": {
+              "type": "string"
+            },
+            "address": {
+              "type": "object",
+              "properties": {
+                "addressId": {
+                  "type": "integer"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "state": {
+                  "type": "string"
+                },
+                "zip": {
+                  "type": "string"
+                },
+                "zip4": {
+                  "type": "string"
+                },
+                "county": {
+                  "type": "string"
+                },
+                "addr1": {
+                  "type": "string"
+                },
+                "addr2": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "addressId",
+                "city",
+                "state",
+                "zip",
+                "zip4",
+                "county",
+                "addr1",
+                "addr2"
+              ]
+            }
+          },
+          "required": [
+            "ownerId",
+            "suffix",
+            "email",
+            "primaryPhone",
+            "primaryPhoneExt",
+            "secondaryPhone",
+            "secondaryPhoneExt",
+            "firstName",
+            "middleName",
+            "lastName",
+            "companyName",
+            "address"
+          ]
+        }
+      },
+      "required": [
+        "ownerId",
+        "suffix",
+        "email",
+        "primaryPhone",
+        "primaryPhoneExt",
+        "secondaryPhone",
+        "secondaryPhoneExt",
+        "firstName",
+        "middleName",
+        "lastName",
+        "companyName",
+        "address",
+        "coowner"
+      ]
+    },
+    "structure": {
+      "type": "object",
+      "properties": {
+        "inventoryType": {
+          "type": "string"
+        },
+        "propertyTaxId": {
+          "type": "string"
+        },
+        "yearBuilt": {
+          "type": "integer"
+        },
+        "buildingSize": {
+          "type": "integer"
+        },
+        "structureType": {
+          "type": "string"
+        },
+        "structureTypePrimary": {
+          "type": "string"
+        },
+        "structureTypeSecondary": {
+          "type": "string"
+        },
+        "foundationType": {
+          "type": "string"
+        },
+        "baseFloodElevation": {
+          "type": "number"
+        },
+        "firstFloorElevation": {
+          "type": "number"
+        },
+        "feetAboveBfe": {
+          "type": "number"
+        },
+        "legalDescription": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "inventoryType",
+        "propertyTaxId",
+        "yearBuilt",
+        "buildingSize",
+        "structureType",
+        "structureTypePrimary",
+        "structureTypeSecondary",
+        "foundationType",
+        "baseFloodElevation",
+        "firstFloorElevation",
+        "feetAboveBfe",
+        "legalDescription"
+      ]
+    }
+  }
+}

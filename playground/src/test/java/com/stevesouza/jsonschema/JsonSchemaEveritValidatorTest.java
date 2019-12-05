@@ -7,15 +7,24 @@ import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SchemaValidatorsConfig;
 import com.networknt.schema.ValidationMessage;
 import com.stevesouza.jackson.JsonUtil;
+import org.apache.camel.json.simple.JsonObject;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.ValidationException;
+import org.everit.json.schema.Validator;
+import org.everit.json.schema.event.ValidationListener;
+import org.everit.json.schema.loader.SchemaLoader;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class JsonSchemaValidatorTest {
+public class JsonSchemaEveritValidatorTest {
 
     private static final String SCHEMA = "{ \"properties\": { \"foo\": { \"type\": \"string\" } } }";
     private static final String INSTANCE = "{\n\"foo\": 42\n}";
@@ -24,6 +33,32 @@ public class JsonSchemaValidatorTest {
     private static final String JSON_FILE_ERRORS = "json_file_errors.json";
     private static final String LOCATION_JSON_FILE = "location_json.json";
     private static final String LOCATION_SCHEMA_FILE = "location_json_schema2.json";
+
+    private void delme(String schemaFileName, String jsonFileName) throws IOException {
+        Validator validator = Validator.builder().build();
+        try {
+            try (InputStream inputStream = Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream(schemaFileName)) {
+                JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
+                Schema schema = SchemaLoader.load(rawSchema);
+                JSONObject json = new JSONObject(Thread.currentThread().getContextClassLoader()
+                        .getResourceAsStream(jsonFileName));
+                schema.validate(json); // throws a ValidationException if this object is invalid
+
+            validator.performValidation(schema, json);
+
+            }
+        } catch (ValidationException e) {
+            System.err.println(e.getCausingExceptions());
+            System.err.println(e.toJSON().toString(2));
+            System.err.println(e.getCausingExceptions().get(0).getPointerToViolation());
+
+        }
+    }
+    @Test
+    public void invalid2() throws Exception {
+        delme(LOCATION_SCHEMA_FILE, LOCATION_JSON_FILE);
+    }
 
     @Test
     public void invalid() throws Exception {
@@ -42,46 +77,7 @@ public class JsonSchemaValidatorTest {
         assertThat(errors).hasSize(0);
     }
 
-    @Test
-    public void invalid2() throws Exception {
-        JsonSchema schema = getJsonSchemaFromClasspath(SCHEMA_FILE);
-        JsonNode node = getJsonNodeFromClasspath(JSON_FILE_ERRORS);
-        Set<ValidationMessage> errors = schema.validate(node);
-        System.err.println(JsonUtil.toJsonString(errors));
-        assertThat(errors).hasSize(6);
-    }
 
-
-    public void validate(String schemaFileName, String jsonFileName) throws Exception {
-        JsonSchema schema = getJsonSchemaFromClasspath(schemaFileName);
-        JsonNode node = getJsonNodeFromClasspath(jsonFileName);
-        Set<ValidationMessage> errors = schema.validate(node);
-     //   errors.forEach(error-> System.err.println(error.getPath()));
-        System.err.println("numErrors="+errors.size());
-
-        System.err.println(JsonUtil.toJsonString(errors));
-//        assertThat(errors).hasSize(6);
-    }
-
-    @Test
-    public void invalid3() throws Exception {
-        validate("schema1.json", "json1.json");
-    }
-
-    @Test
-    public void invalid4() throws Exception {
-        validate("schema2.json", "json2.json");
-    }
-
-    @Test
-    public void invalid5() throws Exception {
-        validate("3schema.json", "3json.json");
-    }
-
-    @Test
-    public void invalid6() throws Exception {
-        validate("schema_new.json", "json_new.json");
-    }
 
     @Test
     public void invalid_location() throws Exception {

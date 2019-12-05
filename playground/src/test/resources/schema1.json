@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "psiProjectId": {
+      "type": "integer"
+    },
+    "subapplicationId": {
+      "type": "string"
+    }
+  },
+
+  "required": [
+    "subapplicationId"
+  ]
+}

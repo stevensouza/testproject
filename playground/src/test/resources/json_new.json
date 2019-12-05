@@ -1,0 +1,143 @@
+{
+  "psiProjectId": "1000",
+  "subapplicationId": 100,
+  "payload": {
+    "insurance": {
+      "propertyInsured": "true",
+      "nfipInsured": true,
+      "nfipPolicyNumber": "123",
+      "naicCompanyName": "CSC-FINANCIAL SERVICES GROUP",
+      "otherPolicyNumber": null,
+      "otherCompanyName": null
+    },
+    "repetitiveLoss": {
+      "structure": true,
+      "severe": true,
+      "propertyLocatorNumber": "456"
+    },
+    "substantiallyDamaged": true,
+    "estimatedPurchaseAmount": 124568,
+    "costEffectiveness": {
+      "method": "Pre-calculated benefits",
+      "other": null,
+      "benefitCostRatio": 1.2
+    },
+    "currentlyRented": false,
+    "critcalFacility": true,
+    "alternateStructure": false,
+    "floodZone": [
+      {
+        "floodZoneId": "AR"
+      }
+    ],
+    "hazardSources": [
+      {
+        "hazardSourceId": "Flood"
+      }
+    ],
+    "propertyActions": [
+      {
+        "propertyAction": "Elevation",
+        "primaryAction": true
+      },
+      {
+        "propertyAction": "Floodproofing",
+        "primaryAction": false
+      },
+      {
+        "propertyAction": "Floodproofing",
+        "primaryAction": false
+      }
+    ],
+    "attachmentIds": [
+      998,
+      999,
+      1000,
+      1001,
+      1002,
+      1003
+    ]
+  },
+  "projectSiteInventoryId": 1000,
+  "versionNr": 0,
+  "residenceType": null,
+  "ownerType": "Religious Institution",
+  "ownerSameAddressAsProperty": true,
+  "ownerHasCoowner": true,
+  "coownerSameAddressAsOwner": true,
+  "coownerSameAddressAsProperty": true,
+  "additionalComments": "Comment 1",
+  "location": {
+    "projectSiteId": 1000,
+    "latitude": 80.456444,
+    "longitude": 130.587545,
+    "addressId": 1002,
+    "city": "Anytown",
+    "state": "VA",
+    "zip": "22031",
+    "zip4": null,
+    "county": "Bristol",
+    "addr1": "1 Anywhere Street",
+    "addr2": "#1"
+  },
+  "owner": {
+    "ownerId": 1000,
+    "suffix": "Jr",
+    "email": "g1@gmail.com",
+    "primaryPhone": "2147483647",
+    "primaryPhoneExt": null,
+    "secondaryPhone": "2147483647",
+    "secondaryPhoneExt": null,
+    "firstName": "Rog1",
+    "middleName": "M1",
+    "lastName": "Smith1",
+    "companyName": null,
+    "address": {
+      "addressId": 1000,
+      "city": "Anytown",
+      "state": "VA",
+      "zip": "22031",
+      "zip4": null,
+      "county": null,
+      "addr1": "1 Anywhere Street",
+      "addr2": "#1"
+    },
+    "coowner": {
+      "ownerId": 1001,
+      "suffix": "Jr",
+      "email": "g1@gmail.com",
+      "primaryPhone": "2147483647",
+      "primaryPhoneExt": null,
+      "secondaryPhone": "2147483647",
+      "secondaryPhoneExt": null,
+      "firstName": "SM1",
+      "middleName": "M1",
+      "lastName": "Smith1",
+      "companyName": null,
+      "address": {
+        "addressId": 1001,
+        "city": "Anytown",
+        "state": null,
+        "zip": "22031",
+        "zip4": null,
+        "county": null,
+        "addr1": "1 Anywhere Street",
+        "addr2": "#1"
+      }
+    }
+  },
+  "structure": {
+    "inventoryType": "Building",
+    "propertyTaxId": "12654",
+    "yearBuilt": 1954,
+    "buildingSize": 5158,
+    "structureType": "Commercial",
+    "structureTypePrimary": "Retail Trade",
+    "structureTypeSecondary": null,
+    "foundationType": "Slab on Grade",
+    "baseFloodElevation": 10,
+    "firstFloorElevation": 21,
+    "feetAboveBfe": 2,
+    "legalDescription": "Legal 1"
+  }
+}

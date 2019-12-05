@@ -1,0 +1,12 @@
+{
+  "psiProjectId": "1000",
+  "projectSiteInventoryId": 1000,
+  "versionNr": 0,
+  "residenceType": null,
+  "ownerType": "Religious Institution",
+  "ownerSameAddressAsProperty": true,
+  "ownerHasCoowner": true,
+  "coownerSameAddressAsOwner": true,
+  "coownerSameAddressAsProperty": true,
+  "additionalComments": "Comment 1"
+}
