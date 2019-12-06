@@ -132,7 +132,9 @@ public class XmlToJson {
 
     public static Map<String, Object> toMap(JsonNode jsonNode) {
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> result = mapper.convertValue(jsonNode, new TypeReference<Map<String, Object>>(){});
+        // this works too.  either way it is seems to convert to strings unlike XML.toJSONObject()
+        // Map<String, Object> result = mapper.convertValue(jsonNode, new TypeReference<Map<String, Object>>(){});
+        Map<String, Object> result = mapper.convertValue(jsonNode, Map.class);
         return result;
     }
 
