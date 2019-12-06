@@ -107,7 +107,7 @@ public class XmlToJson {
         // note jackson incorrectly converts the xml array of 3 to an object of 1.
         System.out.println(jsonNode.toPrettyString());
 
-        System.out.println(get(toMap(jsonNode), "SFSResponse.ResponseElements").get("SupportRqstId"));
+        System.out.println(PropertyUtils.getProperty(toMap(jsonNode), "SFSResponse.ResponseElements.SupportRqstId"));
 
     }
 
