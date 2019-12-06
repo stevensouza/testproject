@@ -135,6 +135,12 @@
           <version>3.3.1</version>
       </dependency>
 
+      <dependency>
+          <groupId>commons-beanutils</groupId>
+          <artifactId>commons-beanutils</artifactId>
+          <version>1.9.4</version>
+      </dependency>
+
 
       <dependency>
           <groupId>com.jamonapi</groupId>
@@ -459,6 +465,11 @@
           <groupId>org.springframework</groupId>
           <artifactId>spring-jms</artifactId>
           <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>com.fasterxml.jackson.dataformat</groupId>
+          <artifactId>jackson-dataformat-xml</artifactId>
+          <version>2.10.0.pr2</version>
       </dependency>
   </dependencies>
 
