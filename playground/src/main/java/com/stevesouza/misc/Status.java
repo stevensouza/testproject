@@ -8,6 +8,7 @@ public enum Status {
     WAITING("W");
 
     private String id;
+    
     Status(String id) {
         this.id = id;
     }
