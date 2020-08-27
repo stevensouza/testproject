@@ -92,6 +92,24 @@ public class JsonSchemaValidatorTest {
         assertThat(errors).hasSize(6);
     }
 
+    @Test
+    public void invalid_location2() throws Exception {
+        JsonSchema schema = getJsonSchemaFromClasspath("location_json_schema3.json");
+        JsonNode node = getJsonNodeFromClasspath("location_json3.json");
+        Set<ValidationMessage> errors = schema.validate(node);
+        System.err.println(JsonUtil.toJsonString(errors));
+        assertThat(errors).hasSize(6);
+    }
+
+    @Test
+    public void invalid_location3() throws Exception {
+        JsonSchema schema = getJsonSchemaFromClasspath("location_json_schema4.json");
+        JsonNode node = getJsonNodeFromClasspath("location_json3.json");
+        Set<ValidationMessage> errors = schema.validate(node);
+        System.err.println(JsonUtil.toJsonString(errors));
+        assertThat(errors).hasSize(6);
+    }
+
     protected JsonNode getJsonNodeFromClasspath(String name) throws Exception {
         InputStream is1 = Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream(name);

@@ -31,6 +31,9 @@ public class UtilsTest {
         assertThat(properties.getProperty("distributedDataRefreshRateInMinutes")).isEqualTo("5");
         assertThat(properties.getProperty("jamonDataPersister")).isEqualTo("com.jamonapi.distributed.DistributedJamonHazelcastPersister");
         assertThat(properties.getProperty("I_DO_NO_EXIST")).isNull();
+        assertThat(properties.getProperty("hello")).isEqualTo("Encrypted hello#world");
+        properties.put("specialchars","special chars hello#!(,!world");
+        assertThat(properties.getProperty("specialchars")).isEqualTo("special chars hello#!(,!world");
 
         System.out.println(System.getProperty("commandLineProp"));
     }

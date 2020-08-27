@@ -21,6 +21,11 @@
                 <url>https://jitpack.io</url>
             </repository>
 
+            <repository>
+                <id>pentaho-releases</id>
+                <url>http://nexus.pentaho.org/content/groups/omni</url>
+            </repository>
+
     </repositories>
 
   <properties>
@@ -30,7 +35,7 @@
       <metrics.version>3.1.0</metrics.version>
       <joda.version>2.3</joda.version>
       <camel.version>2.24.2</camel.version>
-      <jamonapi.version>2.81</jamonapi.version>
+      <jamonapi.version>2.82</jamonapi.version>
       <hazelcast.version>3.3.1</hazelcast.version>
       <fdsapi.version>1.2</fdsapi.version>
       <spring.version>5.2.0.RELEASE</spring.version>
@@ -45,6 +50,7 @@
       <micrometer.version>1.1.4</micrometer.version>
       <justify.version>1.1.0</justify.version>
       <orgjson.version>20190722</orgjson.version>
+      <pentaho.kettle.version>8.2.0.1-427</pentaho.kettle.version>
   </properties>
 
     <build>
@@ -470,6 +476,30 @@
           <groupId>com.fasterxml.jackson.dataformat</groupId>
           <artifactId>jackson-dataformat-xml</artifactId>
           <version>2.10.0.pr2</version>
+      </dependency>
+
+      <dependency>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>kettle-core</artifactId>
+          <version>${pentaho.kettle.version}</version>
+      </dependency>
+
+<!--      <dependency>-->
+<!--          <groupId>pentaho-kettle</groupId>-->
+<!--          <artifactId>kettle-db</artifactId>-->
+<!--          <version>${pentaho.kettle.version}</version>-->
+<!--      </dependency>-->
+
+      <dependency>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>kettle-engine</artifactId>
+          <version>${pentaho.kettle.version}</version>
+      </dependency>
+
+      <dependency>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>kettle-ui-swt</artifactId>
+          <version>${pentaho.kettle.version}</version>
       </dependency>
   </dependencies>
 

@@ -1,0 +1,1045 @@
+{
+  "definitions": {
+          "address": {
+          "type": "object",
+          "title": "The Address Schema",
+          "required": [
+            "addressId",
+            "city",
+            "state",
+            "zip",
+            "county",
+            "addr1"
+          ],
+          "properties": {
+            "addressId": {
+              "type": "integer",
+              "title": "The Addressid Schema",
+              "default": 0,
+              "examples": [
+                1000
+              ]
+            },
+            "city": {
+              "type": "string",
+              "title": "The City Schema",
+              "default": "",
+              "examples": [
+                "Anytown"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "state": {
+              "type": "string",
+              "title": "The State Schema",
+              "default": "",
+              "examples": [
+                "VA"
+              ],
+              "enum": ["NY","VA"]
+            },
+            "zip": {
+              "type": "string",
+              "title": "The Zip Schema",
+              "default": "",
+              "examples": [
+                "22031"
+              ],
+              "pattern": "^[0-9]{5}$"
+            },
+            "zip4": {
+              "type": ["string","null"],
+              "title": "The Zip4 Schema",
+              "default": null,
+              "examples": [
+                null
+              ],
+              "pattern": "(^$|^[0-9]{4}$)"              
+            },
+            "county": {
+              "type": ["string","null"],
+              "title": "The County Schema",
+              "default": null,
+              "examples": [
+                null
+              ]
+            },
+            "addr1": {
+              "type": "string",
+              "title": "The Addr1 Schema",
+              "default": "",
+              "examples": [
+                "1 Anywhere Street"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "addr2": {
+              "type": "string",
+              "title": "The Addr2 Schema",
+              "default": "",
+              "examples": [
+                "#1"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        },
+        
+        "person": {
+          "type": "object",
+          "title": "The Coowner Schema",
+          "required": [
+            "ownerId",
+            "primaryPhone",
+            "firstName",
+            "lastName",
+            "companyName",
+            "address"
+          ],
+          "properties": {
+            "ownerId": {
+              "type": "integer",
+              "title": "The Ownerid Schema",
+              "default": 0,
+              "examples": [
+                1001
+              ]
+            },
+            "suffix": {
+              "type": "string",
+              "title": "The Suffix Schema",
+              "default": "",
+              "examples": [
+                "Jr"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "title": "The Email Schema",
+              "default": "",
+              "examples": [
+                "g1@gmail.com"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "primaryPhone": {
+              "type": "string",
+              "title": "The Primaryphone Schema",
+              "default": "",
+              "examples": [
+                "2147483647"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "primaryPhoneExt": {
+              "type": ["string","null"],
+              "title": "The Primaryphoneext Schema",
+              "default": null,
+              "examples": [
+                null
+              ]
+            },
+            "secondaryPhone": {
+              "type": "string",
+              "title": "The Secondaryphone Schema",
+              "default": "",
+              "examples": [
+                "2147483647"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "secondaryPhoneExt": {
+              "type": ["string","null"],
+              "title": "The Secondaryphoneext Schema",
+              "default": null,
+              "examples": [
+                null
+              ]
+            },
+            "firstName": {
+              "type": "string",
+              "title": "The Firstname Schema",
+              "default": "",
+              "examples": [
+                "SM1"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "middleName": {
+              "type": "string",
+              "title": "The Middlename Schema",
+              "default": "",
+              "examples": [
+                "M1"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "lastName": {
+              "type": "string",
+              "title": "The Lastname Schema",
+              "default": "",
+              "examples": [
+                "Smith1"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "companyName": {
+              "type": ["string","null"],
+              "title": "The Companyname Schema",
+              "default": null,
+              "examples": [
+                null
+              ]
+            },
+            "address": {
+               "$ref": "#/definitions/address"
+            }
+         }
+        }
+        
+  
+  },
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "psiProjectId",
+    "subapplicationId",
+    "payload",
+    "projectSiteInventoryId",
+    "residenceType",
+    "ownerType",
+    "ownerSameAddressAsProperty",
+    "ownerHasCoowner",
+    "coownerSameAddressAsOwner",
+    "coownerSameAddressAsProperty",
+    "location",
+    "owner",
+    "structure"
+  ],
+  "properties": {
+    "psiProjectId": {
+      "$id": "#/properties/psiProjectId",
+      "type": ["integer","null"],
+      "title": "The Psiprojectid Schema",
+      "default": 0,
+      "examples": [
+        1000
+      ]
+    },
+    "subapplicationId": {
+      "$id": "#/properties/subapplicationId",
+      "type": "string",
+      "title": "The Subapplicationid Schema",
+      "default": "",
+      "examples": [
+        "subappid"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "payload": {
+      "$id": "#/properties/payload",
+      "type": "object",
+      "title": "The Payload Schema",
+      "required": [
+        "insurance",
+        "repetitiveLoss",
+        "substantiallyDamaged",
+        "estimatedPurchaseAmount",
+        "costEffectiveness",
+        "currentlyRented",
+        "critcalFacility",
+        "alternateStructure",
+        "floodZone",
+        "hazardSources",
+        "propertyActions"
+      ],
+      "properties": {
+        "insurance": {
+          "$id": "#/properties/payload/properties/insurance",
+          "type": "object",
+          "title": "The Insurance Schema",
+          "required": [
+            "propertyInsured",
+            "nfipInsured",
+            "nfipPolicyNumber",
+            "naicCompanyName",
+            "otherPolicyNumber",
+            "otherCompanyName"
+          ],
+          "properties": {
+            "propertyInsured": {
+              "$id": "#/properties/payload/properties/insurance/properties/propertyInsured",
+              "type": "boolean",
+              "title": "The Propertyinsured Schema",
+              "default": false,
+              "examples": [
+                true
+              ]
+            },
+            "nfipInsured": {
+              "$id": "#/properties/payload/properties/insurance/properties/nfipInsured",
+              "type": "boolean",
+              "title": "The Nfipinsured Schema",
+              "default": false,
+              "examples": [
+                true
+              ]
+            },
+            "nfipPolicyNumber": {
+              "$id": "#/properties/payload/properties/insurance/properties/nfipPolicyNumber",
+              "type": "string",
+              "title": "The Nfippolicynumber Schema",
+              "default": "",
+              "examples": [
+                "123"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "naicCompanyName": {
+              "$id": "#/properties/payload/properties/insurance/properties/naicCompanyName",
+              "type": "string",
+              "title": "The Naiccompanyname Schema",
+              "default": "",
+              "examples": [
+                "CSC-FINANCIAL SERVICES GROUP"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "otherPolicyNumber": {
+              "$id": "#/properties/payload/properties/insurance/properties/otherPolicyNumber",
+              "type": ["string","null"],
+              "title": "The Otherpolicynumber Schema",
+              "default": null,
+              "examples": [
+                null
+              ]
+            },
+            "otherCompanyName": {
+              "$id": "#/properties/payload/properties/insurance/properties/otherCompanyName",
+              "type": ["string","null"],
+              "title": "The Othercompanyname Schema",
+              "default": null,
+              "examples": [
+                null
+              ]
+            }
+          }
+        },
+        "repetitiveLoss": {
+          "$id": "#/properties/payload/properties/repetitiveLoss",
+          "type": "object",
+          "title": "The Repetitiveloss Schema",
+          "required": [
+            "structure",
+            "severe",
+            "propertyLocatorNumber"
+          ],
+          "properties": {
+            "structure": {
+              "$id": "#/properties/payload/properties/repetitiveLoss/properties/structure",
+              "type": "boolean",
+              "title": "The Structure Schema",
+              "default": false,
+              "examples": [
+                true
+              ]
+            },
+            "severe": {
+              "$id": "#/properties/payload/properties/repetitiveLoss/properties/severe",
+              "type": "boolean",
+              "title": "The Severe Schema",
+              "default": false,
+              "examples": [
+                true
+              ]
+            },
+            "propertyLocatorNumber": {
+              "$id": "#/properties/payload/properties/repetitiveLoss/properties/propertyLocatorNumber",
+              "type": "string",
+              "title": "The Propertylocatornumber Schema",
+              "default": "",
+              "examples": [
+                "456"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        },
+        "substantiallyDamaged": {
+          "$id": "#/properties/payload/properties/substantiallyDamaged",
+          "type": "boolean",
+          "title": "The Substantiallydamaged Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "estimatedPurchaseAmount": {
+          "$id": "#/properties/payload/properties/estimatedPurchaseAmount",
+          "type": ["number","null"],
+          "title": "The Estimatedpurchaseamount Schema",
+          "default": 0,
+          "examples": [
+            124568
+          ]
+        },
+        "costEffectiveness": {
+          "$id": "#/properties/payload/properties/costEffectiveness",
+          "type": "object",
+          "title": "The Costeffectiveness Schema",
+          "required": [
+            "method",
+            "other",
+            "benefitCostRatio"
+          ],
+          "properties": {
+            "method": {
+              "$id": "#/properties/payload/properties/costEffectiveness/properties/method",
+              "type": "string",
+              "title": "The Method Schema",
+              "default": "",
+              "examples": [
+                "Pre-calculated benefits"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "other": {
+              "$id": "#/properties/payload/properties/costEffectiveness/properties/other",
+              "type": ["string","null"],
+              "title": "The Other Schema",
+              "default": null,
+              "examples": [
+                null
+              ]
+            },
+            "benefitCostRatio": {
+              "$id": "#/properties/payload/properties/costEffectiveness/properties/benefitCostRatio",
+              "type": "number",
+              "title": "The Benefitcostratio Schema",
+              "default": 0.0,
+              "examples": [
+                1.2
+              ]
+            }
+          }
+        },
+        "currentlyRented": {
+          "$id": "#/properties/payload/properties/currentlyRented",
+          "type": "boolean",
+          "title": "The Currentlyrented Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "critcalFacility": {
+          "$id": "#/properties/payload/properties/critcalFacility",
+          "type": "boolean",
+          "title": "The Critcalfacility Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "alternateStructure": {
+          "$id": "#/properties/payload/properties/alternateStructure",
+          "type": "boolean",
+          "title": "The Alternatestructure Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "floodZone": {
+          "$id": "#/properties/payload/properties/floodZone",
+          "type": "array",
+          "uniqueItems": true, 
+          "title": "The Floodzone Schema",
+          "items": {
+            "$id": "#/properties/payload/properties/floodZone/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "required": [
+              "floodZoneId"
+            ],
+            "properties": {
+              "floodZoneId": {
+                "$id": "#/properties/payload/properties/floodZone/items/properties/floodZoneId",
+                "type": "string",
+                "title": "The Floodzoneid Schema",
+                "default": "",
+                "examples": [
+                  "AR"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          }
+        },
+        "hazardSources": {
+          "$id": "#/properties/payload/properties/hazardSources",
+          "type": "array",
+          "uniqueItems": true, 
+          "title": "The Hazardsources Schema",
+          "items": {
+            "$id": "#/properties/payload/properties/hazardSources/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "required": [
+              "hazardSourceId"
+            ],
+            "properties": {
+              "hazardSourceId": {
+                "$id": "#/properties/payload/properties/hazardSources/items/properties/hazardSourceId",
+                "type": "string",
+                "title": "The Hazardsourceid Schema",
+                "default": "",
+                "examples": [
+                  "Flood"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          }
+        },
+        "propertyActions": {
+          "$id": "#/properties/payload/properties/propertyActions",
+          "type": "array",
+          "title": "The Propertyactions Schema",
+          "uniqueItems": true, 
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$id": "#/properties/payload/properties/propertyActions/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "required": [
+              "propertyAction",
+              "primaryAction"
+            ],
+            "properties": {
+              "propertyAction": {
+                "$id": "#/properties/payload/properties/propertyActions/items/properties/propertyAction",
+                "type": "string",
+                "title": "The Propertyaction Schema",
+                "default": "",
+                "examples": [
+                  "Elevation"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "primaryAction": {
+                "$id": "#/properties/payload/properties/propertyActions/items/properties/primaryAction",
+                "type": "boolean",
+                "title": "The Primaryaction Schema",
+                "default": false,
+                "examples": [
+                  true
+                ]
+              }
+            }
+          }
+        },
+        "attachmentIds": {
+          "$id": "#/properties/payload/properties/attachmentIds",
+          "type": "array",
+          "uniqueItems": true, 
+          "title": "The Attachmentids Schema",
+          "items": {
+            "$id": "#/properties/payload/properties/attachmentIds/items",
+            "type": "integer",
+            "title": "The Items Schema",
+            "default": 0,
+            "examples": [
+              998,
+              999,
+              1000,
+              1001,
+              1002,
+              1003
+            ]
+          }
+        }
+      }
+    },
+    "projectSiteInventoryId": {
+      "$id": "#/properties/projectSiteInventoryId",
+      "type": ["integer","null"],
+      "title": "The Projectsiteinventoryid Schema",
+      "default": 0,
+      "examples": [
+        1000
+      ]
+    },
+    "versionNr": {
+      "$id": "#/properties/versionNr",
+      "type": "integer",
+      "title": "The Versionnr Schema",
+      "default": 0,
+      "examples": [
+        0
+      ]
+    },
+    "residenceType": {
+      "$id": "#/properties/residenceType",
+      "type": ["string","null"],
+      "title": "The Residencetype Schema",
+      "default": null,
+      "examples": [
+        null
+      ]
+    },
+    "ownerType": {
+      "$id": "#/properties/ownerType",
+      "type": "string",
+      "title": "The Ownertype Schema",
+      "default": "",
+      "examples": [
+        "Religious Institution"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "ownerSameAddressAsProperty": {
+      "$id": "#/properties/ownerSameAddressAsProperty",
+      "type": "boolean",
+      "title": "The Ownersameaddressasproperty Schema",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "ownerHasCoowner": {
+      "$id": "#/properties/ownerHasCoowner",
+      "type": "boolean",
+      "title": "The Ownerhascoowner Schema",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "coownerSameAddressAsOwner": {
+      "$id": "#/properties/coownerSameAddressAsOwner",
+      "type": "boolean",
+      "title": "The Coownersameaddressasowner Schema",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "coownerSameAddressAsProperty": {
+      "$id": "#/properties/coownerSameAddressAsProperty",
+      "type": "boolean",
+      "title": "The Coownersameaddressasproperty Schema",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "additionalComments": {
+      "$id": "#/properties/additionalComments",
+      "type": "string",
+      "maxLength": 4000,
+      "title": "The Additionalcomments Schema",
+      "default": "",
+      "examples": [
+        "Comment 1"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "location": {
+      "$id": "#/properties/location",
+      "type": "object",
+      "title": "The Location Schema",
+      "required": [
+        "projectSiteId",
+        "latitude",
+        "longitude",
+        "addressId",
+        "city",
+        "state",
+        "zip",
+        "county",
+        "addr1"
+      ],
+      "properties": {
+        "projectSiteId": {
+          "$id": "#/properties/location/properties/projectSiteId",
+          "type": "integer",
+          "title": "The Projectsiteid Schema",
+          "default": 0,
+          "examples": [
+            1000
+          ]
+        },
+        "latitude": {
+          "$id": "#/properties/location/properties/latitude",
+          "type": "number",
+	      "minimum": -90,
+	      "maximum": 90,          
+          "title": "The Latitude Schema",
+          "default": 0.0,
+          "examples": [
+            80.456444
+          ]
+        },        
+        "longitude": {
+          "$id": "#/properties/location/properties/longitude",
+          "type": "number",
+          "minimum": -180,
+	      "maximum": 180,
+          "title": "The Longitude Schema",
+          "default": 0.0,
+          "examples": [
+            130.587545
+          ]
+        },
+        "addressId": {
+          "$id": "#/properties/location/properties/addressId",
+          "type": "integer",
+          "title": "The Addressid Schema",
+          "default": 0,
+          "examples": [
+            1002
+          ]
+        },
+        "city": {
+          "$id": "#/properties/location/properties/city",
+          "type": "string",
+          "title": "The City Schema",
+          "default": "",
+          "examples": [
+            "Anytown"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "state": {
+          "$id": "#/properties/location/properties/state",
+          "type": "string",
+          "title": "The State Schema",
+          "default": "",
+          "examples": [
+            "VA"
+          ],
+          "enum": ["NY","VA"]
+        },
+        "zip": {
+          "$id": "#/properties/location/properties/zip",
+          "type": "string",
+          "title": "The Zip Schema",
+          "default": "",
+          "examples": [
+            "22031"
+          ],
+          "pattern" : "^[0-9]{5}$"
+        },
+        "zip4": {
+          "$id": "#/properties/location/properties/zip4",
+          "type": ["string","null"],
+          "title": "The Zip4 Schema",
+          "default": null,
+          "examples": [
+            null
+          ],
+          "pattern": "(^$|^[0-9]{4}$)"           
+        },
+        "county": {
+          "$id": "#/properties/location/properties/county",
+          "type": "string",
+          "title": "The County Schema",
+          "default": "",
+          "examples": [
+            "Bristol"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "addr1": {
+          "$id": "#/properties/location/properties/addr1",
+          "type": "string",
+          "title": "The Addr1 Schema",
+          "default": "",
+          "examples": [
+            "1 Anywhere Street"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "addr2": {
+          "$id": "#/properties/location/properties/addr2",
+          "type": "string",
+          "title": "The Addr2 Schema",
+          "default": "",
+          "examples": [
+            "#1"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "owner": {
+      "$id": "#/properties/owner",
+      "type": "object",
+      "title": "The Owner Schema",
+      "required": [
+        "ownerId",
+        "primaryPhone",
+        "firstName",
+        "lastName",
+        "companyName",
+        "address",
+        "coowner"
+      ],
+      "properties": {
+        "ownerId": {
+          "$id": "#/properties/owner/properties/ownerId",
+          "type": "integer",
+          "title": "The Ownerid Schema",
+          "default": 0,
+          "examples": [
+            1000
+          ]
+        },
+        "suffix": {
+          "$id": "#/properties/owner/properties/suffix",
+          "type": "string",
+          "title": "The Suffix Schema",
+          "default": "",
+          "examples": [
+            "Jr"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "email": {
+          "$id": "#/properties/owner/properties/email",
+          "type": "string",
+          "format": "email",
+          "title": "The Email Schema",
+          "default": "",
+          "examples": [
+            "g1@gmail.com"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "primaryPhone": {
+          "$id": "#/properties/owner/properties/primaryPhone",
+          "type": "string",
+          "title": "The Primaryphone Schema",
+          "default": "",
+          "examples": [
+            "2147483647"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "primaryPhoneExt": {
+          "$id": "#/properties/owner/properties/primaryPhoneExt",
+          "type": ["string","null"],
+          "title": "The Primaryphoneext Schema",
+          "default": null,
+          "examples": [
+            null
+          ]
+        },
+        "secondaryPhone": {
+          "$id": "#/properties/owner/properties/secondaryPhone",
+          "type": "string",
+          "title": "The Secondaryphone Schema",
+          "default": "",
+          "examples": [
+            "2147483647"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "secondaryPhoneExt": {
+          "$id": "#/properties/owner/properties/secondaryPhoneExt",
+          "type": ["string","null"],
+          "title": "The Secondaryphoneext Schema",
+          "default": null,
+          "examples": [
+            null
+          ]
+        },
+        "firstName": {
+          "$id": "#/properties/owner/properties/firstName",
+          "type": "string",
+          "title": "The Firstname Schema",
+          "default": "",
+          "examples": [
+            "Rog1"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "middleName": {
+          "$id": "#/properties/owner/properties/middleName",
+          "type": "string",
+          "title": "The Middlename Schema",
+          "default": "",
+          "examples": [
+            "M1"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "lastName": {
+          "$id": "#/properties/owner/properties/lastName",
+          "type": "string",
+          "title": "The Lastname Schema",
+          "default": "",
+          "examples": [
+            "Smith1"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "companyName": {
+          "$id": "#/properties/owner/properties/companyName",
+          "type": ["string","null"],
+          "title": "The Companyname Schema",
+          "default": null,
+          "examples": [
+            null
+          ]
+        },
+        "address": {
+          "$ref": "#/definitions/address"
+        },
+        "coowner": {
+          "$ref": "#/definitions/person"
+         }
+    }
+    },
+    "structure": {
+      "$id": "#/properties/structure",
+      "type": "object",
+      "title": "The Structure Schema",
+      "required": [
+        "inventoryType",
+        "propertyTaxId",
+        "yearBuilt",
+        "buildingSize",
+        "structureType",
+        "structureTypePrimary",
+        "structureTypeSecondary",
+        "foundationType",
+        "baseFloodElevation",
+        "firstFloorElevation",
+        "feetAboveBfe"
+      ],
+      "properties": {
+        "inventoryType": {
+          "$id": "#/properties/structure/properties/inventoryType",
+          "type": "string",
+          "title": "The Inventorytype Schema",
+          "default": "",
+          "examples": [
+            "Building"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "propertyTaxId": {
+          "$id": "#/properties/structure/properties/propertyTaxId",
+          "type": "string",
+          "title": "The Propertytaxid Schema",
+          "default": "",
+          "examples": [
+            "12654"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "yearBuilt": {
+          "$id": "#/properties/structure/properties/yearBuilt",
+          "type": "integer",
+          "title": "The Yearbuilt Schema",
+          "default": 0,
+          "examples": [
+            1954
+          ]
+        },
+        "buildingSize": {
+          "$id": "#/properties/structure/properties/buildingSize",
+          "type": "integer",
+          "title": "The Buildingsize Schema",
+          "default": 0,
+          "examples": [
+            5158
+          ]
+        },
+        "structureType": {
+          "$id": "#/properties/structure/properties/structureType",
+          "type": "string",
+          "title": "The Structuretype Schema",
+          "default": "",
+          "examples": [
+            "Commercial"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "structureTypePrimary": {
+          "$id": "#/properties/structure/properties/structureTypePrimary",
+          "type": "string",
+          "title": "The Structuretypeprimary Schema",
+          "default": "",
+          "examples": [
+            "Retail Trade"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "structureTypeSecondary": {
+          "$id": "#/properties/structure/properties/structureTypeSecondary",
+          "type": ["string","null"],
+          "title": "The Structuretypesecondary Schema",
+          "default": null,
+          "examples": [
+            null
+          ]
+        },
+        "foundationType": {
+          "$id": "#/properties/structure/properties/foundationType",
+          "type": "string",
+          "title": "The Foundationtype Schema",
+          "default": "",
+          "examples": [
+            "Slab on Grade"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "baseFloodElevation": {
+          "$id": "#/properties/structure/properties/baseFloodElevation",
+          "type": "number",
+          "title": "The Basefloodelevation Schema",
+          "default": 0,
+          "examples": [
+            10
+          ]
+        },
+        "firstFloorElevation": {
+          "$id": "#/properties/structure/properties/firstFloorElevation",
+          "type": "number",
+          "title": "The Firstfloorelevation Schema",
+          "default": 0,
+          "examples": [
+            21
+          ]
+        },
+        "feetAboveBfe": {
+          "$id": "#/properties/structure/properties/feetAboveBfe",
+          "type": "number",
+          "title": "The Feetabovebfe Schema",
+          "default": 0,
+          "examples": [
+            2
+          ]
+        },
+        "legalDescription": {
+          "$id": "#/properties/structure/properties/legalDescription",
+          "type": "string",
+          "title": "The Legaldescription Schema",
+          "default": "",
+          "examples": [
+            "Legal 1"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    }
+  }
+}

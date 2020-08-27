@@ -1,0 +1,120 @@
+{
+  "structure" : {
+    "inventoryType" : "Building",
+    "yearBuilt" : 1958.0,
+    "buildingSize" : 18999.0,
+    "structureType" : "Commercial",
+    "structureTypePrimary" : "Banks",
+    "structureTypeSecondary" : null,
+    "propertyTaxId" : "1475",
+    "legalDescription" : "Legal 5",
+    "foundationType" : "Slab on Grade",
+    "baseFloodElevation" : 14.0,
+    "firstFloorElevation" : 25.0,
+    "feetAboveBfe" : 6.0
+  },
+  "additionalComments" : "Comment 5",
+  "location2" : {
+
+  },
+  "location" : {
+    "addr1" : "5 Anywhere Street",
+    "addr2" : "#5",
+    "city" : "Anytown",
+    "state" : "VA",
+    "county" : "Bristol",
+    "zip" : "22032x",
+     "zip4" : "123x",
+    "latitude" : 84.456444,
+    "longitude" : 134.587545
+  },
+  "ownerType" : "Estate/Trust",
+  "owner" : {
+    "firstName" : "Rog5",
+    "middleName" : "M5",
+    "lastName" : "Smith5",
+    "suffix" : "III",
+    "primaryPhone" : "703-458-7852",
+    "secondaryPhone" : "2147483647",
+    "email" : "www.gmail.com",
+    "address" : {
+      "addr1" : "5 Anywhere Street",
+      "addr2" : "#5",
+      "state" : "TX",
+    "zip" : "22032",
+     "zip4" : "1234"
+    },
+    "coowner" : {
+      "address" : {
+        "addr2" : "#5",
+        "state" : "TX",
+    "zip" : "22032x",
+     "zip4" : "123x"
+      },
+      "firstName" : "SM5",
+      "middleName" : "M5",
+      "suffix" : "III",
+      "primaryPhone" : "703-458-7852",
+      "secondaryPhone" : "2147483647",
+      "email" : "hi@gmail.com"
+    }
+  },
+  "ownerSameAddressAsProperty" : true,
+  "ownerHasCoowner" : true,
+  "coownerSameAddressAsOwner" : true,
+  "coownerSameAddressAsProperty" : true,
+  "payload" : {
+    "insurance" : {
+      "propertyInsured" : true,
+      "nfipInsured" : true,
+      "nfipPolicyNumber" : "127x",
+      "naicCompanyName" : "CSC-FINANCIAL SERVICES GROUP",
+      "otherPolicyNumber" : null,
+      "otherCompanyName" : null
+    },
+    "repetitiveLoss" : {
+      "structure" : true,
+      "severe" : true,
+      "propertyLocatorNumber" : "456x"
+    },
+    "substantiallyDamaged" : true,
+    "estimatedPurchaseAmount" : 156848.0,
+    "costEffectiveness" : {
+      "method" : "Pre-calculated benefits",
+      "other" : null,
+      "benefitCostRatio" : 1.6
+    },
+    "currentlyRented" : false,
+    "critcalFacility" : false,
+    "alternateStructure" : false,
+    "floodZone": [
+      {
+        "floodZoneId": "AR"
+      },
+      {
+        "floodZoneId": "AR"
+      },
+      {
+        "floodZoneId": "XY"
+      }
+    ],
+    "hazardSources": [
+      {
+        "hazardSourceId": "Flood"
+      },
+      {
+        "hazardSourceId": "INVALID"
+      },
+      {
+        "hazardSourceId": "Flood"
+      }
+    ],
+    "propertyActions" : [ {
+      "propertyAction" : "Elevation",
+      "primaryAction" : true
+    }, {
+      "propertyAction" : "Floodproofing",
+      "primaryAction" : false
+    } ]
+  }
+}
