@@ -1,7 +1,6 @@
 package com.stevesouza.pentaho;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,12 +31,12 @@ import java.util.stream.Collectors;
  *   `Amount` decimal(14,2) DEFAULT NULL
  * ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
  */
-public class CreateTable {
+public class CreateTableDefinition {
 
     private final String tableName;
     private final List<Field> fields;
 
-    public CreateTable(String tableName, List<Field> fields) {
+    public CreateTableDefinition(String tableName, List<Field> fields) {
         this.tableName = tableName;
         this.fields = fields;
     }
@@ -91,7 +90,7 @@ public class CreateTable {
         fields.add(new Field("age", "Integer", 35));
         fields.add(new Field("lname", "XXXnoexist", 155));
 
-        CreateTable table = new CreateTable("mytable", fields);
+        CreateTableDefinition table = new CreateTableDefinition("mytable", fields);
         System.out.println(table.getTableDefinition());
     }
 }
