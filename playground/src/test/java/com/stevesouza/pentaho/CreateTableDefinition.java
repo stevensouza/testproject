@@ -43,8 +43,9 @@ public class CreateTableDefinition {
 
     /** Taken a list of fields objects generate table ddl from it. */
     public String getTableDefinition() {
+        final String ROW_SUFFIX = ",\n";
         return fields.stream().map(f->getFieldDdl(f))
-                .collect(Collectors.joining(",\n", getTablePrefix(), getTableSuffix()));
+                .collect(Collectors.joining(ROW_SUFFIX, getTablePrefix(), getTableSuffix()));
     }
 
     private String getTablePrefix() {
