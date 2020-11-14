@@ -1,23 +1,16 @@
 package com.stevesouza.pentaho;
 
 
-public class Fields {
+public class Field {
 
     private String name;
-
     private String type;
-    private String format;
-    private String position;
     private int length;
-    private int precision;
 
-    public Fields(String name, String type, String format, String position, int length, int precision) {
+    public Field(String name, String type, int length) {
         this.name = name;
         this.type = type;
-        this.format = format;
-        this.position = position;
         this.length = length;
-        this.precision = precision;
     }
 
     public String getName() {
@@ -35,23 +28,6 @@ public class Fields {
     public void setType(String type) {
         this.type = type;
     }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
     public int getLength() {
         return length;
     }
@@ -60,12 +36,5 @@ public class Fields {
         this.length = length;
     }
 
-    public int getPrecision() {
-        return precision;
-    }
-
-    public void setPrecision(int precision) {
-        this.precision = precision;
-    }
 
 }
