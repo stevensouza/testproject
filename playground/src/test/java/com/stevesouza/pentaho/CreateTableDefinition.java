@@ -61,7 +61,7 @@ public class CreateTableDefinition {
         `FiscalYear` int DEFAULT NULL,
         `Region` varchar(255) DEFAULT NULL,
      */
-    public static String getFieldDdl(Field field) {
+    public String getFieldDdl(Field field) {
         StringBuilder sb = new StringBuilder("    ")
                 .append("`").append(field.getName()).append("` ");
         switch (field.getType()) {
