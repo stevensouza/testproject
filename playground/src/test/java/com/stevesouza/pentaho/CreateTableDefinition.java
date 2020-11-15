@@ -69,7 +69,7 @@ public class CreateTableDefinition {
                 sb.append(String.format("varchar(%d)", field.getLength()));
                 break;
             case "Number":
-                sb.append(String.format("decimal(%d,%d)", field.getLength(), field.getLength()));
+                sb.append(String.format("decimal(%d,%d)", field.getLength(), field.getPrecision()));
                 break;
             case "Integer":
                 sb.append("int");
@@ -85,11 +85,11 @@ public class CreateTableDefinition {
 
     public static void main(String[] args) {
         List<Field> fields = new ArrayList<>();
-        fields.add(new Field("fiscalYear", "Number", 30));
-        fields.add(new Field("accountingPeriod", "String", 35));
-        fields.add(new Field("fname", "String", 100));
-        fields.add(new Field("age", "Integer", 35));
-        fields.add(new Field("lname", "XXXnoexist", 155));
+        fields.add(new Field("fiscalYear", "Number", 15, 2));
+        fields.add(new Field("accountingPeriod", "String", 35, 0));
+        fields.add(new Field("fname", "String", 100, 0));
+        fields.add(new Field("age", "Integer", 35, 0));
+        fields.add(new Field("lname", "XXXnoexist", 155, 0));
 
         CreateTableDefinition table = new CreateTableDefinition("mytable", fields);
         System.out.println(table.getTableDefinition());
