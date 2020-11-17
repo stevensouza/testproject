@@ -7,8 +7,11 @@ import java.util.stream.Collectors;
 /** Generate ddl like the following from pentaho field types.  Note with pentaho there is no need to
  * create the Field object as it has the equivalent of it in the following
  *
- * https://github.com/pentaho/pentaho-kettle/blob/master/core/src/main/java/org/pentaho/di/core/row/RowMetaInterface.java
- * outpuRowMeta = RowMeta interface = https://github.com/pentaho/pentaho-kettle/blob/master/core/src/main/java/org/pentaho/di/core/row/RowMeta.java
+ * below outputRowMeta = RowMetaInterface
+ *   https://github.com/pentaho/pentaho-kettle/blob/master/core/src/main/java/org/pentaho/di/core/row/RowMetaInterface.java
+ *
+ * ValueMetaInterface = Field (in my code)
+ *   https://github.com/pentaho/pentaho-kettle/blob/master/core/src/main/java/org/pentaho/di/core/row/ValueMetaInterface.java
  *
  * List<ValueMetaInterface> list = data.outputRowMeta.getValueMetaList();
  * Same as my List<Field>
