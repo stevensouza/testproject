@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * List<ValueMetaInterface> list = data.outputRowMeta.getValueMetaList();
  * Same as my List<Field>
  * <p>
- * CREATE TABLE gsa_fas_finance.tbl_actual_ytd_plan_1 (
+ * CREATE TABLE finance.tbl_actual_ytd_plan_1 (
  * `FiscalYear` int(11) DEFAULT NULL,
  * `AccountingPeriod` int(11) DEFAULT NULL,
  * `Region` varchar(255) DEFAULT NULL,
