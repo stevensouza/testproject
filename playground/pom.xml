@@ -38,7 +38,7 @@
       <jamonapi.version>2.82</jamonapi.version>
       <hazelcast.version>3.3.1</hazelcast.version>
       <fdsapi.version>1.2</fdsapi.version>
-      <spring.version>5.2.0.RELEASE</spring.version>
+      <spring.version>5.2.22.RELEASE</spring.version>
       <aspectj.version>1.8.2</aspectj.version>
       <cassandra.version>2.1.0</cassandra.version>
       <assertj.version>1.7.0</assertj.version>
