@@ -39,22 +39,34 @@
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${mojo.execution.version}</version>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.14.0</version>
+                <configuration>
+                    <complianceLevel>1.8</complianceLevel>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <verbose>true</verbose>
+                    <Xlint>ignore</Xlint>
+                    <encoding>UTF-8 </encoding>
+                </configuration>
+
                 <executions>
                     <execution>
                         <goals>
-                            <goal>exec</goal>
+                            <!-- use this goal to weave all your main classes -->
+                            <goal>compile</goal>
+                            <!-- use this goal to weave all your test classes -->
+                            <goal>test-compile</goal>
                         </goals>
-
                     </execution>
+
+
+
+
                 </executions>
-                <configuration>
-                    <!-- generates class path with all dependencies as well as generated class -->
-                    <commandlineArgs>100</commandlineArgs>
-                    <classpathScope>runtime</classpathScope>
-                    <mainClass>com.stevesouza.helloworld.HelloWorld</mainClass>
-                </configuration>
+
+
             </plugin>
     <!-- The Surefire Plugin is used during the test phase of the build lifecycle to execute the unit tests of an application. -->
             <plugin>
@@ -69,8 +81,15 @@
 
       <dependency>
           <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>1.9.20.1</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.aspectj</groupId>
           <artifactId>aspectjrt</artifactId>
-          <version>${aspectj.version}</version>
+          <version>1.9.20.1</version>
       </dependency>
 
       <dependency>
