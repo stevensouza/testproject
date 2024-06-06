@@ -28,6 +28,9 @@ package com.stevesouza.aspectj.nativestyle.method;
  hi
  */
 public aspect NativeAspect {
+    // The following line will give a compilation warning (by using 'error' and error/failed compilation would be thrown
+    declare warning : call(void System.gc()) && within(MyClass):  "Do not call System.gc() from code.";
+
     private int callDepth;
     // The following would do all methods in base class and all added methods in children
     //   pointcut traced() : within(com.stevesouza.aspectj.MyClassBase+)  && execution(* *(..));

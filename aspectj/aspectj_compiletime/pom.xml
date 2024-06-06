@@ -87,7 +87,6 @@
                 <configuration>
                     <!-- generates class path with constructor dependencies as well as generated class -->
                     <classpathScope>runtime</classpathScope>
-<!--                    <mainClass>com.stevesouza.aspectj.javastyle.method.MyClass</mainClass>-->
                         <mainClass>com.stevesouza.aspectj.javastyle.context.MyClass</mainClass>
                 </configuration>
             </plugin>
