@@ -29,7 +29,12 @@ package com.stevesouza.aspectj.nativestyle.method;
  */
 public aspect NativeAspect {
     // The following line will give a compilation warning (by using 'error' and error/failed compilation would be thrown
-    declare warning : call(void System.gc()) && within(MyClass):  "Do not call System.gc() from code.";
+    declare warning : call(void System.gc()) && within(MyClass):  "Don't call System.gc() from code. (AspectJ Custom warning)";
+
+    // The following would catch any calls to System.out.println("badcall") within the specified class. However, it would
+    // also catch any calls to a PrintStream in general from this class.  I couldn't figrue out the pointcut for
+    // System.out.println(..) only. Note this would be a good error to check for in your code.
+    declare warning : call(* java.io.PrintStream.println(..)) && within(MyClass): "Don't call System.out.println(..). Use a logger. (AspectJ Custom warning)";
 
     private int callDepth;
     // The following would do all methods in base class and all added methods in children

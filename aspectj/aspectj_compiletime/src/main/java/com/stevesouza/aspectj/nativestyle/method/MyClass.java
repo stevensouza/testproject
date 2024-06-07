@@ -10,6 +10,7 @@ public class MyClass extends MyClassBase {
     public void myPublicMethod() {
         // This code was put here to test/trigger an AspectJ compiler warning
         System.gc();
+        System.out.println("myPublicMethod");
     }
 
     public static void main(String[] args) {
