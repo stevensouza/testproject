@@ -46,6 +46,10 @@ public class MyClass  {
     }
 
     public static void main(String[] args) {
+        // note the associated aspect will catch any exceptions thrown in
+        //  Constructors
+        //  In method calls
+        //  NPE in code above with info such as what arguments were passed
         MyClass m = new MyClass("steve");
         m.myMethod();
         m.myMethod();

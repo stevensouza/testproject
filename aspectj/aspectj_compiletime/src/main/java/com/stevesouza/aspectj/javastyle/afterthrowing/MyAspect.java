@@ -33,9 +33,14 @@ public class MyAspect {
     }
 
 
-    // threadlocal won't work as it never removes the stack trace for a given thread.
+    // threadlocal won't work as it never removes the stack trace for a given thread. But the concept is to
+    // store the most recent exception and not store it again.
     // @AfterThrowing is called only after an exception is thrown.
     //  p 275 aspectj book
+    // note this aspect will catch any exceptions thrown in
+    //  Constructors
+    //  In method calls
+    //  NPE in code above with info such as what arguments were passed
     @AfterThrowing(pointcut = "myExceptions()", throwing = "e")
     public void myAfterThrowing(JoinPoint joinPoint, Throwable e) {
         if (lastLoggedException.get() != e) {
