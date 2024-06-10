@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Parameter;
 import java.text.MessageFormat;
 import java.util.Arrays;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -16,7 +17,7 @@ public class ExpressionLanguageAspect {
     //  this(MyClass) is done to exclude public static main(String[] args)
     @Around("this(MyClass) && execution(* *(..))")
     public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
-        
+
         MethodSignature ms = (MethodSignature) pjp.getSignature();
         Annotation[] annotations = ms.getMethod().getAnnotations();
         ExpressionLanguageAnnotation expressionAnnotation = ms.getMethod().getAnnotation(ExpressionLanguageAnnotation.class);
@@ -46,21 +47,21 @@ hi
     null
 mom, hi 
          */
-                    
 
-        System.out.println("  **************"+ms);
-        
-        System.out.println("    annotations="+Arrays.asList(annotations));
-        System.out.println("    getMethod().getAnnotation(...)="+expressionAnnotation);
-        System.out.println("    getMethod().getAnnotation(...).value()="+expressionAnnotation.value());
-        System.out.println("    method parameters="+Arrays.asList(parameters));
-        System.out.println("    method values=pjp.getArgs()="+Arrays.asList(pjp.getArgs()));
+
+        System.out.println("  **************" + ms);
+
+        System.out.println("    annotations=" + Arrays.asList(annotations));
+        System.out.println("    getMethod().getAnnotation(...)=" + expressionAnnotation);
+        System.out.println("    getMethod().getAnnotation(...).value()=" + expressionAnnotation.value());
+        System.out.println("    method parameters=" + Arrays.asList(parameters));
+        System.out.println("    method values=pjp.getArgs()=" + Arrays.asList(pjp.getArgs()));
         String message = MessageFormat.format(expressionAnnotation.label(), pjp.getArgs());
-        System.out.println("    annotation populated with values (MessageFormat)="+message);
+        System.out.println("    annotation populated with values (MessageFormat)=" + message);
 
         System.out.println("    param annotations:");
         for (Parameter param : parameters) {
-            System.out.println("    "+param.getAnnotation(ParamName.class));
+            System.out.println("    " + param.getAnnotation(ParamName.class));
         }
 
         Object retVal = pjp.proceed();

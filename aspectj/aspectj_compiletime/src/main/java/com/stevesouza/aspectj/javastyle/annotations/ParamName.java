@@ -12,12 +12,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *
  * @author stevesouza
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER})
 public @interface ParamName {
-    String   value();
+    String value();
 }
