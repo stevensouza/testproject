@@ -13,55 +13,55 @@ import java.util.Map;
 
 /**
  * Aspect that advises exceptions being thrown
- *
  */
 
 @Aspect
-public class MyAspect  {
+public class MyAspect {
 
-  private final ThreadLocal<Throwable> lastLoggedException = new ThreadLocal<Throwable>();
-  private final Map m = Collections.synchronizedMap(new LinkedHashMap());
+    private final ThreadLocal<Throwable> lastLoggedException = new ThreadLocal<>();
+    private final Map<Object, Object> m = Collections.synchronizedMap(new LinkedHashMap<>());
 
-  //@Pointcut("(execution (* *.*(..)) || execution (*.new(..)) || initialization(*.new(..)) ||  staticinitialization(*))  && !within(MyAspect+)  && !cflow(adviceexecution())")
-  // note preinitialization gives bytecode errors and that is why it is excluded.
-  @Pointcut("!preinitialization(*.new(..))")
-  public void all() {
+    //@Pointcut("(execution (* *.*(..)) || execution (*.new(..)) || initialization(*.new(..)) ||  staticinitialization(*))  && !within(MyAspect+)  && !cflow(adviceexecution())")
+    // note preinitialization gives bytecode errors and that is why it was excluded.
+    @Pointcut("!preinitialization(*.new(..))")
+    public void all() {
 
-  }
+    }
 
-    @Pointcut("all()  && !within(MyAspect+) && !cflow(adviceexecution())")
+    @Pointcut("all()  && !within(MyAspect+) && !cflow(adviceexecution()) && !handler(*)")
     public void myExceptions() {
     }
 
 
     // threadlocal won't work as it never removes the stack trace for a given thread.
-    // p 275 aspectj book
+    // @AfterThrowing is called only after an exception is thrown.
+    //  p 275 aspectj book
     @AfterThrowing(pointcut = "myExceptions()", throwing = "e")
     public void myAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        if (lastLoggedException.get()!=e) {
+        if (lastLoggedException.get() != e) {
             lastLoggedException.set(e);
             System.out.println("In aspect/advice:");
-            System.out.println(" Exception: "+e);
-            System.out.println(" Exception: "+e.getClass().getName());
+            System.out.println(" Exception: " + e);
+            System.out.println(" Exception: " + e.getClass().getName());
 
             System.out.println(" jp.getKind()=" + joinPoint.getKind());
-            System.out.println(" jp.getStaticPart()="+joinPoint.getStaticPart());
+            System.out.println(" jp.getStaticPart()=" + joinPoint.getStaticPart());
             Object[] argValues = joinPoint.getArgs();
             Signature signature = joinPoint.getSignature();
-            System.out.println(" jp.getSignature().getClass()="+signature.getClass());
+            System.out.println(" jp.getSignature().getClass()=" + signature.getClass());
             // Note would have to look at all the special cases here.
             if (signature instanceof MethodSignature methodSignature) {
                 String[] argNames = methodSignature.getParameterNames();
                 for (int i = 0; i < argNames.length; i++) {
-                    printMe("  (argName=argValue)", "("+argNames[i] + "=" + argValues[i]+")");
+                    printMe("(" + argNames[i] + "=" + argValues[i] + ")");
                 }
             }
         }
 
     }
 
-    private void printMe(String type, Object message) {
-        System.out.println(type + ":" + message);
+    private void printMe(Object message) {
+        System.out.println("  (argName:argValue)" + "=" + message);
     }
 
 

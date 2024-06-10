@@ -6,11 +6,11 @@ package com.stevesouza.aspectj.javastyle.afterthrowing;
  */
 public class MyClass  {
 
-    private String fname;
-    private int counter=1;
+    private final String fname;
+    private int counter = 1;
 
     public MyClass(String fname) {
-        this.fname=fname;
+        this.fname = fname;
     }
 
     public MyClass() {
@@ -20,10 +20,10 @@ public class MyClass  {
     public void myMethod() {
         try {
             myMethod1();
-        } catch(Throwable e) {
-
+        } catch (Throwable e) {
+            // gobbled exception will still go to @AfterThrowing
         } finally {
-            System.out.println("  in finally block");
+            System.out.println(" myMethod() in finally block");
         }
     }
 
@@ -37,11 +37,11 @@ public class MyClass  {
 
     private void myException(String name) {
         counter++;
-        if (counter%2==0) {
+        if (counter % 2 == 0) {
             String myNpe = null;
             myNpe.equals("hi");
         } else {
-            throw new RuntimeException("This is my runtime exception: "+name);
+            throw new RuntimeException("This is my runtime exception: " + name);
         }
     }
 
@@ -51,7 +51,8 @@ public class MyClass  {
         m.myMethod();
         try {
             new MyClass();
-        } catch(Throwable e) {
+        } catch (Throwable e) {
+            // gobbled exception will still go to @AfterThrowing
         }
     }
 }
