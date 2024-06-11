@@ -1,23 +1,21 @@
 package com.stevesouza.aspectj.javastyle.field;
 
-import com.stevesouza.aspectj.javastyle.AbstractAspect;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+
+import static java.lang.System.out;
 
 /**
  * Aspect that advise field sets and gets.
- *
+ * <p>
  * For example:
- *  set:  obj.var="hi";
- *  get:  System.out.println(obj.var);
- *  get&set:  obj.var1=obj.var;
- *
+ * set:  obj.var="hi";
+ * get:  System.out.println(obj.var);
+ * get&set:  obj.var1=obj.var;
  */
 @Aspect
-public class MyAspect  {
+public class MyAspect {
 
     // Some other interesting field pointcuts
     //     @After("set(public * MyClass+.*)")
@@ -27,18 +25,20 @@ public class MyAspect  {
 
     @After("set(* com.stevesouza.aspectj.javastyle.field.MyClass+.*)")
     public void setAdvice(JoinPoint joinPoint) {
-        System.out.println("  After set: joinPoint.getKind()="+joinPoint.getKind());
-        System.out.println("  After set: joinPoint.toLongString()="+joinPoint.toLongString());
-        System.out.println("  After set: joinPoint.getTarget()="+joinPoint.getTarget());
-        System.out.println("  After set: joinPoint.getArgs()[0] (value assigning)="+joinPoint.getArgs()[0]);
+        out.println();
+        out.println("  After set: joinPoint.getKind()=" + joinPoint.getKind());
+        out.println("  After set: joinPoint.toLongString()=" + joinPoint.toLongString());
+        out.println("  After set: joinPoint.getTarget()=" + joinPoint.getTarget());
+        out.println("  After set: joinPoint.getArgs()[0] (value assigning)=" + joinPoint.getArgs()[0]);
     }
 
 
     @After("get(* com.stevesouza.aspectj.javastyle.field.MyClass+.*)")
     public void getAdvice(JoinPoint joinPoint) {
-        System.out.println("  After get: joinPoint.getKind()="+joinPoint.getKind());
-        System.out.println("  After get: joinPoint.toLongString()="+joinPoint.toLongString());
-        System.out.println("  After get: joinPoint.getTarget()="+joinPoint.getTarget());
+        out.println();
+        out.println("  After get: joinPoint.getKind()=" + joinPoint.getKind());
+        out.println("  After get: joinPoint.toLongString()=" + joinPoint.toLongString());
+        out.println("  After get: joinPoint.getTarget()=" + joinPoint.getTarget());
     }
 
 

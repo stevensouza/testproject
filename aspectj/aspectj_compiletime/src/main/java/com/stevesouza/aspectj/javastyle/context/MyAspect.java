@@ -9,9 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 /**
- * Aspect that shows various ways to do context.
- *
- *
+ * Aspect that shows various ways to do context. Context means getting the values from
+ * various variables such as instance (this()), target(), args()
  */
 @Aspect
 public class MyAspect {
@@ -34,8 +33,8 @@ public class MyAspect {
 
         Object[] argValues = thisJoinPoint.getArgs();
         String[] argNames = signature.getParameterNames();
-        for (int i=0;i<argNames.length;i++) {
-            printMe("  argName, argValue", argNames[i]+", "+argValues[i]);
+        for (int i = 0; i < argNames.length; i++) {
+            printMe("  argName, argValue", argNames[i] + ", " + argValues[i]);
         }
 
         System.out.println();
@@ -64,7 +63,7 @@ public class MyAspect {
     }
 
     private void printMe(String type, Object message) {
-        System.out.println(" "+type + " : " + message);
+        System.out.println(" " + type + " : " + message);
     }
 
 }
