@@ -1,4 +1,4 @@
-package com.stevesouza.aspectj.javastyle.aspectconstants.pointcuts;
+package com.stevesouza.aspectj.javastyle.reusablepointcuts.pointcuts;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;

@@ -1,4 +1,4 @@
-package com.stevesouza.aspectj.javastyle.aspectconstants;
+package com.stevesouza.aspectj.javastyle.reusablepointcuts;
 
 
 /**

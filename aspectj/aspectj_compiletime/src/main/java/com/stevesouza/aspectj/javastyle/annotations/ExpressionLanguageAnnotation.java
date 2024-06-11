@@ -12,6 +12,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ *  Can Apply this annotation to classes or methods.
+ *
  * @author stevesouza
  */
 @Inherited
