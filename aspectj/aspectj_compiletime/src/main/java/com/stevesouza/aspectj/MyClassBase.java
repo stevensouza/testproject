@@ -5,9 +5,19 @@ package com.stevesouza.aspectj;
  */
 public class MyClassBase {
 
+    private String description;
     public MyClassBase() {
         System.out.println(getClass());
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void deliver(String message) {
         System.out.println(message);
     }
@@ -21,4 +31,5 @@ public class MyClassBase {
         m.deliver("hi ");
         m.deliver("mom", "hi");
     }
+
 }

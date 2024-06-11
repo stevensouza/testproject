@@ -45,6 +45,7 @@ public class MyAspect extends AbstractAspect {
     // are inherited.  However it doesn't include any static methods.
 
     // The following would do all instance methods both inherited and defined in this class
+    @Override
     @Pointcut("this(com.stevesouza.aspectj.javastyle.method.MyClass)  && publicMethod()")
     public void traced() {
     }

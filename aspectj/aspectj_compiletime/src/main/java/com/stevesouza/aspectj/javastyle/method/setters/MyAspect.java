@@ -19,7 +19,9 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public  class MyAspect extends AbstractAspect {
 
-    // The following would do all instance methods both inherited and defined in this class
+    // The following would do all instance getter/setter methods both inherited and defined in this class (i.e.
+    // defined in MyBaseClass or MyDerivedClass)
+    @Override
     @Pointcut("this(com.stevesouza.aspectj.javastyle.method.setters.MyClass)  && getterOrSetter()")
     public void traced() {
     }

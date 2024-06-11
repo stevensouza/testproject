@@ -36,6 +36,7 @@ public class MyClass extends MyClassBase {
         m.getFname();
         m.setLname("souza");
         m.getLname();
-
+        m.setDescription("this is a description");
+        m.getDescription();
     }
 }

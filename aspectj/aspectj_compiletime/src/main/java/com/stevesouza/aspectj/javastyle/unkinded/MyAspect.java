@@ -7,12 +7,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
 /**
- * Aspect that advise field sets and gets.
- *
- * For example:
- *  set:  obj.var="hi";
- *  get:  System.out.println(obj.var);
- *  get&set:  obj.var1=obj.var;
+ * Has good example of withincode
  *
  */
 @Aspect
@@ -27,6 +22,7 @@ public class MyAspect  {
     // is a work around that does the same thing.
     @Before("within(com.stevesouza.aspectj.javastyle.unkinded.MyClass) && all()")
     public void myAdvice1(JoinPoint.StaticPart joinPoint) {
+        System.out.println();
         System.out.println("  Before myAdvice1 "+joinPoint.getKind()+": "+joinPoint);
     }
 

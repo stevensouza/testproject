@@ -21,10 +21,11 @@ public class MyClass extends MyClassBase {
 
     public static void main(String[] args) {
         MyClass m = new MyClass();
-        m.deliver("hi ");
+        m.deliver("hi "); // function defined in baseclass
         m.deliver("mom", "hi");
         m.myPublicFunction();
-        m.myProtectedFunction();
-        m.myPrivateFunction();
+        m.myProtectedFunction(); // only public functions are in pointcut
+        m.myPrivateFunction(); // only public functions are in pointcut
+        m.getDescription();
     }
 }

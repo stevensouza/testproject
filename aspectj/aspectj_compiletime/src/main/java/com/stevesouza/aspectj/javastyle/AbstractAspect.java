@@ -110,8 +110,8 @@ public abstract class AbstractAspect {
     @After("traced()")
     // note use of JoinPoint to get further info here
     public void after(JoinPoint thisJoinPoint) {
-        print("After", thisJoinPoint);
         callDepth--;
+        print("After", thisJoinPoint);
     }
 
     // Convenient for quickly disabling advice.
