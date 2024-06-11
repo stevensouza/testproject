@@ -1,12 +1,12 @@
 package com.stevesouza.aspectj.javastyle.context;
 
-import com.stevesouza.aspectj.javastyle.AbstractAspect;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import java.text.MessageFormat;;
+
 
 /**
  * Aspect that shows various ways to do context. Context means getting the values from
@@ -15,17 +15,44 @@ import org.aspectj.lang.reflect.MethodSignature;
 @Aspect
 public class MyAspect {
 
+    // Note in general a package is required for @AspectJ style pointbuts, but not when it is
+    // in the same package as the aspect. Note this is an alternative to the anonymous pointcut
+    // defined in the afterReturning1 advice.
+    @Pointcut("execution(* MyClass.myMethod(int, String)) && this(myClass) && args(myInt, myString)")
+    public void myMethodPointcut(MyClass myClass, int myInt, String myString) {
+    }
+
+    @AfterReturning(value = "myMethodPointcut(myClass, myInt, myString)")
+    public void afterReturning0(MyClass myClass, int myInt, String myString) {
+        System.out.println("advice AfterReturning0 using myMethodPointcut(..)");
+        String message = MessageFormat.format("MyClass instance={0}, myIntArg={1}, myStringArg={2}",
+                myClass, myInt, myString);
+        printMe(" this() and args() context:",message);
+        System.out.println();
+    }
+
+    @AfterReturning(value = "execution(* com.stevesouza.aspectj.javastyle.context.MyClass.myMethod(int, String)) && this(myClass) && args(myInt, myString)")
+    public void afterReturning1(MyClass myClass, int myInt, String myString) {
+        System.out.println("advice AfterReturning1");
+        String message = MessageFormat.format("MyClass instance={0}, myIntArg={1}, myStringArg={2}",
+                myClass, myInt, myString);
+        printMe(" this() and args() context:",message);
+        System.out.println();
+    }
+
     @AfterReturning(value = "execution(* com.stevesouza.aspectj.javastyle.context.MyClass.myMethod(int, String))")
-    public void afterReturning(JoinPoint thisJoinPoint, JoinPoint.StaticPart joinPointStaticPart, JoinPoint.EnclosingStaticPart joinPointEnclosingStaticPart) {
+    public void afterReturning2(JoinPoint thisJoinPoint, JoinPoint.StaticPart joinPointStaticPart, JoinPoint.EnclosingStaticPart joinPointEnclosingStaticPart) {
         // Example: thisJoinPoint.toString() : execution(void com.stevesouza.aspectj.javastyle.context.MyClass.myMethod(int, String))
+        System.out.println();
+        System.out.println("advice AfterReturning2");
+
         printMe("thisJoinPoint.toString()", thisJoinPoint.toString());
         printMe("thisJoinPoint.toLongString()", thisJoinPoint.toLongString());
         printMe("thisJoinPoint.toShortString()", thisJoinPoint.toShortString());
 
-        System.out.println();
         printMe("thisJoinPoint.getKind()", thisJoinPoint.getKind());
+        System.out.println(" -");
 
-        System.out.println();
         System.out.println(" Method args");
         // to have argNames on you have to compile with -g
         // I hear in maven it is by default:  using the compiler maven plugin, the debug is on by default
@@ -36,28 +63,27 @@ public class MyAspect {
         for (int i = 0; i < argNames.length; i++) {
             printMe("  argName, argValue", argNames[i] + ", " + argValues[i]);
         }
+        System.out.println(" -");
 
-        System.out.println();
         printMe("thisJoinPoint.getSignature()", thisJoinPoint.getSignature());
         printMe("thisJoinPoint.getSignature().getDeclaringType()", thisJoinPoint.getSignature().getDeclaringType());
         printMe("thisJoinPoint.getSignature().getDeclaringTypeName()", thisJoinPoint.getSignature().getDeclaringTypeName());
         printMe("thisJoinPoint.getSignature().getModifiers()", thisJoinPoint.getSignature().getModifiers());
         printMe("thisJoinPoint.getSignature().getName()", thisJoinPoint.getSignature().getName());
+        System.out.println(" -");
 
-
-        System.out.println();
         printMe("thisJoinPoint.getSourceLocation()", thisJoinPoint.getSourceLocation());
         printMe("thisJoinPoint.getSourceLocation().getFileName()", thisJoinPoint.getSourceLocation().getFileName());
         printMe("thisJoinPoint.getSourceLocation().getLine()", thisJoinPoint.getSourceLocation().getLine());
         printMe("thisJoinPoint.getSourceLocation()..getWithinType()", thisJoinPoint.getSourceLocation().getWithinType());
+        System.out.println(" -");
 
-        System.out.println();
         printMe("joinPointStaticPart.toString()", joinPointStaticPart);
         printMe("joinPointStaticPart.getSignature()", joinPointStaticPart.getSignature());
         printMe("joinPointStaticPart.getId()", joinPointStaticPart.getId());
         printMe("joinPointStaticPart.getSourceLocation()", joinPointStaticPart.getSourceLocation());
+        System.out.println(" -");
 
-        System.out.println();
         printMe("joinPointEnclosingStaticPart.toString()", joinPointEnclosingStaticPart);
 
     }
