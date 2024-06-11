@@ -14,7 +14,6 @@ public class MyClass extends MyClassBase {
     }
 
     protected MyClass(String fname) {
-
     }
 
     public static void main(String[] args) {
