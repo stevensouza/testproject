@@ -32,6 +32,7 @@
 
     <build>
         <plugins>
+            <!-- plugin used to compile aspectj using maven https://github.com/dev-aspectj/aspectj-maven-plugin?tab=readme-ov-file -->
             <plugin>
                 <groupId>dev.aspectj</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
@@ -45,8 +46,11 @@
                     </dependency>
                 </dependencies>
                 <configuration>
+                    <!-- see this link for options in configuring AJC (aspectj compiler) via this plugin https://dev-aspectj.github.io/aspectj-maven-plugin/compile-mojo.html-->
                     <!-- Your favourite Java source/target version -->
                     <complianceLevel>21</complianceLevel>
+                    <outxml>true</outxml>
+                    <showWeaveInfo>true</showWeaveInfo>
                 </configuration>
             </plugin>
 
