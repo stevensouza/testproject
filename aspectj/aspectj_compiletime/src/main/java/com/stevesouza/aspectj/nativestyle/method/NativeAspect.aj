@@ -49,13 +49,13 @@ public aspect NativeAspect {
     pointcut traced() : this(MyClass)  && execution(* *(..));
 
     before() : traced() {
-        print("Before", thisJoinPoint);
+        print("Before: ", thisJoinPoint);
         callDepth++;
     }
 
     after() : traced() {
-        print("After", thisJoinPoint);
         callDepth--;
+        print("After: ", thisJoinPoint);
     }
     private void print(String prefix, Object message) {
         for (int i=0; i<callDepth;i++) {
