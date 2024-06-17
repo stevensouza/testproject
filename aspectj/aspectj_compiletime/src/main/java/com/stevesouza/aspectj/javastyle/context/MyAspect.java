@@ -4,8 +4,10 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
-import java.text.MessageFormat;;
+
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;;
 
 
 /**
@@ -22,6 +24,8 @@ public class MyAspect {
     public void myMethodPointcut(MyClass myClass, int myInt, String myString) {
     }
 
+    // afterReturning0 and afterReturning1 match the same pointcut however one uses a named pointcut while the
+    // other uses an anonymous pointcut.
     @AfterReturning(value = "myMethodPointcut(myClass, myInt, myString)")
     public void afterReturning0(MyClass myClass, int myInt, String myString) {
         System.out.println("advice AfterReturning0 using myMethodPointcut(..)");
@@ -40,6 +44,7 @@ public class MyAspect {
         System.out.println();
     }
 
+    // same as above but uses the more dynamic approach.
     @AfterReturning(value = "execution(* com.stevesouza.aspectj.javastyle.context.MyClass.myMethod(int, String))")
     public void afterReturning2(JoinPoint thisJoinPoint, JoinPoint.StaticPart joinPointStaticPart, JoinPoint.EnclosingStaticPart joinPointEnclosingStaticPart) {
         // Example: thisJoinPoint.toString() : execution(void com.stevesouza.aspectj.javastyle.context.MyClass.myMethod(int, String))
@@ -53,16 +58,12 @@ public class MyAspect {
         printMe("thisJoinPoint.getKind()", thisJoinPoint.getKind());
         System.out.println(" -");
 
-        System.out.println(" Method args");
+        System.out.println(" Method args/values");
         // to have argNames on you have to compile with -g
         // I hear in maven it is by default:  using the compiler maven plugin, the debug is on by default
-        MethodSignature signature = ((MethodSignature) thisJoinPoint.getSignature());
+        Map<String, Object> argMap = MethodArgumentExtractor.extractArguments(thisJoinPoint);
+        System.out.println("  "+argMap);
 
-        Object[] argValues = thisJoinPoint.getArgs();
-        String[] argNames = signature.getParameterNames();
-        for (int i = 0; i < argNames.length; i++) {
-            printMe("  argName, argValue", argNames[i] + ", " + argValues[i]);
-        }
         System.out.println(" -");
 
         printMe("thisJoinPoint.getSignature()", thisJoinPoint.getSignature());
