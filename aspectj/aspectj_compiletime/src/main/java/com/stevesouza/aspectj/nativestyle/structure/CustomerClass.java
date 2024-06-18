@@ -14,6 +14,7 @@ public class CustomerClass {
     public static void main(String[] args) {
         CustomerClass cc = new CustomerClass();
         cc.getName();
+        // the following code runs despite showing an error in intellij
         cc.setExtraInfo("hi steve");
         System.out.println("Calling method introduced by aspectj: "+cc.getExtraInfo());
     }
