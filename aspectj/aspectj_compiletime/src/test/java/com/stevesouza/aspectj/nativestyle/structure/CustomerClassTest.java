@@ -1,4 +1,4 @@
-package com.stevesouza.aspectj.javastyle.nativestyle.structure;
+package com.stevesouza.aspectj.nativestyle.structure;
 
 import org.junit.After;
 import org.junit.Before;
