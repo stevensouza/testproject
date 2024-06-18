@@ -9,6 +9,9 @@ import org.aspectj.lang.annotation.Pointcut;
 /**
  * Has good example of withincode
  *
+ * Note kinded are pointcuts that match on signatures.  Unkinded are all that do not
+ * match on signature.
+ *
  */
 @Aspect
 public class MyAspect  {
