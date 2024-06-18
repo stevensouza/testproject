@@ -23,6 +23,9 @@ public class MyClass extends MyClassBase {
         this.lname = lname;
     }
 
+    public void hi() {
+    }
+
     private String fname;
     private String lname;
 
@@ -38,5 +41,6 @@ public class MyClass extends MyClassBase {
         m.getLname();
         m.setDescription("this is a description");
         m.getDescription();
+        m.hi();
     }
 }
