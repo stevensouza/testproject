@@ -23,12 +23,13 @@ public class MyAspect {
 
     //@Pointcut("(execution (* *.*(..)) || execution (*.new(..)) || initialization(*.new(..)) ||  staticinitialization(*))  && !within(MyAspect+)  && !cflow(adviceexecution())")
     // note preinitialization gives bytecode errors and that is why it was excluded.
-    @Pointcut("!preinitialization(*.new(..))")
+    @Pointcut("within(com.stevesouza.aspectj.javastyle.afterthrowing.MyClass)")
     public void all() {
 
     }
 
-    @Pointcut("all()  && !within(MyAspect+) && !cflow(adviceexecution()) && !handler(*)")
+//    @Pointcut("all()  && !within(com.stevesouza.aspectj.javastyle.afterthrowing.MyAspect+) && !cflow(adviceexecution()) && !handler(*)")
+    @Pointcut("all() && !handler(*)")
     public void myExceptions() {
     }
 
