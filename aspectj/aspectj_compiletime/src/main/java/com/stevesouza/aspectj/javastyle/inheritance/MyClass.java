@@ -4,8 +4,7 @@ package com.stevesouza.aspectj.javastyle.inheritance;
 /**
  * Created by stevesouza on 2/4/15.
  */
-public class MyClass  {
-
+public class MyClass {
 
     public void myMethod() {
     }

@@ -1,6 +1,6 @@
 package com.stevesouza.aspectj.javastyle.context;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.reflect.CodeSignature;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ public class MethodArgumentExtractor {
      * @return A read-only map of argument names to their corresponding values
      */
     public static Map<String, Object> extractArguments(JoinPoint thisJoinPoint) {
-        MethodSignature signature = ((MethodSignature) thisJoinPoint.getSignature());
+        CodeSignature signature = ((CodeSignature) thisJoinPoint.getSignature());
         String[] argNames = signature.getParameterNames();
         Object[] argValues = thisJoinPoint.getArgs();
 

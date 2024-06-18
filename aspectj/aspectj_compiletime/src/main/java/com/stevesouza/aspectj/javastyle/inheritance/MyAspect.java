@@ -17,7 +17,7 @@ public class MyAspect  {
     // defined only in the children (new methods in children).
     // Note it will include static methods such as 'main'
     // Note MyClass works for only MyClass in this package and so the full classpath is
-    // not required.
+    // not required (I think)
     @Before("execution(* MyClass.*(..))")
     public void myAdvice1(JoinPoint.StaticPart joinPoint) {
         System.out.println("  MyClass "+joinPoint.getKind()+": "+joinPoint);
@@ -25,6 +25,8 @@ public class MyAspect  {
 
     // The following will work for both methods defined in MyClass as well as any new methods defined in
     // its children (MyClass+). Note it will include static methods.
+    // Noe both myAdvice1 and myAdvice2 are triggered for any methods that are in the base class (for example myMethod()
+    // which is defined in the base class because each of their respective pointcuts match the method.
     // The commented out @Before gets rid of static ie. main()
     //   @Before("execution(* MyClass+.*(..)) && this(MyClass)")
     @Before("execution(* MyClass+.*(..))")

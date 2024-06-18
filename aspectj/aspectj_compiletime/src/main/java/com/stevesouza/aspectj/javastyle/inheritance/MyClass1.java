@@ -6,7 +6,6 @@ package com.stevesouza.aspectj.javastyle.inheritance;
  */
 public class MyClass1 extends MyClass {
 
-
     public void myMethod1() {
     }
 
