@@ -5,7 +5,7 @@ package com.stevesouza.aspectj;
  */
 public class MyClassBase {
 
-    private String description;
+    private String description="hi";
     public MyClassBase() {
         System.out.println(getClass());
     }
