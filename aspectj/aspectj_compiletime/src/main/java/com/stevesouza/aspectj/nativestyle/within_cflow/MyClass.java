@@ -1,6 +1,9 @@
-package com.stevesouza.aspectj.nativestyle.complex;
+package com.stevesouza.aspectj.nativestyle.within_cflow;
 
 import com.stevesouza.aspectj.MyClassBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyClass extends MyClassBase {
 
@@ -23,10 +26,16 @@ public class MyClass extends MyClassBase {
         myMethod1();
         System.out.println("     myMethod4");
     }
+
+    private void myMethod5() {
+        System.out.println("     myMethod5");
+    }
+
     public static void main(String[] args) {
         MyClass my = new MyClass();
         my.myMethod1();
         my.myMethod3();
         my.myMethod4();
+        my.myMethod5();
     }
 }
