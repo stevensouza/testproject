@@ -16,7 +16,7 @@ public aspect NativeAspect {
     // though withincode is according at least in aspectj book.
     pointcut withinMethod(): withincode(* MyClass.myMethod1(..));
     pointcut cflowMethod(): cflow(call(* MyClass.myMethod4(..))) && !within(NativeAspect);
-    pointcut logging(String logStr): withincode(* MyClass.myMethod5(..)) && call(* java.io.PrintStream.println(String)) && args(logStr);
+    pointcut logging(String logStr): withincode(* MyClass.myMethod5(..)) && call(* java.io.PrintStream.println(..)) && args(logStr);
 
 
     before(): traced() {
@@ -58,7 +58,7 @@ public aspect NativeAspect {
         System.out.println(" thisEnclosingJoinPointStaticPart: " + thisEnclosingJoinPointStaticPart);
 
         System.out.println(" original logStr value: " + logStr);
-        logStr = String.format("%s <NDC:%s; MDC:%s>",
+        logStr = String.format(" %s <NDC:%s; MDC:%s>",
                 logStr.trim(), getNDC(thisEnclosingJoinPointStaticPart.getSignature().toShortString()), getMDC());
         return proceed(logStr);
     }
