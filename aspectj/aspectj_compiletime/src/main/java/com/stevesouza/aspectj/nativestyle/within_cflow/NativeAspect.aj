@@ -1,5 +1,7 @@
 package com.stevesouza.aspectj.nativestyle.within_cflow;
 
+import com.stevesouza.aspectj.javastyle.annotations.ExpressionLanguageAnnotation;
+
 import java.util.*;
 
 /**
@@ -8,6 +10,10 @@ import java.util.*;
  */
 public aspect NativeAspect {
 
+    // this assigns the annotation to MyClass dynamically. You can also do
+    // @method, @constructor, @field to assign an annotation to the specific pointcut.
+    // This for example could be used to specify spring or micrometer annotations.
+    declare @type : MyClass : @ExpressionLanguageAnnotation;
     // Note within does all pointcuts within the class including this and static and constructors etc.
     // this() would not do static methods but only instance ones.
     pointcut traced(): within(MyClass)  && call(* MyClass.myMethod3());
