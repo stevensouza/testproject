@@ -13,7 +13,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 @Aspect
 public class ExpressionLanguageAspect {
 
-
     //  this(MyClass) is done to exclude public static main(String[] args)
     @Around("this(MyClass) && execution(* *(..))")
     public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
