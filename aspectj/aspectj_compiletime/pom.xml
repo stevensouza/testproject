@@ -29,7 +29,7 @@
       <junit.version>4.13.1</junit.version>
       <mojo.execution.version>3.3.0</mojo.execution.version>
       <log4j.version>2.23.1</log4j.version>
-      <slf4j-api.version>2.0.13</slf4j-api.version>
+      <slf4j.version>2.0.13</slf4j.version>
   </properties>
 
     <build>
@@ -133,8 +133,17 @@
       <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
-          <version>${slf4j-api.version}</version>
+          <version>${slf4j.version}</version>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-ext -->
+<!--      NDC capabilities-->
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-ext</artifactId>
+          <version>${slf4j.version}</version>
+      </dependency>
+
+<!--   Need only if you output log4j2 as json using JsonTemplateLayout-->
       <dependency>
           <groupId>org.apache.logging.log4j</groupId>
           <artifactId>log4j-layout-template-json</artifactId>

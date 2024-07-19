@@ -29,7 +29,8 @@
     "stringified": true
   },
   "tags": {
-    "$resolver": "ndc"
+    "$resolver": "ndc",
+    "separator": "|"
   },
   "error.type": {
     "$resolver": "exception",
@@ -48,6 +49,6 @@
   },
   "mypattern": {
     "$resolver": "pattern",
-    "pattern": "%p %c{1.} [%t] %X{username} %X %m%ex"
+    "pattern": "logLevel=%p loggerName=%c{1.} thread=[%t] mdc-username=%X{username} mdc=%X ndc=%x message=%m exception=%ex"
   }
 }
