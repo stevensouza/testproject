@@ -16,6 +16,7 @@
             </JsonTemplateLayout>
 
         </Console>
+<!--        Async appender is not needed but probably a good idea in a production application -->
         <Async name="AsyncAppender">
             <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="JsonAppender"/>

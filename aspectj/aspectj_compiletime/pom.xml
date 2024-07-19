@@ -53,6 +53,13 @@
                     <complianceLevel>21</complianceLevel>
                     <outxml>true</outxml>
                     <showWeaveInfo>true</showWeaveInfo>
+<!--                    <parameters>-->
+<!--                     true-->
+<!--                    </parameters>-->
+<!--                    <additionalCompilerArgs>-->
+<!--                        <arg>-parameters</arg>-->
+<!--                        <arg>-g</arg>-->
+<!--                    </additionalCompilerArgs>-->
                 </configuration>
             </plugin>
 

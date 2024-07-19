@@ -20,7 +20,7 @@ public class MyLoggerClass {
      */
     private void logMe() {
         MDC.put("username", "Steve Souza");
-//        Note slf4j puts NDC in MDC and you can display it in a format with %X (which is MDC) or %X(NDC0)
+        // Note slf4j puts NDC in MDC and you can display it in a format with %X (which is MDC) or %X(NDC0)
         // %X would be {NDC0=logMe1, NDC1=logMe2, username=Steve Souza}
         // %X(NDC0) would be logMe1
         NDC.push("logMe1");
@@ -30,6 +30,7 @@ public class MyLoggerClass {
         logger.info("My name is {}.", "steve");
         NDC.pop();
         logger.info("My name is {}.", "souza");
+        logger.info("hello world!!!!");
         logger.warn("My warning message");
         logger.error("My error/exception message. Failed to process request", new Exception("my exception")); // Log with exception
 
