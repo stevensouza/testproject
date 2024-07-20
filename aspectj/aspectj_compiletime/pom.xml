@@ -30,6 +30,7 @@
       <mojo.execution.version>3.3.0</mojo.execution.version>
       <log4j.version>2.23.1</log4j.version>
       <slf4j.version>2.0.13</slf4j.version>
+      <jackson.version>2.17.2</jackson.version>
   </properties>
 
     <build>
@@ -163,6 +164,14 @@
           <artifactId>assertj-core</artifactId>
           <version>${assertj.version}</version>
           <scope>test</scope>
+      </dependency>
+
+<!--     jackson used to convert a map to json, but not required unless you want to do that i.e.-->
+<!--      not required for regular aspectj work.-->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>${jackson.version}</version>
       </dependency>
 
 <!--      <dependency>-->

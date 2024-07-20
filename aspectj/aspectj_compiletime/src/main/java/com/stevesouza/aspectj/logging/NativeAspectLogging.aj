@@ -1,6 +1,6 @@
 package com.stevesouza.aspectj.logging;
 
-import org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy;
+import com.stevesouza.aspectj.nativestyle.utils.MethodArgumentExtractor;
 import org.slf4j.*;
 
 
@@ -17,7 +17,7 @@ public aspect NativeAspectLogging {
 
     before(String message): loggingInfo(message) {
         NDC.push(thisEnclosingJoinPointStaticPart.getSignature().toShortString());
-        MDC.put("loggingMessage", Utils.getArgNameValuePairs(thisJoinPoint).toString());
+        MDC.put("loggingMessage", MethodArgumentExtractor.toJson(thisJoinPoint));
         System.out.println("\nBefore Logger.info call: " + thisJoinPoint);
         // this will display info on what method called call(myMethod3())
         System.out.println(" thisEnclosingJoinPointStaticPart: " + thisEnclosingJoinPointStaticPart);

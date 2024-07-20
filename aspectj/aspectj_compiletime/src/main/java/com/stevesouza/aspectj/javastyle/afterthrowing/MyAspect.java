@@ -1,5 +1,6 @@
 package com.stevesouza.aspectj.javastyle.afterthrowing;
 
+import com.stevesouza.aspectj.nativestyle.utils.MethodArgumentExtractor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -7,9 +8,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Aspect that advises exceptions being thrown
@@ -19,7 +17,6 @@ import java.util.Map;
 public class MyAspect {
 
     private final ThreadLocal<Throwable> lastLoggedException = new ThreadLocal<>();
-    private final Map<Object, Object> m = Collections.synchronizedMap(new LinkedHashMap<>());
 
     //@Pointcut("(execution (* *.*(..)) || execution (*.new(..)) || initialization(*.new(..)) ||  staticinitialization(*))  && !within(MyAspect+)  && !cflow(adviceexecution())")
     // note preinitialization gives bytecode errors and that is why it was excluded.
@@ -52,22 +49,14 @@ public class MyAspect {
 
             System.out.println(" jp.getKind()=" + joinPoint.getKind());
             System.out.println(" jp.getStaticPart()=" + joinPoint.getStaticPart());
-            Object[] argValues = joinPoint.getArgs();
             Signature signature = joinPoint.getSignature();
             System.out.println(" jp.getSignature().getClass()=" + signature.getClass());
             // Note would have to look at all the special cases here.
-            if (signature instanceof MethodSignature methodSignature) {
-                String[] argNames = methodSignature.getParameterNames();
-                for (int i = 0; i < argNames.length; i++) {
-                    printMe("(" + argNames[i] + "=" + argValues[i] + ")");
-                }
+            if (signature instanceof MethodSignature) {
+                System.out.println(" method param/value:"+ MethodArgumentExtractor.toJson(joinPoint));
             }
         }
 
-    }
-
-    private void printMe(Object message) {
-        System.out.println("  (argName:argValue)" + "=" + message);
     }
 
 

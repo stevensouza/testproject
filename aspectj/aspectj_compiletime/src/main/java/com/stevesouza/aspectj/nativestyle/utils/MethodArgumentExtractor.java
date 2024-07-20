@@ -1,4 +1,6 @@
-package com.stevesouza.aspectj.javastyle.context;
+package com.stevesouza.aspectj.nativestyle.utils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.CodeSignature;
 
@@ -14,7 +16,7 @@ public class MethodArgumentExtractor {
      * @param thisJoinPoint The JoinPoint object containing the execution context
      * @return A read-only map of argument names to their corresponding values
      */
-    public static Map<String, Object> extractArguments(JoinPoint thisJoinPoint) {
+    public static Map<String, Object> toMap(JoinPoint thisJoinPoint) {
         CodeSignature signature = ((CodeSignature) thisJoinPoint.getSignature());
         String[] argNames = signature.getParameterNames();
         Object[] argValues = thisJoinPoint.getArgs();
@@ -27,5 +29,15 @@ public class MethodArgumentExtractor {
 
         // Return a read-only version of the map for efficiency
         return Collections.unmodifiableMap(argumentsMap);
+    }
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    public static String toJson(JoinPoint thisJoinPoint) {
+        try {
+            return objectMapper.writeValueAsString(toMap(thisJoinPoint));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
