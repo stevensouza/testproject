@@ -12,6 +12,10 @@ public class MethodArgumentExtractor {
     /**
      * This method extracts method arguments and their values from the JoinPoint
      * and returns a read-only map containing them.
+     * Terminology Clarification:
+     *
+     * Parameter (Formal Parameter): A variable declared in the method signature that acts as a placeholder for the value that will be passed in during the method call.
+     * Argument (Actual Parameter): The actual value (data) that is passed into the method when it is called. This value is assigned to the corresponding parameter.
      *
      * @param thisJoinPoint The JoinPoint object containing the execution context
      * @return A read-only map of argument names to their corresponding values
