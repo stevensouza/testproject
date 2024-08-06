@@ -17,7 +17,8 @@ public aspect NativeAspectLogging {
 
     before(String message): loggingInfo(message) {
         NDC.push(thisEnclosingJoinPointStaticPart.getSignature().toShortString());
-        MDC.put("loggingMessage", MethodArgumentExtractor.toJson(thisJoinPoint));
+        MDC.put("loggingMessageJson", MethodArgumentExtractor.toJson(thisJoinPoint));
+        MDC.put("loggingMessageMap", MethodArgumentExtractor.toMap(thisJoinPoint).toString());
         System.out.println("\nBefore Logger.info call: " + thisJoinPoint);
         // this will display info on what method called call(myMethod3())
         System.out.println(" thisEnclosingJoinPointStaticPart: " + thisEnclosingJoinPointStaticPart);

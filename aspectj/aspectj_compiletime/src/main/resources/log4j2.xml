@@ -14,32 +14,28 @@
                 <EventTemplateAdditionalField key="host" value="www.automon.org"/>
 <!--                <EventTemplateAdditionalField key="method" value="${source:methodName}"/>-->
             </JsonTemplateLayout>
-
         </Console>
+
+        <Console name="AutomonConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%style{%date{DEFAULT}}{yellow}
+          %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green}
+           %message %c: mdc=%X %n"/>
+        </Console>
+
 <!--        Async appender is not needed but probably a good idea in a production application -->
         <Async name="AsyncAppender">
             <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="JsonAppender"/>
         </Async>
+
     </Appenders>
     <Loggers>
         <Root level="INFO">
             <AppenderRef ref="AsyncAppender"/>
         </Root>
+        <Logger name="com.stevesouza.aspectj.logging.automon.NativeAspectLoggingAutomon" level="INFO" additivity="false">
+            <AppenderRef ref="AutomonConsoleAppender"/>
+        </Logger>
     </Loggers>
-
-<!--    JSONLayout-->
-<!--    <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>-->
-<!--    <Appenders>-->
-<!--    <Console name="Console" target="SYSTEM_OUT">-->
-<!--        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>-->
-<!--    </Console>-->
-<!--    </Appenders>-->
-<!--    <Appenders>-->
-<!--        <Async name="AsyncSyslog">-->
-<!--            <AppenderRef ref="Syslog"/>-->
-<!--        </Async>-->
-<!--    </Appenders>-->
-<!--    <Async name="AsyncAppender" queueLength="5000">-->
 
 </Configuration>

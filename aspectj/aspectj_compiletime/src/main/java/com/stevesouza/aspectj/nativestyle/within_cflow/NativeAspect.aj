@@ -73,7 +73,7 @@ public aspect NativeAspect {
         Map<String, Object> map = new HashMap<>();
         map.put("session_uuid", UUID.randomUUID().toString());
         map.put("request_uuid", UUID.randomUUID().toString());
-        map.put("thread_id", Thread.currentThread().threadId());
+        map.put("thread_id", Thread.currentThread().toString());
         map.put("user", "ssouza");
         return map;
     }

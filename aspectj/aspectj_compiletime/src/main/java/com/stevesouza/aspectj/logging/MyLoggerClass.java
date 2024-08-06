@@ -30,11 +30,11 @@ public class MyLoggerClass {
         logger.info("My name is {}.", "steve");
         NDC.pop();
         logger.info("My name is {}.", "souza");
-        logger.info("hello world!!!!");
+        logger.info("this signature calls aspect");
         logger.warn("My warning message");
         logger.error("My error/exception message. Failed to process request", new Exception("my exception")); // Log with exception
-
     }
+
     public static void main(String[] args) {
         MyLoggerClass myLoggerClass = new MyLoggerClass();
         myLoggerClass.logMe();

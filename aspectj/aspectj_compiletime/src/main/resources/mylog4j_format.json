@@ -23,9 +23,8 @@
     "$resolver": "logger",
     "field": "name"
   },
-  "labels": {
+  "mdc": {
     "$resolver": "mdc",
-    "flatten": true,
     "stringified": true
   },
   "tags": {

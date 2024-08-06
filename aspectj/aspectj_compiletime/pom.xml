@@ -51,7 +51,7 @@
                 <configuration>
                     <!-- see this link for options in configuring AJC (aspectj compiler) via this plugin https://dev-aspectj.github.io/aspectj-maven-plugin/compile-mojo.html-->
                     <!-- Your favourite Java source/target version -->
-                    <complianceLevel>21</complianceLevel>
+                    <complianceLevel>17</complianceLevel>
                     <outxml>true</outxml>
                     <showWeaveInfo>true</showWeaveInfo>
 <!--                    <parameters>-->
