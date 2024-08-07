@@ -19,7 +19,7 @@
         <Console name="AutomonConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="%style{%date{DEFAULT}}{yellow}
           %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green}
-           %message %c: mdc=%X %n"/>
+           %c - %message: mdc=%X %n"/>
         </Console>
 
 <!--        Async appender is not needed but probably a good idea in a production application -->

@@ -2,6 +2,7 @@ package com.stevesouza.aspectj.logging.automon;
 
 
 import org.slf4j.MDC;
+
 import java.util.UUID;
 
 public aspect RequestIdAutomon {

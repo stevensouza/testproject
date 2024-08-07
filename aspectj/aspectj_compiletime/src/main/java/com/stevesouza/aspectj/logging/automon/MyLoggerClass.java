@@ -1,11 +1,5 @@
 package com.stevesouza.aspectj.logging.automon;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-
-import java.util.UUID;
-
 public class MyLoggerClass {
     private void method1() {
         nameMethod2("joe", "souza", 88);
