@@ -5,10 +5,13 @@ import org.aspectj.lang.JoinPoint;
 import org.slf4j.MDC;
 import org.slf4j.NDC;
 
+import java.util.UUID;
+
 public class LoggingHelper {
 
     private static final String PARAMETERS = "parameters";
     private static final String EXECUTION_TIME_MS = "executionTimeMs";
+    private static final String REQUEST_ID = "requestId";
 
     public void putParameters(JoinPoint thisJoinPoint) {
         MDC.put(PARAMETERS, MethodArgumentExtractor.toMap(thisJoinPoint).toString());
@@ -38,4 +41,11 @@ public class LoggingHelper {
         MDC.remove(EXECUTION_TIME_MS);
     }
 
+    public void putRequestId() {
+        MDC.put(REQUEST_ID, UUID.randomUUID().toString());
+    }
+
+    public void removeRequestId() {
+        MDC.remove(REQUEST_ID);
+    }
 }
