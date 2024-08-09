@@ -15,12 +15,19 @@ public aspect NativeAspectLoggingAutomon {
 
     // Note within does all pointcuts within the class including this and static and constructors etc.
     // this() would not do static methods but only instance ones.
-    pointcut loggingInfo(): execution(* com.stevesouza.aspectj.logging.automon.MyLoggerClass.*(..));
+//    pointcut loggingInfo(): execution(* com.stevesouza.aspectj.logging.automon.MyLoggerClass.*(..));
+    pointcut loggingInfo(): within(com.stevesouza.aspectj.logging.automon.MyLoggerClass);
 
 
     before(): loggingInfo() {
-        helper.putMethodName(thisJoinPointStaticPart);
+        helper.putKind(thisJoinPointStaticPart);
+        helper.putSignature(thisJoinPointStaticPart);
+        // for call logging not tracing
+        helper.putEnclosingSignature(thisEnclosingJoinPointStaticPart);
         helper.putParameters(thisJoinPoint);
+        // use for call only - logging not tracing
+        helper.putTarget(thisJoinPoint);
+        helper.putThis(thisJoinPoint);
         logger.info("BEFORE");
     }
 
@@ -29,6 +36,9 @@ public aspect NativeAspectLoggingAutomon {
         helper.putExecutionTime();
         logger.info("AFTER");
         helper.removeExecutionTime();
-        helper.removeMethodName();
+        helper.removeSignature();
+        helper.removeEnclosingSignature();
+        helper.removeTarget();
+        helper.removeThis();
     }
 }

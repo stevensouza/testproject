@@ -1,12 +1,16 @@
 package com.stevesouza.aspectj.logging.automon;
 
+import javax.xml.namespace.QName;
+
 public class MyLoggerClass {
+    private String name;
     private void method1() {
         nameMethod2("joe", "souza", 88);
     }
 
     private void nameMethod2(String fname, String lname, int age) {
         occupationMethod3("chief");
+        name = fname + " " + lname;
     }
 
     private void occupationMethod3(String occupation) {

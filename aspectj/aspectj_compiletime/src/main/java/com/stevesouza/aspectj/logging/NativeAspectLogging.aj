@@ -1,6 +1,6 @@
 package com.stevesouza.aspectj.logging;
 
-import com.stevesouza.aspectj.nativestyle.utils.MethodArgumentExtractor;
+import com.stevesouza.aspectj.nativestyle.utils.ParameterExtractor;
 import org.slf4j.*;
 
 
@@ -17,8 +17,8 @@ public aspect NativeAspectLogging {
 
     before(String message): loggingInfo(message) {
         NDC.push(thisEnclosingJoinPointStaticPart.getSignature().toShortString());
-        MDC.put("loggingMessageJson", MethodArgumentExtractor.toJson(thisJoinPoint));
-        MDC.put("loggingMessageMap", MethodArgumentExtractor.toMap(thisJoinPoint).toString());
+        MDC.put("loggingMessageJson", ParameterExtractor.toJson(thisJoinPoint));
+        MDC.put("loggingMessageMap", ParameterExtractor.toMap(thisJoinPoint).toString());
         System.out.println("\nBefore Logger.info call: " + thisJoinPoint);
         // this will display info on what method called call(myMethod3())
         System.out.println(" thisEnclosingJoinPointStaticPart: " + thisEnclosingJoinPointStaticPart);

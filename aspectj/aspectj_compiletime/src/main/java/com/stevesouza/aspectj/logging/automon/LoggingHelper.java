@@ -1,6 +1,6 @@
 package com.stevesouza.aspectj.logging.automon;
 
-import com.stevesouza.aspectj.nativestyle.utils.MethodArgumentExtractor;
+import com.stevesouza.aspectj.nativestyle.utils.ParameterExtractor;
 import org.aspectj.lang.JoinPoint;
 import org.slf4j.MDC;
 import org.slf4j.NDC;
@@ -12,16 +12,19 @@ public class LoggingHelper {
     private static final String PARAMETERS = "parameters";
     private static final String EXECUTION_TIME_MS = "executionTimeMs";
     private static final String REQUEST_ID = "requestId";
+    private static final String KIND = "kind";
+    private static final String THIS = "this";
+    private static final String TARGET = "target";
 
     public void putParameters(JoinPoint thisJoinPoint) {
-        MDC.put(PARAMETERS, MethodArgumentExtractor.toMap(thisJoinPoint).toString());
+        MDC.put(PARAMETERS, ParameterExtractor.toMap(thisJoinPoint).toString());
     }
 
     public void removeParameters() {
         MDC.remove(PARAMETERS);
     }
 
-    public void putMethodName(JoinPoint.StaticPart thisJoinPointStaticPart) {
+    public void putSignature(JoinPoint.StaticPart thisJoinPointStaticPart) {
 //       orriginally i used  enclosing JoinPointStaticPart not sure what to use
 //            System.out.println(thisJoinPointStaticPart);
 //            System.out.println(thisEnclosingJoinPointStaticPart);
@@ -29,7 +32,15 @@ public class LoggingHelper {
         NDC.push(thisJoinPointStaticPart.getSignature().toShortString());
     }
 
-    public void removeMethodName() {
+    public void removeSignature() {
+        NDC.pop();
+    }
+
+    public void putEnclosingSignature(JoinPoint.StaticPart thisJoinPointStaticPart) {
+        MDC.put("enclosingSignature", thisJoinPointStaticPart.getSignature().toShortString());
+    }
+
+    public void removeEnclosingSignature() {
         NDC.pop();
     }
 
@@ -47,5 +58,33 @@ public class LoggingHelper {
 
     public void removeRequestId() {
         MDC.remove(REQUEST_ID);
+    }
+
+    public void putKind(JoinPoint.StaticPart thisJoinPointStaticPart) {
+        MDC.put(KIND, thisJoinPointStaticPart.getKind());
+    }
+
+    public void removeKind() {
+        MDC.remove(KIND);
+    }
+
+    public void putThis(JoinPoint thisJoinPoint) {
+        Object obj = thisJoinPoint.getThis();
+        String valueString = obj == null ? "null" : obj.toString();
+        MDC.put(THIS, valueString);
+    }
+
+    public void removeThis() {
+        MDC.remove(THIS);
+    }
+
+    public void putTarget(JoinPoint thisJoinPoint) {
+        Object obj = thisJoinPoint.getTarget();
+        String valueString = obj == null ? "null" : obj.toString();
+        MDC.put(TARGET, valueString);
+    }
+
+    public void removeTarget() {
+        MDC.remove(TARGET);
     }
 }

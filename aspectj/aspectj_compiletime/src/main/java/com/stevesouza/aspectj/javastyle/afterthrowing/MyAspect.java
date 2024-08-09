@@ -1,6 +1,6 @@
 package com.stevesouza.aspectj.javastyle.afterthrowing;
 
-import com.stevesouza.aspectj.nativestyle.utils.MethodArgumentExtractor;
+import com.stevesouza.aspectj.nativestyle.utils.ParameterExtractor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -53,7 +53,7 @@ public class MyAspect {
             System.out.println(" jp.getSignature().getClass()=" + signature.getClass());
             // Note would have to look at all the special cases here.
             if (signature instanceof MethodSignature) {
-                System.out.println(" method param/value:"+ MethodArgumentExtractor.toJson(joinPoint));
+                System.out.println(" method param/value:"+ ParameterExtractor.toJson(joinPoint));
             }
         }
 

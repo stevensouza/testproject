@@ -1,6 +1,6 @@
 package com.stevesouza.aspectj.javastyle.context;
 
-import com.stevesouza.aspectj.nativestyle.utils.MethodArgumentExtractor;
+import com.stevesouza.aspectj.nativestyle.utils.ParameterExtractor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -61,7 +61,7 @@ public class MyAspect {
         System.out.println(" Method args/values");
         // to have argNames on you have to compile with -g
         // I hear in maven it is by default:  using the compiler maven plugin, the debug is on by default
-        Map<String, Object> argMap = MethodArgumentExtractor.toMap(thisJoinPoint);
+        Map<String, Object> argMap = ParameterExtractor.toMap(thisJoinPoint);
         System.out.println("  "+argMap);
 
         System.out.println(" -");
