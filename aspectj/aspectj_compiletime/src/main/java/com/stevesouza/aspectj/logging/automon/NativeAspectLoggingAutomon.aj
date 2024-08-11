@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public aspect NativeAspectLoggingAutomon {
     private static final Logger logger = LoggerFactory.getLogger(NativeAspectLoggingAutomon.class);
 
-    private final LoggingHelper helper = new LoggingHelper();
+    private final LogTracingHelper helper = LogTracingHelper.getInstance();
 
     // Note within does all pointcuts within the class including this and static and constructors etc.
     // this() would not do static methods but only instance ones.
@@ -20,25 +20,25 @@ public aspect NativeAspectLoggingAutomon {
 
 
     before(): loggingInfo() {
-        helper.putKind(thisJoinPointStaticPart);
-        helper.putSignature(thisJoinPointStaticPart);
+        helper.withKind(thisJoinPointStaticPart).
+                withSignature(thisJoinPointStaticPart).
+                withParameters(thisJoinPoint).
+                withThis(thisJoinPoint);
         // for call logging not tracing
-        helper.putEnclosingSignature(thisEnclosingJoinPointStaticPart);
-        helper.putParameters(thisJoinPoint);
-        // use for call only - logging not tracing
-        helper.putTarget(thisJoinPoint);
-        helper.putThis(thisJoinPoint);
+        helper.withEnclosingSignature(thisEnclosingJoinPointStaticPart).
+        withTarget(thisJoinPoint);
         logger.info("BEFORE");
     }
 
     after(): loggingInfo() {
-        helper.removeParameters();
-        helper.putExecutionTime();
+        helper.removeParameters().
+                withExecutionTime((int) Math.random() * 1000);
         logger.info("AFTER");
-        helper.removeExecutionTime();
-        helper.removeSignature();
-        helper.removeEnclosingSignature();
-        helper.removeTarget();
-        helper.removeThis();
+        helper.removeExecutionTime()
+                .removeSignature()
+                .removeEnclosingSignature()
+                .removeKind()
+                .removeTarget()
+                .removeThis();
     }
 }
