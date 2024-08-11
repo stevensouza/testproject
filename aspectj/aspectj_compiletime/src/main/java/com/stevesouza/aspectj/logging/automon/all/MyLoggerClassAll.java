@@ -1,8 +1,6 @@
-package com.stevesouza.aspectj.logging.automon;
+package com.stevesouza.aspectj.logging.automon.all;
 
-import javax.xml.namespace.QName;
-
-public class MyLoggerClass {
+public class MyLoggerClassAll {
     private String name;
     private void method1() {
         nameMethod2("joe", "souza", 88);
@@ -17,7 +15,7 @@ public class MyLoggerClass {
     }
 
     public static void main(String[] args) {
-        MyLoggerClass myLoggerClass = new MyLoggerClass();
+        MyLoggerClassAll myLoggerClass = new MyLoggerClassAll();
         System.out.println("** MyLoggerClass.method1");
         myLoggerClass.method1();
 
