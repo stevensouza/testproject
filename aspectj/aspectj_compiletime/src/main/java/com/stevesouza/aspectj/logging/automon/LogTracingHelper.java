@@ -29,6 +29,9 @@ public class LogTracingHelper {
     private static final String THIS = "this";
     private static final String TARGET = "target";
     private static final String ENCLOSING_SIGNATURE = "enclosingSignature";
+    // aspectj kinds
+    private static final String METHOD_EXECUTION_KIND = "method-execution";
+    private static final String CONSTRUCTOR_EXECUTION_KIND = "constructor-execution";
 
     // Private static instance of the class, initialized only once
     private static LogTracingHelper helper = new LogTracingHelper();
@@ -50,6 +53,7 @@ public class LogTracingHelper {
     /**
      * Adds method parameters to the MDC.
      * Example MDC entry: "parameters" : "{arg0=John, arg1=30}"
+     * Example MDC entry2 (if parameter names are retained):{name=John, age=30}
      *
      * @param joinPoint The JoinPoint representing the intercepted method call
      * @return This LogTracingHelper instance
@@ -62,7 +66,7 @@ public class LogTracingHelper {
 
     /**
      * Pushes the method signature to the NDC stack.
-     * Example NDC entry: "com.example.Service.doSomething(..)"
+     * Example NDC entry: "Service.doSomething(..)"
      *
      * @param joinPointStaticPart The static part of the JoinPoint
      * @return This LogTracingHelper instance
@@ -75,13 +79,13 @@ public class LogTracingHelper {
 
     /**
      * Adds the enclosing method signature to the MDC.
-     * Example MDC entry: "enclosingSignature" : "com.example.Service.processRequest(..)"
+     * Example MDC entry: "enclosingSignature" : "Service.processRequest(..)"
      *
-     * @param joinPointStaticPart The static part of the JoinPoint
+     * @param thisEnclosingJoinPointStaticPart The static part of the JoinPoint
      * @return This LogTracingHelper instance
      */
-    public LogTracingHelper withEnclosingSignature(JoinPoint.StaticPart joinPointStaticPart) {
-        MDC.put(ENCLOSING_SIGNATURE, joinPointStaticPart.getSignature().toShortString());
+    public LogTracingHelper withEnclosingSignature(JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
+        MDC.put(ENCLOSING_SIGNATURE, thisEnclosingJoinPointStaticPart.getSignature().toShortString());
         return this;
     }
 
@@ -112,11 +116,11 @@ public class LogTracingHelper {
      * Adds the join point kind to the MDC.
      * Example MDC entry: "kind" : "method-execution"
      *
-     * @param joinPointStaticPart The static part of the JoinPoint
+     * @param thisJoinPointStaticPart The static part of the JoinPoint
      * @return This LogTracingHelper instance
      */
-    public LogTracingHelper withKind(JoinPoint.StaticPart joinPointStaticPart) {
-        MDC.put(KIND, joinPointStaticPart.getKind());
+    public LogTracingHelper withKind(JoinPoint.StaticPart thisJoinPointStaticPart) {
+        MDC.put(KIND, thisJoinPointStaticPart.getKind());
         return this;
     }
 
@@ -226,8 +230,32 @@ public class LogTracingHelper {
         return this;
     }
 
+    // note although the 2nd arg is of type JoinPoint.EnclosingStaticPart it doesn't seem to work.
+    public LogTracingHelper basicContext(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
+        withSignature(thisJoinPointStaticPart).
+        withKind(thisJoinPointStaticPart);
+        if (isKindExecution(thisJoinPointStaticPart.getKind()))
+            removeEnclosingSignature();
+        else
+            withEnclosingSignature(thisEnclosingJoinPointStaticPart);
+
+        return this;
+    }
+
+    public LogTracingHelper removeBasicContext(JoinPoint.StaticPart thisJoinPointStaticPart) {
+        removeSignature().
+        removeKind();
+        if (!isKindExecution(thisJoinPointStaticPart.getKind()))
+            removeEnclosingSignature();
+
+        return this;
+    }
 
     private String objectToString(Object obj) {
         return obj == null ? "null" : obj.toString();
+    }
+
+    private static boolean isKindExecution(String kind) {
+        return METHOD_EXECUTION_KIND.equals(kind) || CONSTRUCTOR_EXECUTION_KIND.equals(kind);
     }
 }

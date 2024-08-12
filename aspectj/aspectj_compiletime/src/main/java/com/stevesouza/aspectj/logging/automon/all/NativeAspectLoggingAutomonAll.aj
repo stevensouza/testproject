@@ -2,6 +2,7 @@ package com.stevesouza.aspectj.logging.automon.all;
 
 
 import com.stevesouza.aspectj.logging.automon.LogTracingHelper;
+import org.aspectj.lang.JoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
