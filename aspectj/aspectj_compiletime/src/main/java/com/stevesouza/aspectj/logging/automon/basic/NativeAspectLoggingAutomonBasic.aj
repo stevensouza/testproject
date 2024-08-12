@@ -17,7 +17,7 @@ public aspect NativeAspectLoggingAutomonBasic {
     // Note within does all pointcuts within the class including this and static and constructors etc.
     // this() would not do static methods but only instance ones.
 //    pointcut loggingInfo(): execution(* com.stevesouza.aspectj.logging.automon.MyLoggerClass.*(..));
-    pointcut loggingInfo(): within(com.stevesouza.aspectj.logging.automon.basic.MyLoggerClassBasic) && execution(* *.*(..));
+    pointcut loggingInfo(): within(com.stevesouza.aspectj.logging.automon.basic.MyLoggerClassBasic);
 
 
     before(): loggingInfo() {
