@@ -29,7 +29,7 @@ public class LogTracingHelper {
     private static final String THIS = "this";
     private static final String TARGET = "target";
     private static final String ENCLOSING_SIGNATURE = "enclosingSignature";
-    // aspectj kinds
+    // aspectj kinds that are needed to determine logging/tracing behavior
     private static final String METHOD_EXECUTION_KIND = "method-execution";
     private static final String CONSTRUCTOR_EXECUTION_KIND = "constructor-execution";
 

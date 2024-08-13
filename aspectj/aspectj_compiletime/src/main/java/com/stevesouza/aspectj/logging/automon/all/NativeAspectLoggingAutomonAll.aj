@@ -26,6 +26,7 @@ public aspect NativeAspectLoggingAutomonAll {
                 withSignature(thisJoinPointStaticPart).
                 withParameters(thisJoinPoint).
                 withThis(thisJoinPoint);
+        // return value too.
         // for call logging not tracing
         helper.withEnclosingSignature(thisEnclosingJoinPointStaticPart).
         withTarget(thisJoinPoint);

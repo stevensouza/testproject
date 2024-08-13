@@ -24,5 +24,9 @@ public class MyLoggerClassBasic {
 
         System.out.println("** MyLoggerClass.nameMethod2");
         myLoggerClass.nameMethod2("steve", "souza", 62);
+
+        System.out.println("** MyClass.otherClassMethod");
+        MyClass myClass = new MyClass();
+        myClass.otherClassMethod();
     }
 }
