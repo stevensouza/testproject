@@ -18,37 +18,29 @@ public aspect NativeAspectLoggingAutomonAll {
     // Note within does all pointcuts within the class including this and static and constructors etc.
     // this() would not do static methods but only instance ones.
 //    pointcut loggingInfo(): execution(* com.stevesouza.aspectj.logging.automon.MyLoggerClass.*(..));
-    pointcut loggingInfo(): within(com.stevesouza.aspectj.logging.automon.all.MyLoggerClassAll);
+    pointcut loggingInfo(): within(MyLoggerClassAll);
 
 
     before(): loggingInfo() {
-        helper.withKind(thisJoinPointStaticPart).
-                withSignature(thisJoinPointStaticPart).
-                withParameters(thisJoinPoint).
-                withThis(thisJoinPoint);
         // return value too.
         // for call logging not tracing
-        helper.withEnclosingSignature(thisEnclosingJoinPointStaticPart).
-        withTarget(thisJoinPoint);
+        helper.fullContext(thisJoinPoint, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
         logger.info("BEFORE");
-        //        helper.withKind(thisJoinPointStaticPart). basic
-//                withSignature(thisJoinPointStaticPart). basic
-//                withParameters(thisJoinPoint). intermediate, all, execution, call? others?
-//                withThis(thisJoinPoint); all, execution, call? others?
-//        // for call logging not tracing
-//        helper.withEnclosingSignature(thisEnclosingJoinPointStaticPart). basic
-//        withTarget(thisJoinPoint); intermediate? all? executin? call? other?
+    }
+
+    Object around() : loggingInfo() {
+        Object retValue = proceed();
+        helper.withReturnValue(objectToString(retValue));
+        return retValue;
     }
 
     after(): loggingInfo() {
-        helper.removeParameters().
-                withExecutionTime((int) Math.random() * 1000);
+        helper.withExecutionTime((int) (Math.random() * 1000));
         logger.info("AFTER");
-        helper.removeExecutionTime()
-                .removeSignature()
-                .removeEnclosingSignature()
-                .removeKind()
-                .removeTarget()
-                .removeThis();
+        helper.removeExecutionTime().removeFullContext(thisJoinPointStaticPart);
+    }
+
+    private String objectToString(Object obj) {
+        return obj == null ? "null" : obj.toString();
     }
 }

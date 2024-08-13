@@ -29,6 +29,8 @@ public class LogTracingHelper {
     private static final String THIS = "this";
     private static final String TARGET = "target";
     private static final String ENCLOSING_SIGNATURE = "enclosingSignature";
+    private static final String RETURN_VALUE = "returnValue";
+
     // aspectj kinds that are needed to determine logging/tracing behavior
     private static final String METHOD_EXECUTION_KIND = "method-execution";
     private static final String CONSTRUCTOR_EXECUTION_KIND = "constructor-execution";
@@ -109,6 +111,17 @@ public class LogTracingHelper {
      */
     public LogTracingHelper withRequestId() {
         MDC.put(REQUEST_ID, UUID.randomUUID().toString());
+        return this;
+    }
+
+    /**
+     * Adds the return value as a string to the MDC.
+     * Example MDC entry: "returnValue" : "John Smith"
+     *
+     * @return This LogTracingHelper instance
+     */
+    public LogTracingHelper withReturnValue(String retValue) {
+        MDC.put(RETURN_VALUE, retValue);
         return this;
     }
 
@@ -211,6 +224,16 @@ public class LogTracingHelper {
     }
 
     /**
+     * Removes the return value from the MDC.
+     *
+     * @return This LogTracingHelper instance
+     */
+    public LogTracingHelper removeReturnValue() {
+        MDC.remove(RETURN_VALUE);
+        return this;
+    }
+
+    /**
      * Removes the join point kind from the MDC.
      *
      * @return This LogTracingHelper instance
@@ -242,6 +265,13 @@ public class LogTracingHelper {
         return this;
     }
 
+    public LogTracingHelper fullContext(JoinPoint joinPoint, JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
+        return basicContext(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart).
+                withParameters(joinPoint).
+                withTarget(joinPoint).
+                withThis(joinPoint);
+    }
+
     public LogTracingHelper removeBasicContext(JoinPoint.StaticPart thisJoinPointStaticPart) {
         removeSignature().
         removeKind();
@@ -249,6 +279,14 @@ public class LogTracingHelper {
             removeEnclosingSignature();
 
         return this;
+    }
+
+    public LogTracingHelper removeFullContext(JoinPoint.StaticPart thisJoinPointStaticPart) {
+        return removeBasicContext(thisJoinPointStaticPart).
+            removeParameters().
+            removeTarget().
+            removeThis().
+            removeReturnValue();
     }
 
     private String objectToString(Object obj) {
