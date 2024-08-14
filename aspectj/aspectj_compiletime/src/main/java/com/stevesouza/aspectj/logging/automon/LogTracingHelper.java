@@ -274,13 +274,11 @@ public class LogTracingHelper {
                 withThis(joinPoint);
     }
 
-    public LogTracingHelper removeBasicContext(JoinPoint.StaticPart thisJoinPointStaticPart) {
-        removeSignature().
-        removeKind();
-        if (!isKindExecution(thisJoinPointStaticPart.getKind()))
-            removeEnclosingSignature();
-
-        return this;
+    public LogTracingHelper removeBasicContext() {
+        return removeEnclosingSignature().
+                removeExecutionTime().
+                removeKind().
+                removeSignature();
     }
 
     // note if MDC element does not exist it is still ok to remove (i.e. no exceptions per slf4j docs)

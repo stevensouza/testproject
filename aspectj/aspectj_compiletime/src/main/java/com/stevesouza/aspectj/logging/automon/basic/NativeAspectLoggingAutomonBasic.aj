@@ -2,7 +2,6 @@ package com.stevesouza.aspectj.logging.automon.basic;
 
 
 import com.stevesouza.aspectj.logging.automon.LogTracingHelper;
-import org.aspectj.lang.JoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +28,6 @@ public aspect NativeAspectLoggingAutomonBasic {
     after(): loggingInfo() {
         helper.withExecutionTime((int) (Math.random() * 1000));
         logger.info("AFTER");
-        helper.removeExecutionTime().removeBasicContext(thisJoinPointStaticPart);
+        helper.removeBasicContext();
     }
 }
