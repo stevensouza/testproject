@@ -13,6 +13,7 @@ public class MyLoggerClassAll {
     }
 
     private int occupationMethod3(String occupation) {
+        System.out.println(occupation);
         return 22;
     }
 

@@ -266,8 +266,10 @@ public class LogTracingHelper {
     }
 
     public LogTracingHelper fullContext(JoinPoint joinPoint, JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
-        return basicContext(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart).
+        return  withEnclosingSignature(thisEnclosingJoinPointStaticPart).
+                withKind(thisJoinPointStaticPart).
                 withParameters(joinPoint).
+                withSignature(thisJoinPointStaticPart).
                 withTarget(joinPoint).
                 withThis(joinPoint);
     }
@@ -281,12 +283,16 @@ public class LogTracingHelper {
         return this;
     }
 
-    public LogTracingHelper removeFullContext(JoinPoint.StaticPart thisJoinPointStaticPart) {
-        return removeBasicContext(thisJoinPointStaticPart).
-            removeParameters().
-            removeTarget().
-            removeThis().
-            removeReturnValue();
+    // note if MDC element does not exist it is still ok to remove (i.e. no exceptions per slf4j docs)
+    public LogTracingHelper removeFullContext() {
+        return removeEnclosingSignature().
+                removeExecutionTime().
+                removeKind().
+                removeParameters().
+                removeReturnValue().
+                removeSignature().
+                removeTarget().
+                removeThis();
     }
 
     private String objectToString(Object obj) {
@@ -295,5 +301,18 @@ public class LogTracingHelper {
 
     private static boolean isKindExecution(String kind) {
         return METHOD_EXECUTION_KIND.equals(kind) || CONSTRUCTOR_EXECUTION_KIND.equals(kind);
+    }
+
+    private static int getStringAsNumberOrDefault(String value) {
+        if (value == null) {
+            return 0;
+        } else {
+            try {
+                return Integer.parseInt(value);
+            } catch (NumberFormatException e) {
+                // Handle the case where the string is not a valid number
+                return 0; // Or another default value, or throw an exception
+            }
+        }
     }
 }
