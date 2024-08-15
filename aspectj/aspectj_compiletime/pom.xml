@@ -15,10 +15,10 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-<!--      according to AI this sets the maven compiler for source and target which is seperate from-->
+<!--      according to AI this sets the maven compiler for source and target which is separate from-->
 <!--      the 'complianceLevel' in ajc tells ajc to use 21 (need to research)-->
-      <maven.compiler.source>21</maven.compiler.source>
-      <maven.compiler.target>21</maven.compiler.target>
+      <maven.compiler.source>17</maven.compiler.source>
+      <maven.compiler.target>17</maven.compiler.target>
 
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <!-- note for aspectj compiling above 1.5 i found some errors if the pointcut let everything be monitored -->
@@ -29,7 +29,7 @@
       <junit.version>4.13.1</junit.version>
       <mojo.execution.version>3.3.0</mojo.execution.version>
       <log4j.version>2.23.1</log4j.version>
-      <slf4j.version>2.0.13</slf4j.version>
+      <slf4j.version>2.0.16</slf4j.version>
       <jackson.version>2.17.2</jackson.version>
   </properties>
 
