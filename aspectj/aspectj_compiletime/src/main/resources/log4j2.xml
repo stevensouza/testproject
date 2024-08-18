@@ -36,7 +36,7 @@
         <Logger name="com.stevesouza.aspectj.logging.automon.basic.TracingBasicAspect" level="INFO" additivity="false">
             <AppenderRef ref="AutomonConsoleAppender"/>
         </Logger>
-        <Logger name="com.stevesouza.aspectj.logging.automon.all.NativeAspectLoggingAutomonAll" level="INFO" additivity="false">
+        <Logger name="com.stevesouza.aspectj.logging.automon.all.TracingAllAspect" level="INFO" additivity="false">
             <AppenderRef ref="AutomonConsoleAppender"/>
         </Logger>
     </Loggers>

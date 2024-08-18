@@ -1,4 +1,4 @@
-package com.stevesouza.aspectj.logging.automon.basic;
+package com.stevesouza.aspectj.logging.automon.all;
 
 
 import com.stevesouza.aspectj.logging.automon.LogTracingHelper;
@@ -6,24 +6,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public aspect TracingBasicAspect {
+public aspect TracingAllAspect {
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass().getName());
     protected static final String AFTER = "AFTER";
     protected static final String BEFORE = "BEFORE";
     protected final LogTracingHelper helper = LogTracingHelper.getInstance();
 
-    pointcut trace() : within(MyLoggerClassBasic);
+    pointcut trace() : within(MyLoggerClassAll);;
 
     Object around() : trace() {
-            helper.withBasicContext(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
+            helper.withFullContext(thisJoinPoint, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
             LOGGER.info(BEFORE);
 
             long startTime = System.currentTimeMillis();
             Object returnValue =  proceed();
             helper.withExecutionTime(System.currentTimeMillis() - startTime);
+            helper.withReturnValue(objectToString(returnValue));
 
             LOGGER.info(AFTER);
-            helper.removeBasicContext();
+            helper.removeFullContext();
 
             return returnValue;
     }
@@ -39,5 +40,6 @@ public aspect TracingBasicAspect {
     protected String objectToString(Object obj) {
         return obj == null ? "null" : obj.toString();
     }
+
 
 }
