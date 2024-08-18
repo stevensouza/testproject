@@ -17,6 +17,10 @@ public class MyLoggerClassAll {
         return 22;
     }
 
+    private void runtimeException(String message) {
+        throw new RuntimeException("runtimeException = "+message);
+    }
+
     public static void main(String[] args) {
         MyLoggerClassAll myLoggerClass = new MyLoggerClassAll();
         System.out.println("** MyLoggerClass.method1");
@@ -27,5 +31,12 @@ public class MyLoggerClassAll {
 
         System.out.println("** MyLoggerClass.nameMethod2");
         myLoggerClass.nameMethod2("steve", "souza", 62);
+
+        System.out.println("** MyLoggerClass.runtimeException");
+        try {
+            myLoggerClass.runtimeException("steve");
+        } catch (RuntimeException e) {
+            // gobble
+        }
     }
 }
