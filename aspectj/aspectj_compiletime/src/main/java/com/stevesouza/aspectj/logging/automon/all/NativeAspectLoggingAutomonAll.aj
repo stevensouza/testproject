@@ -23,7 +23,7 @@ public aspect NativeAspectLoggingAutomonAll {
     before(): loggingInfo() {
         // return value too.
         // for call logging not tracing
-        helper.fullContext(thisJoinPoint, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
+        helper.withFullContext(thisJoinPoint, thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
         logger.info("BEFORE");
     }
 

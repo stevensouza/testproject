@@ -20,7 +20,7 @@ import java.util.UUID;
  * use of MDC, and NDC and so this class uses the singleton pattern to disallow direct creation of an
  * instance.
  */
-public class LogTracingHelper {
+public class LogTracingHelper implements AutoCloseable{
 
     private static final String PARAMETERS = "parameters";
     private static final String EXECUTION_TIME_MS = "executionTimeMs";
@@ -34,6 +34,7 @@ public class LogTracingHelper {
     // aspectj 'kinds' that are needed to determine how logging/tracing should behave
     private static final String METHOD_EXECUTION_KIND = "method-execution";
     private static final String CONSTRUCTOR_EXECUTION_KIND = "constructor-execution";
+    public static final String EXCEPTION = "exception";
 
     // Private static instance of the class, initialized only once
     private static LogTracingHelper helper = new LogTracingHelper();
@@ -98,10 +99,22 @@ public class LogTracingHelper {
      *
      * @return This LogTracingHelper instance
      */
-    public LogTracingHelper withExecutionTime(int milliseconds) {
+    public LogTracingHelper withExecutionTime(long milliseconds) {
         MDC.put(EXECUTION_TIME_MS, String.valueOf(milliseconds));
         return this;
     }
+
+    public LogTracingHelper withException(String exceptionClassStr) {
+        MDC.put(EXCEPTION, exceptionClassStr);
+        return this;
+    }
+
+    public LogTracingHelper removeException() {
+        MDC.remove(EXCEPTION);
+        return this;
+    }
+
+
 
     /**
      * Adds a unique request ID to the MDC.
@@ -254,7 +267,7 @@ public class LogTracingHelper {
     }
 
     // note although the 2nd arg is of type JoinPoint.EnclosingStaticPart it doesn't seem to work.
-    public LogTracingHelper basicContext(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
+    public LogTracingHelper withBasicContext(JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
         withSignature(thisJoinPointStaticPart).
         withKind(thisJoinPointStaticPart);
         if (isKindExecution(thisJoinPointStaticPart.getKind()))
@@ -265,7 +278,7 @@ public class LogTracingHelper {
         return this;
     }
 
-    public LogTracingHelper fullContext(JoinPoint joinPoint, JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
+    public LogTracingHelper withFullContext(JoinPoint joinPoint, JoinPoint.StaticPart thisJoinPointStaticPart, JoinPoint.StaticPart thisEnclosingJoinPointStaticPart) {
         return  withEnclosingSignature(thisEnclosingJoinPointStaticPart).
                 withKind(thisJoinPointStaticPart).
                 withParameters(joinPoint).
@@ -276,6 +289,7 @@ public class LogTracingHelper {
 
     public LogTracingHelper removeBasicContext() {
         return removeEnclosingSignature().
+                removeException().
                 removeExecutionTime().
                 removeKind().
                 removeSignature();
@@ -284,6 +298,7 @@ public class LogTracingHelper {
     // note if MDC element does not exist it is still ok to remove (i.e. no exceptions per slf4j docs)
     public LogTracingHelper removeFullContext() {
         return removeEnclosingSignature().
+                removeException().
                 removeExecutionTime().
                 removeKind().
                 removeParameters().
@@ -291,6 +306,11 @@ public class LogTracingHelper {
                 removeSignature().
                 removeTarget().
                 removeThis();
+    }
+
+    @Override
+    public void close() {
+        removeFullContext();
     }
 
     private String objectToString(Object obj) {
@@ -313,4 +333,5 @@ public class LogTracingHelper {
             }
         }
     }
+
 }
