@@ -39,10 +39,10 @@ public aspect DeclareAnnotationsAspect {
 
     // you can use conditionals &&,||, ! (and, or, not)
     declare @method: (* MyService.aMethod() || * MyService.bMethod() ) :
-    @Counted(
+        @Counted(
             value = "xMethod.counter",
             description = "Number of times the counter is incremented"
-    );
+        );
 
 
 
