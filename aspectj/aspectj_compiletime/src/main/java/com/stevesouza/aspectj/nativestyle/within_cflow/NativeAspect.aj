@@ -21,7 +21,8 @@ public aspect NativeAspect {
     // the methods invoked from it. cflow would also include the entire flow below that too.  It is not efficient
     // though withincode is according at least in aspectj book.
     pointcut withinMethod(): withincode(* MyClass.myMethod1(..));
-    pointcut cflowMethod(): cflow(call(* MyClass.myMethod4(..))) && !within(NativeAspect);
+    // the following works but commenting it out as it puts clfow logic in all classes and makes them hard to understand
+    //    pointcut cflowMethod(): cflow(call(* MyClass.myMethod4(..))) && !within(NativeAspect);
     pointcut logging(String logStr): withincode(* MyClass.myMethod5(..)) && call(* java.io.PrintStream.println(..)) && args(logStr);
 
 
@@ -37,11 +38,11 @@ public aspect NativeAspect {
         System.out.println(" thisEnclosingJoinPointStaticPart: " + thisEnclosingJoinPointStaticPart);
     }
 
-    before(): cflowMethod() {
-        System.out.println("\nBefore cflow(): " + thisJoinPoint);
-        // this will display info on what method called call(myMethod3())
-        System.out.println(" thisEnclosingJoinPointStaticPart: " + thisEnclosingJoinPointStaticPart);
-    }
+//    before(): cflowMethod() {
+//        System.out.println("\nBefore cflow(): " + thisJoinPoint);
+//        // this will display info on what method called call(myMethod3())
+//        System.out.println(" thisEnclosingJoinPointStaticPart: " + thisEnclosingJoinPointStaticPart);
+//    }
 
     after(): traced()  {
         System.out.println("After call(): " + thisJoinPoint);

@@ -12,7 +12,7 @@ public aspect TracingBasicAspect {
     protected static final String BEFORE = "BEFORE";
     protected final LogTracingHelper helper = LogTracingHelper.getInstance();
 
-    pointcut trace() : within(MyLoggerClassBasic);
+    pointcut trace() : within(MyLoggerClassBasic) && execution(* *.*(..));
 
     Object around() : trace() {
             helper.withBasicContext(thisJoinPointStaticPart, thisEnclosingJoinPointStaticPart);
