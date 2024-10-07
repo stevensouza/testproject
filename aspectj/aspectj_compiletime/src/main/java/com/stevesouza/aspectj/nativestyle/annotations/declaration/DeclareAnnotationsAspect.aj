@@ -37,4 +37,13 @@ public aspect DeclareAnnotationsAspect {
                         percentiles = {0.5, 0.95, 0.99}, histogram = true)
         });
 
+    // you can use conditionals &&,||, ! (and, or, not)
+    declare @method: (* MyService.aMethod() || * MyService.bMethod() ) :
+    @Counted(
+            value = "xMethod.counter",
+            description = "Number of times the counter is incremented"
+    );
+
+
+
 }
