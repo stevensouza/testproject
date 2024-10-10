@@ -4,6 +4,8 @@ import io.micrometer.core.annotation.Counted;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.annotation.TimedSet;
 import io.micrometer.observation.annotation.Observed;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /** assign annotations based on name type patterns.
  * Notes:
  * 1) Only @type, @method, @constructor and @field are supported (for example you can't assign an annotation to a method argument)
@@ -20,8 +22,9 @@ public aspect DeclareAnnotationsAspect {
     declare @type: MyService+ : @Observed;
 
 
-    // adding method annotations for micrometer
+    // adding method annotations for micrometer/opentelemetry
     declare @method: * MyService.process*() : @Timed;
+    declare @method: * MyService.withSpan() : @WithSpan;
 
     declare @method: * MyService.process*() :
         @Counted(

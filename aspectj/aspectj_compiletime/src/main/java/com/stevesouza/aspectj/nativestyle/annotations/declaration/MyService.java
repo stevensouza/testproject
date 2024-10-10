@@ -27,4 +27,8 @@ public class MyService {
     public void bMethod() {
     }
 
+    public void withSpan() {
+
+    }
+
 }
