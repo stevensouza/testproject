@@ -41,7 +41,7 @@ public class HelloController {
 //    @Timed(value = "bye.time", description = "Time taken to return hello")
     @Observed(
             name = "HelloController.bye",
-            contextualName = "hellocontroller-bye"
+            contextualName = "Example of observed method (bye)"
     )
     public String goodBye() {
         logger.info("in goodBye()");
@@ -53,9 +53,8 @@ public class HelloController {
 //    @WithSpan
     @Observed(
             name = "HelloController.hello",
-            contextualName = "hellocontroller-hello",
+            contextualName = "Example of observed method (hello)",
             lowCardinalityKeyValues = {
-                    "method", "hello()",
                     "region", "us-west-2"  // This overrides the class-level "region" tag
             }
     )
