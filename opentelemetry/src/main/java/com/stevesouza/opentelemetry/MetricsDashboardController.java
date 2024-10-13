@@ -38,31 +38,40 @@ public class MetricsDashboardController {
                             box-sizing: border-box;
                             font-size: 14px;
                         }
-                        #metrics {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                            gap: 5px;
-                        }
-                        .metric {
+                        .metric-group {
+                            margin-bottom: 10px;
                             background-color: white;
                             border-radius: 4px;
                             padding: 8px;
-                            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-                            cursor: pointer;
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+                        }
+                        .group-header {
+                            font-weight: bold;
+                            font-size: 14px;
+                            margin-bottom: 3px;
+                            color: #0066cc;
+                        }
+                        .metrics-container {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 4px;
+                        }
+                        .metric {
+                            background-color: #f9f9f9;
+                            border-radius: 4px;
+                            padding: 4px 6px;
                             font-size: 12px;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
+                            cursor: pointer;
                         }
                         .metric:hover {
-                            background-color: #f0f0f0;
+                            background-color: #e9e9e9;
                         }
                         .metric-name {
-                            font-weight: bold;
-                            color: #0066cc;
+                            color: #333;
                         }
                         .metric-value {
                             color: #009900;
+                            font-weight: bold;
                         }
                         #detailsModal {
                             display: none;
@@ -142,6 +151,18 @@ public class MetricsDashboardController {
                             }
                         }
 
+                        function groupMetrics(metrics) {
+                            const groups = {};
+                            metrics.forEach(metric => {
+                                const groupName = metric.split('.')[0];
+                                if (!groups[groupName]) {
+                                    groups[groupName] = [];
+                                }
+                                groups[groupName].push(metric);
+                            });
+                            return groups;
+                        }
+
                         async function updateDashboard(filter = '') {
                             try {
                                 if (allMetrics.length === 0) {
@@ -154,16 +175,41 @@ public class MetricsDashboardController {
                                     metric.toLowerCase().includes(filter.toLowerCase())
                                 );
 
+                                const groupedMetrics = groupMetrics(filteredMetrics);
+                                const sortedGroups = Object.keys(groupedMetrics).sort((a, b) => 
+                                    a.toLowerCase().localeCompare(b.toLowerCase())
+                                );
+
                                 const metricsDiv = document.getElementById('metrics');
                                 metricsDiv.innerHTML = '';
 
-                                for (const metricName of filteredMetrics) {
-                                    const { value, details } = await fetchMetricValue(metricName);
-                                    const metricDiv = document.createElement('div');
-                                    metricDiv.className = 'metric';
-                                    metricDiv.innerHTML = `${metricName}: <span class="metric-value">${value}</span>`;
-                                    metricDiv.onclick = () => showDetails(metricName, details);
-                                    metricsDiv.appendChild(metricDiv);
+                                for (const group of sortedGroups) {
+                                    const groupDiv = document.createElement('div');
+                                    groupDiv.className = 'metric-group';
+
+                                    const groupHeader = document.createElement('div');
+                                    groupHeader.className = 'group-header';
+                                    groupHeader.textContent = `${group}:`;
+                                    groupDiv.appendChild(groupHeader);
+
+                                    const metricsContainer = document.createElement('div');
+                                    metricsContainer.className = 'metrics-container';
+
+                                    const sortedMetrics = groupedMetrics[group].sort((a, b) => 
+                                        a.toLowerCase().localeCompare(b.toLowerCase())
+                                    );
+
+                                    for (const metricName of sortedMetrics) {
+                                        const { value, details } = await fetchMetricValue(metricName);
+                                        const metricDiv = document.createElement('div');
+                                        metricDiv.className = 'metric';
+                                        metricDiv.innerHTML = `<span class="metric-name">${metricName}:</span> <span class="metric-value">${value}</span>`;
+                                        metricDiv.onclick = () => showDetails(metricName, details);
+                                        metricsContainer.appendChild(metricDiv);
+                                    }
+
+                                    groupDiv.appendChild(metricsContainer);
+                                    metricsDiv.appendChild(groupDiv);
                                 }
                             } catch (error) {
                                 console.error('Error updating dashboard:', error);
