@@ -24,30 +24,35 @@ public class MetricsDashboardController {
                         body {
                             font-family: Arial, sans-serif;
                             margin: 0;
-                            padding: 20px;
+                            padding: 10px;
                             background-color: #f0f0f0;
                         }
                         h1 {
                             color: #333;
+                            margin-bottom: 10px;
                         }
                         #searchInput {
                             width: 100%;
-                            padding: 10px;
-                            margin-bottom: 20px;
+                            padding: 5px;
+                            margin-bottom: 10px;
                             box-sizing: border-box;
-                            font-size: 16px;
+                            font-size: 14px;
                         }
                         #metrics {
                             display: grid;
-                            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                            gap: 10px;
+                            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                            gap: 5px;
                         }
                         .metric {
                             background-color: white;
-                            border-radius: 8px;
-                            padding: 15px;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            border-radius: 4px;
+                            padding: 8px;
+                            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
                             cursor: pointer;
+                            font-size: 12px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                         }
                         .metric:hover {
                             background-color: #f0f0f0;
@@ -115,7 +120,7 @@ public class MetricsDashboardController {
                     <div id="detailsModal">
                         <div class="modal-content">
                             <span class="close">&times;</span>
-                            <h1 id="modalTitle"></h1>
+                            <h2 id="modalTitle"></h2>
                             <div id="modalContent"></div>
                         </div>
                     </div>
@@ -156,10 +161,7 @@ public class MetricsDashboardController {
                                     const { value, details } = await fetchMetricValue(metricName);
                                     const metricDiv = document.createElement('div');
                                     metricDiv.className = 'metric';
-                                    metricDiv.innerHTML = `
-                                        <div class="metric-name">${metricName}</div>
-                                        <div class="metric-value">${value}</div>
-                                    `;
+                                    metricDiv.innerHTML = `${metricName}: <span class="metric-value">${value}</span>`;
                                     metricDiv.onclick = () => showDetails(metricName, details);
                                     metricsDiv.appendChild(metricDiv);
                                 }
