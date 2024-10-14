@@ -235,7 +235,7 @@ public class MetricsDashboardController {
                             if (details.availableTags && details.availableTags.length > 0) {
                                 content += `
                                     <div class="section">
-                                        <span class="header">Available Tags:</span>
+                                        <span class="header">Tags:</span>
                                         ${details.availableTags.map(tag => `<span class="tag">${tag.tag}: ${tag.values.join(', ')}</span>`).join(' ')}
                                     </div>
                                 `;
