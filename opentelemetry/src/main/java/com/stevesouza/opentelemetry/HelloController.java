@@ -1,5 +1,6 @@
 package com.stevesouza.opentelemetry;
 
+import com.stevesouza.jdk.JdkHelloWorld;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.observation.annotation.Observed;
@@ -71,5 +72,32 @@ public class HelloController {
 //            span.end();
 //        }
     }
+
+    @GetMapping("/jdk")
+//    @Timed(value = "hello.time", description = "Time taken to return hello")
+//    @WithSpan
+    @Observed(
+            name = "JdkHelloWorld.main",
+            contextualName = "Example of observed method (hello)",
+            lowCardinalityKeyValues = {
+                    "region", "us-west-2"  // This overrides the class-level "region" tag
+            }
+    )
+    public String jdk() throws Exception {
+        logger.info("in jdk()");
+        meterRegistry.counter("jdkhelloworld.counter").increment();
+        JdkHelloWorld.main(new String[]{"README.md"});
+        return "Called JdkHelloWorld!";
+//
+//        Span span = tracer.spanBuilder("manual-span").startSpan();
+//        try {
+//            span.addEvent("Processing hello request");
+//            return "Hello, World!";
+//        } finally {
+//            span.end();
+//        }
+    }
+
+
 
 }
